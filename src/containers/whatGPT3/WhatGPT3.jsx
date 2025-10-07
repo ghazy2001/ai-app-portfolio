@@ -1,5 +1,5 @@
 import "./whatGPT3.css";
-import Feature from "../../components/Feature/Feature";
+import Feature from "../../components/feature/Feature";
 const WhatGPT3 = () => {
   return (
     <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
