@@ -2,13 +2,20 @@ import "./cta.css";
 
 const Cta = () => {
   return (
-    <div className="gpt3__cta">
-      <div className="gpt3__cta-content">
-        <p>Request Early Access to Get Started</p>
-        <h3>Register today & start exploring the endless possibilities.</h3>
+    <div className="MN__cta">
+      <div className="MN__cta-content">
+        <p>ابدأ رحلتك التسويقية الآن</p>
+        <h3>سجّل معنا اليوم واطلق مشروعك لأعلى مستوى من النجاح.</h3>
       </div>
-      <div className="gpt3__cta-btn">
-        <button type="button">Get Started</button>
+
+      <div className="MN__cta-btn">
+        <a href="#" className="glow-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span>ابدأ الآن</span>
+        </a>
       </div>
     </div>
   );

@@ -3,34 +3,39 @@ import Feature from "../../components/feature/Feature";
 
 const featureData = [
   {
-    title: "Improving end distrusts instantly",
-    text: "From they fine john he give of rich he. They age and draw mrs like. Improving end distrusts may instantly was household applauded.",
+    title: "إدارة الحملات الإعلانية",
+    text: "نصمم و نُدير حملات إعلانية فعّالة على جميع المنصات (Facebook , Instagram , Tiktok)، لزيادة الوعي و تحقيق أفضل عائد استثماري.",
   },
   {
-    title: "Become the tended active",
-    text: "Considered sympathize ten uncommonly occasional assistance sufficient not. Letter of on become he tended active enable to.",
+    title: "تحليل الأداء والتقارير",
+    text: "نوفر تقارير دقيقة و ذكية لتحليل نتائج حملاتك و مساعدتك في اتخاذ قرارات تسويقية مبنية على بيانات حقيقية.",
   },
   {
-    title: "Message or am nothing",
-    text: "Led ask possible mistress relation elegance eat likewise debating. By message or am nothing amongst chiefly address.",
+    title: "إدارة المحتوى والسوشيال ميديا",
+    text: "نشئ محتوى جذّاب و مؤثر يعكس هوية علامتك و يزيد من تفاعل الجمهور معك عبر مختلف المنصات الرقمية.",
   },
   {
-    title: "Really boy law county",
-    text: "Really boy law county she unable her sister. Feet you off its like like six. Among sex are leave law built now. In built table in an rapid blush.",
+    title: "العلامة التجارية والتصميم الإبداعي",
+    text: "نساعدك في بناء هوية بصرية قوية و تصميمات احترافية تميزك عن المنافسين و تُبرز قيم علامتك التجارية.",
   },
 ];
 
 const Features = () => {
   return (
-    <div className="gpt3__features section__padding" id="features">
-      <div className="gpt3__features-heading">
+    <div
+      className="MN__features section__padding"
+      id="features"
+      style={{ direction: "rtl" }}
+    >
+      <div className="MN__features-heading">
         <h1 className="gradient__text">
-          The Future is Now and You Just Need To Realize It. Step into Future
-          Today & Make it Happen.
+          نقدّم حلولًا مبتكرة لتطوير حضورك الرقمي و زيادة مبيعاتك. دعنا نساعدك
+          على بناء استراتيجية تسويقية تنقل علامتك إلى المستوى التالي.
         </h1>
-        <p>Request Early Access to Get Started</p>
+
+        <button className="cta-button">ابدأ الآن و حقق نجاحك التسويقي</button>
       </div>
-      <div className="gpt3__features-container">
+      <div className="MN__features-container">
         {featureData.map((item, index) => (
           <Feature
             title={item.title}

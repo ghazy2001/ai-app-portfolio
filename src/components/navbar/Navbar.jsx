@@ -1,25 +1,31 @@
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
-import logo from "../../assets/logo.svg";
+
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./navbar.css";
+
 const Menu = () => (
   <>
     <p>
-      <a href="#home">Home</a>
+      <Link to="/">الرئيسية</Link>
     </p>
     <p>
-      <a href="#wgpt3">What is GPT?</a>
-    </p>
-
-    <p>
-      <a href="#possibility">Open AI </a>
+      <Link to="/about">من نحن</Link>
     </p>
 
     <p>
-      <a href="#features">Case Studies</a>
+      <Link to="/services">خدماتنا</Link>
+    </p>
+
+    <p>
+      <Link to="/features">الميزات</Link>
     </p>
     <p>
-      <a href="#blog">Library</a>
+      <Link to="/blog">المدونة</Link>
+    </p>
+
+    <p>
+      <Link to="/contact">الوظائف</Link>
     </p>
   </>
 );
@@ -27,20 +33,21 @@ const Navbar = () => {
   const [togglemenu, settogglemenu] = useState(false);
 
   return (
-    <div className="gpt3__navbar">
-      <div className="gpt3__navbar-links">
-        <div className="gpt3__navbar-links_logo">
-          <img src={logo} alt="logo" />
+    <div className="MN__navbar">
+      <div className="MN__navbar-links">
+        <div className="MN__navbar-links_logo">
+          <h1 className="gradient__text">MARKETING AGENCY</h1>
         </div>
-        <div className="gpt3__navbar-links_container">
+        <div className="MN__navbar-links_container">
           <Menu />
         </div>
       </div>
-      <div className="gpt3__navbar-sign">
-        <p>Sign in</p>
-        <button type="button">Sign up</button>
+      <div className="MN__navbar-sign">
+        <Link to="/contact">
+          <button type="button">تواصل معنا</button>
+        </Link>
       </div>
-      <div className="gpt3__navbar-menu">
+      <div className="MN__navbar-menu">
         {togglemenu ? (
           <RiCloseLine
             color="#fff"
@@ -59,12 +66,13 @@ const Navbar = () => {
           />
         )}
         {togglemenu && (
-          <div className="gpt3__navbar-menu_container scale-up-center">
-            <div className="gpt3__navbar-menu_container-links">
+          <div className="MN__navbar-menu_container scale-up-center">
+            <div className="MN__navbar-menu_container-links">
               <Menu />
-              <div className="gpt3__navbar-menu_container-links-sign">
-                <p>Sign in</p>
-                <button type="button">Sign up</button>
+              <div className="MN__navbar-menu_container-links-sign">
+                <Link to="/contact">
+                  <button type="button">تواصل معنا</button>
+                </Link>
               </div>
             </div>
           </div>

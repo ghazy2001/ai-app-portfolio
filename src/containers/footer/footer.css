@@ -1,4 +1,4 @@
-.gpt3__footer {
+.MN__footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,7 +7,7 @@
   background: var(--color-footer);
 }
 
-.gpt3__footer-heading {
+.MN__footer-heading {
   width: 100%;
   text-align: center;
 
@@ -15,14 +15,14 @@
   margin-top: 3rem;
 }
 
-.gpt3__footer-heading h1 {
+.MN__footer-heading h1 {
   font-family: var(--font-family);
   font-weight: 800;
   font-size: 64px;
   line-height: 75px;
 }
 
-.gpt3__footer-btn {
+.MN__footer-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,13 +31,13 @@
   border: 1px solid #fff;
   text-align: center;
 
-  margin-bottom: 10rem;
+  margin-bottom: 3rem;
   cursor: pointer;
 }
-.gpt3__footer-btn:hover {
-  background: linear-gradient(180deg, #f49867 0%, #ae67fa 100%);
+.MN__footer-btn:hover {
+  background: linear-gradient(89.97deg, #934dde 1.84%, #1474c3 102.67%);
 }
-.gpt3__footer-btn p {
+.MN__footer-btn p {
   font-size: 18px;
   font-family: var(--font-family);
   line-height: 21px;
@@ -45,7 +45,7 @@
   word-spacing: 2px;
 }
 
-.gpt3__footer-links {
+.MN__footer-links {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -56,37 +56,40 @@
   text-align: left;
 }
 
-.gpt3__footer-links div {
+.MN__footer-links div {
   width: 250px;
   margin: 1rem;
 }
 
-.gpt3__footer-links_logo {
+.MN__footer-links_logo {
   display: flex;
   flex-direction: column;
 }
 
-.gpt3__footer-links_logo img {
-  width: 118px;
-  height: 30px;
+.MN__footer-links_logo img {
+  width: 150px;
+  height: auto;
+  max-height: 140px;
 
   margin-bottom: 1rem;
 }
 
-.gpt3__footer-links_logo p {
+.MN__footer-links_logo p {
   font-family: var(--font-family);
   font-size: 12px;
   line-height: 15px;
   color: #fff;
+  margin-top: 20px;
+  text-align: right;
 }
 
-.gpt3__footer-links_div {
+.MN__footer-links_div {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
 }
 
-.gpt3__footer-links_div h4 {
+.MN__footer-links_div h4 {
   font-size: 14px;
   line-height: 17px;
   font-family: var(--font-family);
@@ -95,7 +98,7 @@
   margin-bottom: 0.9rem;
 }
 
-.gpt3__footer-links_div p {
+.MN__footer-links_div p {
   font-size: 12px;
   line-height: 15px;
   font-family: var(--font-family);
@@ -105,14 +108,14 @@
   cursor: pointer;
 }
 
-.gpt3__footer-copyright {
+.MN__footer-copyright {
   margin-top: 2rem;
   text-align: center;
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.gpt3__footer-copyright p {
+.MN__footer-copyright p {
   font-size: 12px;
   font-family: var(--font-family);
   line-height: 15px;
@@ -120,30 +123,84 @@
 }
 
 @media screen and (max-width: 850px) {
-  .gpt3__footer-heading h1 {
+  .MN__footer-heading h1 {
     font-size: 44px;
     line-height: 50px;
   }
 }
 
+@media screen and (max-width: 768px) {
+  .MN__footer {
+    padding: 2rem 1rem;
+  }
+
+  .MN__footer-links {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .MN__footer-links div {
+    width: 100%;
+    max-width: 420px;
+    margin: 0.6rem 0;
+  }
+
+  .MN__footer-links_logo img {
+    max-width: 120px;
+    max-height: 100px;
+    margin: 0 auto 0.5rem;
+  }
+
+  .MN__footer-btn {
+    margin-bottom: 2rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .MN__footer-heading h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .MN__footer-heading h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .MN__footer-links_div h4 {
+    font-size: 13px;
+  }
+
+  .MN__footer-links_div p {
+    font-size: 12px;
+  }
+
+  .MN__footer-copyright p {
+    font-size: 11px;
+  }
+}
+
 @media screen and (max-width: 550px) {
-  .gpt3__footer-heading h1 {
+  .MN__footer-heading h1 {
     font-size: 34px;
     line-height: 42px;
   }
 
-  .gpt3__footer-links div {
+  .MN__footer-links div {
     margin: 1rem 0;
   }
 
-  .gpt3__footer-btn p {
+  .MN__footer-btn p {
     font-size: 14px;
     line-height: 20px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .gpt3__footer-heading h1 {
+  .MN__footer-heading h1 {
     font-size: 27px;
     line-height: 38px;
   }

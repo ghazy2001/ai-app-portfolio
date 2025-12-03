@@ -1,0 +1,302 @@
+/* Custom variables for demonstration (assuming they exist globally) */
+
+.testimonials-section {
+  padding: 90px 0;
+  background: var(--gradient-bg);
+}
+
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px; /* Added padding for smaller screens */
+}
+
+/* ----------- Header ----------- */
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.testimonials-header h2 {
+  font-family: var(--font-family);
+  font-size: 2.5rem; /* Increased size for impact */
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Changed color to -webkit-text-fill-color */
+  margin-bottom: 10px;
+}
+
+.testimonials-header p {
+  font-family: var(--font-family);
+  color: var(--color-subtext);
+  font-size: 1.1rem;
+}
+
+/* ----------- Main Carousel Wrapper ----------- */
+.main-carousel-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 50px;
+  position: relative; /* For absolute positioning of controls if needed */
+}
+
+/* ----------- Main Card ----------- */
+.testimonial-card-new {
+  background: var(--color-footer);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border */
+  border-radius: 24px; /* Slightly larger border-radius */
+  padding: 3rem; /* Increased padding */
+  backdrop-filter: blur(20px); /* Increased blur */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Darker, more professional shadow */
+  transition: 0.5s ease-out; /* Match animation speed */
+  animation: fadeSlide 0.5s ease-out;
+}
+
+/* Responsive adjustment for padding on small screens */
+@media screen and (max-width: 600px) {
+  .testimonial-card-new {
+    padding: 2rem;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Increased slide distance */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Metric */
+.metric-box {
+  /* Using a more vibrant, defined gradient */
+  background: linear-gradient(145deg, #ae67fa 0%, #4a90e2 100%);
+  padding: 10px 18px; /* Slightly adjusted padding */
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(174, 103, 250, 0.5); /* Shadow for prominence */
+}
+
+.metric-box h3 {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.metric-box span {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: block; /* Make it a block element to stack */
+}
+
+/* Quote */
+.quote {
+  font-family: var(--font-family);
+  font-size: 1.2rem; /* Larger font size */
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9); /* Slightly subdued white */
+  margin: 10px 0 35px 0;
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Author */
+.author-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Lighter separator */
+}
+
+.author-row img {
+  width: 48px; /* Reduced profile image size */
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ae67fa; /* Slightly thinner accent border */
+}
+
+.author-row h4 {
+  font-family: var(--font-family);
+  color: #fff;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.author-row p {
+  font-family: var(--font-family);
+  color: var(--color-subtext);
+  margin: 2px 0;
+  font-size: 0.95rem;
+}
+
+.author-row .company {
+  color: #f49867; /* Changed company color for contrast */
+  font-weight: 600;
+}
+
+/* ----------- Controls (Navigation & Indicators) ----------- */
+.testimonials-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px; /* Align with container padding */
+}
+
+/* ----------- Nav Buttons ----------- */
+.testimonials-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08); /* More subtle background */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 28px;
+  line-height: 0;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease;
+  padding-bottom: 5px;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* ----------- Indicators ----------- */
+.testimonials-indicators {
+  display: flex;
+  gap: 8px;
+}
+
+.indicator {
+  width: 10px; /* Reduced base size */
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%; /* Changed to 50% for perfect circle */
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.indicator.active {
+  width: 25px; /* Elongated when active */
+  border-radius: 10px; /* Back to rounded rectangle */
+  background: var(--gradient-text);
+}
+
+/* ----------- Grid ----------- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default 4 columns */
+  gap: 20px;
+  margin-top: 40px;
+}
+
+/* Responsive Grid for Tablets */
+@media screen and (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+  }
+}
+
+/* Responsive Grid for Mobiles */
+@media screen and (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr; /* 1 column on mobiles */
+  }
+}
+
+.grid-card-new {
+  background: var(--color-footer);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+  cursor: pointer;
+  height: 100%; /* Ensure all cards are same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grid-card-new.active {
+  /* Highlight active grid card */
+  border-color: #ae67fa;
+  box-shadow: 0 0 20px rgba(174, 103, 250, 0.4);
+}
+
+.grid-card-new:hover {
+  background: rgba(255, 255, 255, 0.08); /* More professional hover */
+  transform: translateY(-8px); /* Deeper lift on hover */
+}
+
+.grid-card-new p {
+  font-family: var(--font-family);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allow quote text to take up space */
+}
+
+.grid-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Very light separator */
+}
+
+.grid-author img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Small responsive tweaks: if space is tight, make images smaller */
+@media screen and (max-width: 480px) {
+  .author-row img {
+    width: 40px;
+    height: 40px;
+    border-width: 1px;
+  }
+
+  .grid-author img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.grid-author h5 {
+  font-family: var(--font-family);
+  color: #fff;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.grid-author p {
+  font-family: var(--font-family);
+  color: var(--color-subtext);
+  margin: 0;
+  font-size: 0.8rem;
+}

@@ -1,76 +1,169 @@
-.gpt3__cta {
-  border: 1px solid white;
-  color: white;
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+
+/* ===================== */
+/*     CTA MAIN BOX      */
+/* ===================== */
+
+.MN__cta {
+  direction: rtl;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
   padding: 2rem;
   margin: 4rem;
   border-radius: 1rem;
   background: var(--gradient-bar);
+  border: 1px solid #00000020;
 }
-.gpt3__cta-content p {
+.MN__cta-content p {
   font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 30px;
-  color: #0e0e0e;
+  font-size: 22px;
+  color: whitesmoke;
+  margin-bottom: 0.5rem;
 }
-.gpt3__cta-content h3 {
+.MN__cta-content h3 {
   font-family: var(--font-family);
   font-weight: 800;
   font-size: 24px;
-  line-height: 45px;
-  color: #000000;
+  color: whitesmoke;
+  line-height: 36px;
 }
-.gpr3__cta-btn {
+.MN__cta-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 2rem;
 }
-.gpt3__cta-btn button {
-  background: #000000;
-  border-radius: 40px;
-  font-family: var(--font-family);
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 30px;
+
+/* ===================== */
+/*     BUTTON EFFECT     */
+/* ===================== */
+
+.glow-btn {
+  position: relative;
+  display: inline-block;
+  padding: 18px 40px;
   color: #ffffff;
-
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  min-width: 150px;
-  transition: 0.3s;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: 0.5s;
+  font-family: "Raleway", sans-serif;
+  border-radius: 6px;
 }
-.gpt3__cta-btn button:hover {
-  background: linear-gradient(90deg, #f49867 0%, #ae67fa 100%);
+
+.glow-btn span {
+  position: absolute;
+  display: block;
 }
 
-@media screen and (max-width: 650px) {
-  .gpt3__cta {
+/* text span */
+.glow-btn span:nth-child(5) {
+  position: relative;
+  display: inline-block;
+}
+
+/* top line */
+.glow-btn span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0a497d);
+  animation: animate1 1s linear infinite;
+}
+
+@keyframes animate1 {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+/* right line */
+.glow-btn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #0a497d);
+  animation: animate2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes animate2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+/* bottom line */
+.glow-btn span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #0a497d);
+  animation: animate3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes animate3 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+/* left line */
+.glow-btn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #0a497d);
+  animation: animate4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes animate4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+/* Hover Effect */
+.glow-btn:hover {
+  background: #b985f1;
+  color: #1582db;
+  box-shadow: 0 0 5px #ae67fa, 0 0 25px #ae67fa, 0 0 50px #ae67fa,
+    0 0 200px #ae67fa;
+}
+
+/* ===================== */
+/*      RESPONSIVE       */
+/* ===================== */
+
+@media (max-width: 700px) {
+  .MN__cta {
     flex-direction: column;
-  }
-
-  .gpr3__cta-btn {
-    margin: 2rem 0 0 0;
-  }
-}
-@media screen and (max-width: 550px) {
-  .gpt3__cta {
-    margin: 4rem 2rem;
-  }
-
-  .gpt3__cta-content h3 {
-    font-size: 18px;
-    line-height: 32px;
-  }
-
-  .gpt3__cta-btn button {
-    font-size: 14px;
-    line-height: 28px;
+    text-align: center;
+    gap: 2rem;
   }
 }

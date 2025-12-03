@@ -1,4 +1,4 @@
-.gpt3__whatgpt3 {
+.MN__whatmn {
   display: flex;
   flex-direction: column;
 
@@ -48,21 +48,21 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.gpt3__whatgpt3-feature {
+.MN__whatmn-feature {
   display: flex;
 }
 
 /* Customizing feature component as per needs */
-.gpt3__whatgpt3-feature .gpt3__features-container__feature {
+.MN__whatmn-feature .MN__features-container__feature {
   margin: 0;
 }
 
 /* Customizing feature component as per needs */
-.gpt3__whatgpt3-feature .gpt3__features-container_feature-text {
+.MN__whatmn-feature .MN__features-container_feature-text {
   max-width: 700px;
 }
 
-.gpt3__whatgpt3-heading {
+.MN__whatmn-heading {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -71,24 +71,30 @@
   margin: 4rem 0 2rem;
 }
 
-.gpt3__whatgpt3-heading h1 {
-  font-size: 34px;
+.MN__whatmn-heading h1 {
+  font-size: 40px;
   line-height: 45px;
   font-weight: 800;
   font-family: var(--font-family);
   max-width: 510px;
 }
 
-.gpt3__whatgpt3-heading p {
+.MN__whatmn-heading h1.spaced-heading {
+  letter-spacing: 12px;
+  word-spacing: 4px;
+  line-height: 55px;
+}
+
+.MN__whatmn-heading p {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 16px;
+  font-size: 22px;
   line-height: 30px;
   color: var(--color-subtext);
   cursor: pointer;
 }
 
-.gpt3__whatgpt3-container {
+.MN__whatmn-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -97,7 +103,7 @@
 }
 
 /* Customizing feature component as per needs */
-.gpt3__whatgpt3-container .gpt3__features-container__feature {
+.MN__whatmn-container .MN__features-container__feature {
   flex: 1;
   margin: 1rem;
   min-width: 210px;
@@ -106,43 +112,111 @@
 }
 
 /* Customizing feature component as per needs */
-.gpt3__whatgpt3-container .gpt3__features-container_feature-text {
-  margin-top: 0.5rem;
+.MN__whatmn-container .MN__features-container_feature-text {
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 850px) {
-  .gpt3__whatgpt3-heading {
+  .MN__whatmn-heading {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 0rem;
   }
 
-  .gpt3__whatgpt3-heading p {
+  .MN__whatmn-heading p {
     margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MN__whatmn {
+    padding: 1.5rem;
+  }
+
+  .MN__whatmn-heading h1 {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .MN__whatmn-heading p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .MN__whatmn-container .MN__features-container__feature {
+    flex: 0 0 calc(50% - 1rem);
+    min-width: 180px;
   }
 }
 
 @media screen and (max-width: 650px) {
   /* Customizing feature component as per needs */
-  .gpt3__whatgpt3-feature .gpt3__features-container__feature {
+  .MN__whatmn-feature .MN__features-container__feature {
     flex-direction: column;
   }
 
   /* Customizing feature component as per needs */
-  .gpt3__whatgpt3-feature .gpt3__features-container_feature-text {
+  .MN__whatmn-feature .MN__features-container_feature-text {
     margin-top: 0.5rem;
   }
 
-  .gpt3__whatgpt3-heading h1 {
-    font-size: 28px;
-    line-height: 40px;
+  .MN__whatmn-heading h1 {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  .MN__whatmn-heading p {
+    font-size: 16px;
+  }
+
+  .MN__whatmn-container .MN__features-container__feature {
+    flex: 0 0 100%;
+    min-width: 100%;
+    margin: 0.75rem 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .MN__whatmn {
+    padding: 1rem;
+    margin: 2rem 0;
+  }
+
+  .MN__whatmn-heading {
+    margin: 2rem 0 1rem;
+  }
+
+  .MN__whatmn-heading h1 {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 8px;
+    word-spacing: 2px;
+  }
+
+  .MN__whatmn-heading p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .MN__whatmn-container {
+    margin-top: 1rem;
   }
 }
 
 @media screen and (max-width: 350px) {
   /* Customizing feature component as per needs */
-  .gpt3__whatgpt3-container .gpt3__features-container__feature {
-    margin: 1rem 0;
+  .MN__whatmn-container .MN__features-container__feature {
+    margin: 0.5rem 0;
     min-width: 100%;
+  }
+
+  .MN__whatmn-heading h1 {
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 6px;
+  }
+
+  .MN__whatmn-heading p {
+    font-size: 13px;
   }
 }

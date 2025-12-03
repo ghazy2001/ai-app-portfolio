@@ -1,114 +1,137 @@
-.gpt3__navbar {
+.MN__navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem 6rem;
 }
+/* keep the navbar on top so header icons can't cover it on mobile */
+.MN__navbar {
+  position: relative;
+  z-index: 1000;
+}
 
-.gpt3__navbar-links {
+.MN__navbar-links {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex: 1;
 }
-.gpt3__navbar-links_logo {
+
+.MN__navbar-links_logo {
   margin-right: 2rem;
+  font-family: var(--font-family);
 }
 
-.gpt3__navbar-links_logo img {
+.MN__navbar-links_logo img {
   width: 62.56px;
   height: 16.02px;
 }
-.gpt3__navbar-links_container {
+.MN__navbar-links_container {
   display: flex;
   flex-direction: row;
 }
 
-.gpt3__navbar-sign {
+.MN__navbar-sign {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.gpt3__navbar-links_container p,
-.gpt3__navbar-sign p,
-.gpt3__navbar-menu_container p {
+.MN__navbar-links_container p,
+.MN__navbar-sign p,
+.MN__navbar-menu_container p {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 25px;
   color: #fff;
   margin: 0 1rem;
   cursor: pointer;
   text-transform: capitalize;
 }
-.gpt3__navbar-sign button,
-.gpt3__navbar-menu_container button {
+.MN__navbar-links_container p:hover {
+  color: #ae67fa;
+}
+.MN__navbar-sign button,
+.MN__navbar-menu_container button {
   padding: 0.5rem 1rem;
-  background: #ff4820;
+  background: #0972c9;
   border-radius: 5px;
   color: #fff;
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 25px;
   line-height: 25px;
   border: none;
   outline: none;
   cursor: pointer;
 }
-.gpt3__navbar-menu {
+.MN__navbar-sign button:hover {
+  background: #ae67fa;
+}
+.MN__navbar-menu {
   display: none;
   position: relative;
   margin-left: 1rem;
 }
-.gpt3__navbar-menu svg {
+.MN__navbar-menu svg {
   cursor: pointer;
 }
-.gpt3__navbar-menu_container {
+.MN__navbar-menu_container {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   flex-direction: column;
   text-align: end;
   background: var(--color-footer);
-  padding: 2rem;
+  padding: 1rem;
   position: absolute;
   top: 40px;
   right: 0;
   margin-top: 1rem;
-  min-width: 210px;
+  min-width: 150px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
 }
-.gpt3__navbar-menu_container-links p {
+.MN__navbar-menu_container-links p {
   margin: 1rem 0;
 }
-.gpt3__navbar-menu_container-links-sign {
+.MN__navbar-menu_container-links-sign {
   display: none;
 }
 @media screen and (max-width: 1050px) {
-  .gpt3__navbar-links_container {
+  .MN__navbar-links_container {
     display: none;
   }
-  .gpt3__navbar-menu {
+  .MN__navbar-menu {
     display: flex;
   }
 }
 @media screen and (max-width: 700px) {
-  .gpt3__navbar {
+  .MN__navbar {
     padding: 2rem 4rem;
   }
 }
 @media screen and (max-width: 550px) {
-  .gpt3__navbar {
+  .MN__navbar {
     padding: 2rem;
   }
-  .gpt3__navbar-sign {
+  .MN__navbar-sign {
     display: none;
   }
-  .gpt3__navbar-menu_container {
+  .MN__navbar-menu_container {
     top: 20px;
   }
-  .gpt3__navbar-menu_container-links-sign {
+  .MN__navbar-menu_container-links-sign {
     display: block;
+    text-align: center;
+  }
+
+  .MN__navbar-menu_container button {
+    font-size: 16px;
+    padding: 0.5rem 0.8rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
   }
 }
