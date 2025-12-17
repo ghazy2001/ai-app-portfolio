@@ -18,7 +18,7 @@ const AddJobModal = ({ isOpen, onClose, onJobAdded }) => {
         const token = localStorage.getItem('token'); // Get auth token
 
         try {
-            const res = await fetch('http://localhost:5000/api/jobs', {
+            const res = await fetch('${import.meta.env.VITE_API_URL}/api/jobs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

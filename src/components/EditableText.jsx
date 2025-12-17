@@ -25,7 +25,7 @@ const EditableText = ({ section, contentKey, defaultContent, className, type = '
         // Fetch current value from API
         const fetchContent = async () => {
              try {
-                 const res = await fetch(`http://localhost:5000/api/content/${section}`);
+                 const res = await fetch(`${import.meta.env.VITE_API_URL}/api/content/${section}`);
                  const data = await res.json();
                  if (data[contentKey]) {
                      setContent(data[contentKey]);
@@ -49,7 +49,7 @@ const EditableText = ({ section, contentKey, defaultContent, className, type = '
     const handleSave = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5000/api/content', {
+            const res = await fetch('${import.meta.env.VITE_API_URL}/api/content', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ const Blog = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/blog");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog`);
       const data = await res.json();
       setBlogs(data);
     } catch (error) {
@@ -25,44 +25,45 @@ const Blog = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.role === 'admin') {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.role === "admin") {
       setIsAdmin(true);
     }
-    
+
     fetchBlogs();
   }, []);
 
   const getImageUrl = (imagePath) => {
-    if (imagePath.startsWith('http')) return imagePath;
-    return `http://localhost:5000/${imagePath.replace(/\\/g, '/')}`;
+    if (imagePath.startsWith("http")) return imagePath;
+    return `${import.meta.env.VITE_API_URL}/${imagePath.replace(/\\/g, "/")}`;
   };
 
   const handleDeleteBlog = async (blogId) => {
-    if (!window.confirm('Are you sure you want to delete this blog post?')) return;
-    
-    const token = localStorage.getItem('token');
+    if (!window.confirm("Are you sure you want to delete this blog post?"))
+      return;
+
+    const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/api/blog/${blogId}`, {
-        method: 'DELETE',
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog/${blogId}`, {
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (res.ok) {
-        setBlogs(blogs.filter(blog => blog._id !== blogId));
+        setBlogs(blogs.filter((blog) => blog._id !== blogId));
         // Reset to page 1 if current page becomes empty
         const newTotalPages = Math.ceil((blogs.length - 1) / blogsPerPage);
         if (currentPage > newTotalPages && newTotalPages > 0) {
           setCurrentPage(newTotalPages);
         }
       } else {
-        alert('Failed to delete blog post');
+        alert("Failed to delete blog post");
       }
     } catch (error) {
-      console.error('Error deleting blog:', error);
-      alert('Error deleting blog post');
+      console.error("Error deleting blog:", error);
+      alert("Error deleting blog post");
     }
   };
 
@@ -101,9 +102,9 @@ const Blog = () => {
 
   return (
     <div className="MN__blog section__padding" id="blog">
-      <AddBlogModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <AddBlogModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         onBlogAdded={fetchBlogs}
       />
       <EditBlogModal
@@ -113,103 +114,114 @@ const Blog = () => {
         onBlogUpdated={handleBlogUpdated}
       />
       <div className="MN__blog-heading">
-        <EditableText 
-            section="blog" 
-            contentKey="heading" 
-            defaultContent="أحدث المستجدات في عالم التسويق الرقمي، نحن نوثقها عبر مدونتنا." 
-            className="gradient__text"
-            type="h1"
+        <EditableText
+          section="blog"
+          contentKey="heading"
+          defaultContent="أحدث المستجدات في عالم التسويق الرقمي، نحن نوثقها عبر مدونتنا."
+          className="gradient__text"
+          type="h1"
         />
-        <EditableText section="blog" contentKey="subtext" defaultContent="تصفح المزيد" type="p" />
-        
+        <EditableText
+          section="blog"
+          contentKey="subtext"
+          defaultContent="تصفح المزيد"
+          type="p"
+        />
+
         {isAdmin && (
-            <button 
-                style={{
-                    padding: '0.5rem 1rem',
-                    background: '#FF4820',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '5px',
-                    margin: '1rem 0',
-                    cursor: 'pointer'
-                }}
-                onClick={() => setIsModalOpen(true)}
-            >
-                + Add New Blog
-            </button>
+          <button
+            style={{
+              padding: "0.5rem 1rem",
+              background: "#FF4820",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              margin: "1rem 0",
+              cursor: "pointer",
+            }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            + Add New Blog
+          </button>
         )}
       </div>
       <div className="MN__blog-container">
         {currentBlogs.length > 0 && (
-            <>
-                <div className="MN__blog-container_groupA">
+          <>
+            <div className="MN__blog-container_groupA">
+              <Article
+                imgUrl={getImageUrl(currentBlogs[0].coverImage || "")}
+                date={new Date(currentBlogs[0].createdAt).toLocaleDateString()}
+                title={currentBlogs[0].title}
+                isAdmin={isAdmin}
+                onDelete={() => handleDeleteBlog(currentBlogs[0]._id)}
+                onEdit={() => handleEditBlog(currentBlogs[0])}
+              />
+            </div>
+            <div className="MN__blog-container_groupB">
+              {currentBlogs.slice(1).map((blog) => (
                 <Article
-                    imgUrl={getImageUrl(currentBlogs[0].coverImage || '')}
-                    date={new Date(currentBlogs[0].createdAt).toLocaleDateString()}
-                    title={currentBlogs[0].title}
-                    isAdmin={isAdmin}
-                    onDelete={() => handleDeleteBlog(currentBlogs[0]._id)}
-                    onEdit={() => handleEditBlog(currentBlogs[0])}
+                  key={blog._id}
+                  imgUrl={getImageUrl(blog.coverImage || "")}
+                  date={new Date(blog.createdAt).toLocaleDateString()}
+                  title={blog.title}
+                  isAdmin={isAdmin}
+                  onDelete={() => handleDeleteBlog(blog._id)}
+                  onEdit={() => handleEditBlog(blog)}
                 />
-                </div>
-                <div className="MN__blog-container_groupB">
-                {currentBlogs.slice(1).map((blog) => (
-                    <Article
-                        key={blog._id}
-                        imgUrl={getImageUrl(blog.coverImage || '')}
-                        date={new Date(blog.createdAt).toLocaleDateString()}
-                        title={blog.title}
-                        isAdmin={isAdmin}
-                        onDelete={() => handleDeleteBlog(blog._id)}
-                        onEdit={() => handleEditBlog(blog)}
-                    />
-                ))}
-                </div>
-            </>
+              ))}
+            </div>
+          </>
         )}
-        {blogs.length === 0 && <p style={{color:'white'}}>No blogs found. (Please run seed or add blogs)</p>}
+        {blogs.length === 0 && (
+          <p style={{ color: "white" }}>
+            No blogs found. (Please run seed or add blogs)
+          </p>
+        )}
       </div>
 
       {/* Pagination Controls */}
       {blogs.length > blogsPerPage && (
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          gap: '1rem', 
-          marginTop: '3rem',
-          flexWrap: 'wrap'
-        }}>
-          <button 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
+            marginTop: "3rem",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
             onClick={handlePrevPage}
             disabled={currentPage === 1}
             style={{
-              padding: '0.5rem 1rem',
-              background: currentPage === 1 ? '#444' : '#ae67fa',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-              fontSize: '1rem'
+              padding: "0.5rem 1rem",
+              background: currentPage === 1 ? "#444" : "#ae67fa",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: currentPage === 1 ? "not-allowed" : "pointer",
+              fontSize: "1rem",
             }}
           >
             السابق
           </button>
 
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index + 1}
                 onClick={() => goToPage(index + 1)}
                 style={{
-                  padding: '0.5rem 1rem',
-                  background: currentPage === index + 1 ? '#ae67fa' : '#040C18',
-                  color: '#fff',
-                  border: '1px solid #ae67fa',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  fontSize: '1rem',
-                  fontWeight: currentPage === index + 1 ? 'bold' : 'normal'
+                  padding: "0.5rem 1rem",
+                  background: currentPage === index + 1 ? "#ae67fa" : "#040C18",
+                  color: "#fff",
+                  border: "1px solid #ae67fa",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: currentPage === index + 1 ? "bold" : "normal",
                 }}
               >
                 {index + 1}
@@ -217,23 +229,23 @@ const Blog = () => {
             ))}
           </div>
 
-          <button 
+          <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
             style={{
-              padding: '0.5rem 1rem',
-              background: currentPage === totalPages ? '#444' : '#ae67fa',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-              fontSize: '1rem'
+              padding: "0.5rem 1rem",
+              background: currentPage === totalPages ? "#444" : "#ae67fa",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+              fontSize: "1rem",
             }}
           >
             التالي
           </button>
 
-          <p style={{ color: '#fff', margin: 0 }}>
+          <p style={{ color: "#fff", margin: 0 }}>
             صفحة {currentPage} من {totalPages}
           </p>
         </div>

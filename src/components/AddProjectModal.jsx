@@ -31,7 +31,7 @@ const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
         }
 
         try {
-            const res = await fetch('http://localhost:5000/api/projects', {
+            const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

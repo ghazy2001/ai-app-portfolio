@@ -39,7 +39,7 @@ const EditBlogModal = ({ isOpen, onClose, blog, onBlogUpdated }) => {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/api/blog/${blog._id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog/${blog._id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`

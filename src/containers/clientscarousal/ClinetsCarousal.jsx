@@ -31,7 +31,7 @@ const ClinetsCarousal = () => {
 
   const fetchPartners = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/tp/partner");
+      const res = await fetch("${import.meta.env.VITE_API_URL}/api/tp/partner");
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         setPartners(data);
@@ -55,7 +55,7 @@ const ClinetsCarousal = () => {
 
   const getImageUrl = (imagePath) => {
     if (imagePath.startsWith('http')) return imagePath;
-    return `http://localhost:5000/${imagePath.replace(/\\/g, '/')}`;
+    return `${import.meta.env.VITE_API_URL}/${imagePath.replace(/\\/g, '/')}`;
   };
 
   // Decide what to show: API partners or Default partners

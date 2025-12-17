@@ -12,7 +12,7 @@ const Testimonials = () => {
 
   const fetchTestimonials = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/tp/testimonial");
+      const res = await fetch("${import.meta.env.VITE_API_URL}/api/tp/testimonial");
       const data = await res.json();
       if (Array.isArray(data)) {
         setTestimonials(data);
