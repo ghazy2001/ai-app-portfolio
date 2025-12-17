@@ -1,222 +1,231 @@
+/* About Section - Modern Card Design with Logo Colors */
+
 .MN__whatmn {
-  display: flex;
-  flex-direction: column;
-
-  padding: 2rem;
-  background: var(--color-footer);
-
-  /* ff 3.6+ */
-  background: -moz-radial-gradient(
-    circle at 30% -100%,
-    #042c54 25%,
-    rgba(4, 44, 84, 1) 85%,
-    rgba(27, 120, 222, 1) 100%
-  );
-
-  /* safari 5.1+,chrome 10+ */
-  background: -webkit-radial-gradient(
-    circle at 30% -100%,
-    #042c54 25%,
-    rgba(4, 44, 84, 1) 85%,
-    rgba(27, 120, 222, 1) 100%
-  );
-
-  /* opera 11.10+ */
-  background: -o-radial-gradient(
-    circle at 30% -100%,
-    #042c54 25%,
-    rgba(4, 44, 84, 1) 85%,
-    rgba(27, 120, 222, 1) 100%
-  );
-
-  /* ie 10+ */
-  background: -ms-radial-gradient(
-    circle at 30% -100%,
-    #042c54 25%,
-    rgba(4, 44, 84, 1) 85%,
-    rgba(27, 120, 222, 1) 100%
-  );
-
-  /* global 92%+ browsers support */
-  background: radial-gradient(
-    circle at 30% -100%,
-    #042c54 25%,
-    rgba(4, 44, 84, 1) 85%,
-    rgba(27, 120, 222, 1) 100%
-  );
-
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background: var(--color-bg);
+  position: relative;
+  direction: rtl;
+  overflow: hidden;
 }
 
-.MN__whatmn-feature {
-  display: flex;
+.MN__whatmn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -25%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(97, 45, 154, 0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-/* Customizing feature component as per needs */
-.MN__whatmn-feature .MN__features-container__feature {
-  margin: 0;
+/* Header Section */
+.whatmn-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--space-4xl);
+  position: relative;
+  z-index: 1;
 }
 
-/* Customizing feature component as per needs */
-.MN__whatmn-feature .MN__features-container_feature-text {
-  max-width: 700px;
-}
-
-.MN__whatmn-heading {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 4rem 0 2rem;
-}
-
-.MN__whatmn-heading h1 {
-  font-size: 40px;
-  line-height: 45px;
+.whatmn-header h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-6xl);
   font-weight: 800;
-  font-family: var(--font-family);
-  max-width: 510px;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
 }
 
-.MN__whatmn-heading h1.spaced-heading {
-  letter-spacing: 12px;
-  word-spacing: 4px;
-  line-height: 55px;
+.whatmn-header p {
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.MN__whatmn-heading p {
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 30px;
-  color: var(--color-subtext);
+/* Cards Grid */
+.whatmn-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual Card */
+.whatmn-card {
+  background: linear-gradient(135deg, var(--color-card) 0%, rgba(97, 45, 154, 0.05) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl) var(--space-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-slow);
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
 }
 
-.MN__whatmn-container {
+.whatmn-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-bar);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-slow);
+}
+
+.whatmn-card:hover::before {
+  transform: scaleX(1);
+}
+
+.whatmn-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(172, 23, 147, 0.1) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--transition-slow);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.whatmn-card:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.whatmn-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(97, 45, 154, 0.25);
+  border-color: rgba(97, 45, 154, 0.4);
+  background: linear-gradient(135deg, var(--color-card) 0%, rgba(172, 23, 147, 0.08) 100%);
+}
+
+/* Card Icon */
+.whatmn-card-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(97, 45, 154, 0.15), rgba(172, 23, 147, 0.1));
+  border-radius: var(--radius-lg);
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-
-  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+  color: #ac1793;
+  transition: all var(--transition-slow);
+  position: relative;
+  z-index: 1;
 }
 
-/* Customizing feature component as per needs */
-.MN__whatmn-container .MN__features-container__feature {
-  flex: 1;
-  margin: 1rem;
-  min-width: 210px;
-  display: unset;
-  flex-direction: column;
+.whatmn-card:hover .whatmn-card-icon {
+  background: var(--gradient-vibrant);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 30px rgba(172, 23, 147, 0.4);
 }
 
-/* Customizing feature component as per needs */
-.MN__whatmn-container .MN__features-container_feature-text {
-  margin-top: 1rem;
+/* Card Title */
+.whatmn-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card Text */
+.whatmn-card-text {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1050px) {
+  .whatmn-header h1 {
+    font-size: var(--text-5xl);
+  }
+  
+  .whatmn-cards-grid {
+    gap: var(--space-xl);
+  }
+  
+  .whatmn-card {
+    padding: var(--space-2xl) var(--space-xl);
+  }
 }
 
 @media screen and (max-width: 850px) {
-  .MN__whatmn-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 0rem;
+  .whatmn-cards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
-
-  .MN__whatmn-heading p {
-    margin-top: 1rem;
+  
+  .whatmn-header h1 {
+    font-size: var(--text-4xl);
   }
-}
-
-@media screen and (max-width: 768px) {
-  .MN__whatmn {
-    padding: 1.5rem;
-  }
-
-  .MN__whatmn-heading h1 {
-    font-size: 32px;
-    line-height: 42px;
-  }
-
-  .MN__whatmn-heading p {
-    font-size: 18px;
-    line-height: 26px;
-  }
-
-  .MN__whatmn-container .MN__features-container__feature {
-    flex: 0 0 calc(50% - 1rem);
-    min-width: 180px;
+  
+  .whatmn-header p {
+    font-size: var(--text-lg);
   }
 }
 
 @media screen and (max-width: 650px) {
-  /* Customizing feature component as per needs */
-  .MN__whatmn-feature .MN__features-container__feature {
-    flex-direction: column;
+  .whatmn-header h1 {
+    font-size: var(--text-3xl);
   }
-
-  /* Customizing feature component as per needs */
-  .MN__whatmn-feature .MN__features-container_feature-text {
-    margin-top: 0.5rem;
+  
+  .whatmn-header p {
+    font-size: var(--text-base);
   }
-
-  .MN__whatmn-heading h1 {
-    font-size: 26px;
-    line-height: 36px;
+  
+  .whatmn-card {
+    padding: var(--space-xl) var(--space-lg);
   }
-
-  .MN__whatmn-heading p {
-    font-size: 16px;
+  
+  .whatmn-card-icon {
+    width: 64px;
+    height: 64px;
   }
-
-  .MN__whatmn-container .MN__features-container__feature {
-    flex: 0 0 100%;
-    min-width: 100%;
-    margin: 0.75rem 0;
+  
+  .whatmn-card-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .whatmn-card-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .whatmn-card-text {
+    font-size: var(--text-sm);
   }
 }
 
 @media screen and (max-width: 480px) {
   .MN__whatmn {
-    padding: 1rem;
-    margin: 2rem 0;
+    padding: var(--space-2xl) var(--space-md);
   }
-
-  .MN__whatmn-heading {
-    margin: 2rem 0 1rem;
+  
+  .whatmn-header {
+    margin-bottom: var(--space-2xl);
   }
-
-  .MN__whatmn-heading h1 {
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: 8px;
-    word-spacing: 2px;
+  
+  .whatmn-header h1 {
+    font-size: var(--text-2xl);
   }
-
-  .MN__whatmn-heading p {
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .MN__whatmn-container {
-    margin-top: 1rem;
-  }
-}
-
-@media screen and (max-width: 350px) {
-  /* Customizing feature component as per needs */
-  .MN__whatmn-container .MN__features-container__feature {
-    margin: 0.5rem 0;
-    min-width: 100%;
-  }
-
-  .MN__whatmn-heading h1 {
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: 6px;
-  }
-
-  .MN__whatmn-heading p {
-    font-size: 13px;
+  
+  .whatmn-card-title {
+    font-size: var(--text-xl);
   }
 }

@@ -1,5 +1,7 @@
 import "./header.css";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import EditableText from "../../components/EditableText";
 
 import logo from "../../assets/logo2.png";
 import facebook from "../../assets/facebook.svg";
@@ -54,24 +56,32 @@ const Header = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 1.3 }}
       >
-        <h1 className="gradient__text">
-          نضع البيانات في قلب كل قرار ونبني استراتيجيات
-        </h1>
-        <p>
-          قابلة للقياس تحقق نموًا حقيقيًا لأعمالك. تنفيذنا دقيق ومتكامل — من
-          استهداف الجمهور وصياغة الرسائل إلى إدارة الحملات وتحليل الأداء — مع
-          دورات تحسين مستمرة تُقلّل تكلفة الاكتساب وتضاعف عائد الاستثمار.
-        </p>
+
+        <EditableText 
+          section="header" 
+          contentKey="title" 
+          defaultContent="نضع البيانات في قلب كل قرار ونبني استراتيجيات" 
+          className="gradient__text"
+          type="h1"
+        />
+        <EditableText 
+          section="header" 
+          contentKey="subtitle" 
+          defaultContent="قابلة للقياس تحقق نموًا حقيقيًا لأعمالك. تنفيذنا دقيق ومتكامل — من استهداف الجمهور وصياغة الرسائل إلى إدارة الحملات وتحليل الأداء — مع دورات تحسين مستمرة تُقلّل تكلفة الاكتساب وتضاعف عائد الاستثمار." 
+          type="p"
+        />
         <div className="MN__header-content__input">
           <input type="email" placeholder="Your Email Address" />{" "}
-          <motion.button
-            type="button"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            احصل على خطة
-          </motion.button>
+          <Link to="/contact">
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              احصل على خطة
+            </motion.button>
+          </Link>
         </div>
         <p>استشارة مهنية لمدة 30 دقيقة؛ بدون التزام.</p>
       </motion.div>

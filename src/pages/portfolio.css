@@ -1,0 +1,151 @@
+/* Portfolio Page - Professional Design with Logo Colors */
+
+.portfolio-page {
+  background: var(--color-bg);
+  min-height: 100vh;
+}
+
+.portfolio-header {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+  margin-top: var(--space-2xl);
+}
+
+.portfolio-header h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-6xl);
+  font-weight: 800;
+  margin-bottom: var(--space-lg);
+}
+
+.portfolio-header p {
+  font-size: var(--text-lg);
+  max-width: 700px;
+  margin: var(--space-md) auto;
+}
+
+.portfolio-grid {
+  display: grid;
+  gridTemplateColumns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-2xl);
+}
+
+/* Project Card */
+.project-card {
+  background: var(--color-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-slow);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-bar);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(174, 103, 250, 0.2);
+  border-color: rgba(174, 103, 250, 0.3);
+}
+
+.project-image {
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: var(--space-xl);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+}
+
+.project-title {
+  color: var(--color-white);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  font-family: var(--font-heading);
+  margin: 0;
+}
+
+.project-description {
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-sm);
+}
+
+/* Admin Button */
+.add-project-btn {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-2xl);
+  background: var(--gradient-vibrant);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.add-project-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Delete Icon */
+.delete-icon {
+  cursor: pointer;
+  transition: all var(--transition-base);
+  color: #ff4d4d;
+}
+
+.delete-icon:hover {
+  color: #ff3333;
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .portfolio-header h1 {
+    font-size: var(--text-4xl);
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}

@@ -1,5 +1,6 @@
 import "./features.css";
 import Feature from "../../components/feature/Feature";
+import EditableText from "../../components/EditableText";
 
 const featureData = [
   {
@@ -28,11 +29,13 @@ const Features = () => {
       style={{ direction: "rtl" }}
     >
       <div className="MN__features-heading">
-        <h1 className="gradient__text">
-          نقدّم حلولًا مبتكرة لتطوير حضورك الرقمي و زيادة مبيعاتك. دعنا نساعدك
-          على بناء استراتيجية تسويقية تنقل علامتك إلى المستوى التالي.
-        </h1>
-
+        <EditableText
+            section="features"
+            contentKey="mainHeading"
+            defaultContent="نقدّم حلولًا مبتكرة لتطوير حضورك الرقمي و زيادة مبيعاتك. دعنا نساعدك على بناء استراتيجية تسويقية تنقل علامتك إلى المستوى التالي."
+            className="gradient__text"
+            type="h1"
+        />
         <button className="cta-button">ابدأ الآن و حقق نجاحك التسويقي</button>
       </div>
       <div className="MN__features-container">
@@ -41,6 +44,7 @@ const Features = () => {
             title={item.title}
             text={item.text}
             key={item.title + index}
+            index={index}
           />
         ))}
       </div>

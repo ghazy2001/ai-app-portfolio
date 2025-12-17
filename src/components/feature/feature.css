@@ -18,10 +18,16 @@
   font-weight: 800;
   font-size: 30px;
   line-height: 24px;
-  letter-spacing: 1px;
-  word-spacing: 2px;
   color: #fff;
   width: 250px;
+}
+
+/* Allow gradient text override */
+.MN__features-container__feature-title h1.gradient__text {
+   background: var(--gradient-text);
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 }
 
 .MN__features-container__feature-title div {
@@ -43,7 +49,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  color: var(--color-text);
+  color: #81afdd;
   letter-spacing: 1px;
   word-spacing: 2px;
 }

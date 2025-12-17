@@ -1,14 +1,91 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap");
 
 :root {
-  --font-family: "Manrope", sans-serif;
+  /* Brand Fonts - Professional Upgrade */
+  --font-family: "Inter", "Manrope", sans-serif;
+  --font-heading: "Poppins", "Inter", sans-serif;
 
-  --gradient-text: linear-gradient(89.97deg, #ae67fa 1.84%, #1582db 102.67%);
-  --gradient-bar: linear-gradient(103.22deg, #ae67fa 13.86%, #1582db 99.55%);
-
+  /* Your Unique Brand Gradients (Preserved) */
+  --gradient-text: linear-gradient(89.97deg, #612d9a 1.84%, #ac1793 50%, #1582db 102.67%);
+  --gradient-bar: linear-gradient(103.22deg, #612d9a 13.86%, #ac1793 50%, #1582db 99.55%);
+  --gradient-vibrant: linear-gradient(135deg, #612d9a 0%, #ac1793 100%);
+  
+  /* Enhanced Color System (Your Purple/Pink Theme) */
+  --color-primary: #ae67fa;
+  --color-primary-light: #c18cfa;
+  --color-primary-dark: #8b47d6;
+  --color-secondary: #1582db;
+  --color-accent: #f18ce0;
+  
+  /* Background Colors */
   --color-bg: #040c18;
+  --color-bg-light: #0a1628;
   --color-footer: #031b34;
+  --color-card: #0d1b2a;
   --color-blog: #042c54;
+  
+  /* Text Colors */
   --color-text: #81afdd;
+  --color-text-light: #a8c5e6;
+  --color-text-muted: #5a7a9c;
+  --color-white: #ffffff;
   --color-subtext: #ffd700;
+  
+  /* Spacing System (Professional Scale) */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  --space-4xl: 6rem;     /* 96px */
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+  --text-6xl: 3.75rem;   /* 60px */
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+  
+  /* Shadows (Enhanced) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 30px rgba(174, 103, 250, 0.3);
+  
+  /* Border Radius */
+  --radius-sm: 0.5rem;   /* 8px */
+  --radius-md: 0.75rem;  /* 12px */
+  --radius-lg: 1rem;     /* 16px */
+  --radius-xl: 1.5rem;   /* 24px */
+}
+
+/* Utility Classes */
+.text-color {
+  color: var(--color-text);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
 }

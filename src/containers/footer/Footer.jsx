@@ -1,15 +1,23 @@
 import logo from "../../assets/logo2.png";
 import "./footer.css";
+import EditableText from "../../components/EditableText";
+
 const Footer = () => {
   return (
     <div className="MN__footer section__padding" dir="rtl">
       <div className="MN__footer-heading">
-        <h1 className="gradient__text">
-          هل تريد أن تخطو نحو المستقبل قبل الآخرين؟
-        </h1>
+        <EditableText 
+            section="footer" 
+            contentKey="heading" 
+            defaultContent="هل تريد أن تخطو نحو المستقبل قبل الآخرين؟" 
+            className="gradient__text"
+            type="h1"
+        />
       </div>
       <div className="MN__footer-btn">
-        <p>تواصل معنا الان</p>
+        <a href="/contact" className="footer-cta-button">
+          <EditableText section="footer" contentKey="btnText" defaultContent="تواصل معنا الآن" type="span" />
+        </a>
       </div>
       <div className="MN__footer-links">
         <div className="MN__footer-links_logo">
@@ -31,9 +39,9 @@ const Footer = () => {
         </div>
         <div className="MN__footer-links_div">
           <h4>تواصل معنا</h4>
-          <p>Gharbia Governorate, El-Mahalla el-Kubra, Egypt</p>
-          <p>+20 15 56971874</p>
-          <p>info@mnmarketingagency.com</p>
+          <EditableText section="footer" contentKey="address" defaultContent="Gharbia Governorate, El-Mahalla el-Kubra, Egypt" type="p" />
+          <EditableText section="footer" contentKey="phone" defaultContent="+20 15 56971874" type="p" />
+          <EditableText section="footer" contentKey="email" defaultContent="info@mnmarketingagency.com" type="p" />
         </div>
       </div>
       <div className="MN__footer-copyright">
