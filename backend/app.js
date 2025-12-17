@@ -6,14 +6,14 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const app = express();
 
 // Middleware
-const corsOptions = {
-  origin: ["https://marketing-agency-chi.vercel.app", "http://localhost:5173", "http://localhost:3000"],
+// Use origin: true to allow any origin while still supporting credentials
+// This essentially reflects the request origin back in the allow header
+app.use(cors({
+  origin: true,
   credentials: true,
-  optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-};
+}));
 
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
