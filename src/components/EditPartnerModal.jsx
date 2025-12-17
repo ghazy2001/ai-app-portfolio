@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import API_URL from "../apiConfig";
 
 const EditPartnerModal = ({ isOpen, onClose, partner, onUpdated }) => {

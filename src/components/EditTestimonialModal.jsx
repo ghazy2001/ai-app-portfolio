@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import API_URL from "../apiConfig";
 
 const EditTestimonialModal = ({ isOpen, onClose, testimonial, onUpdated }) => {
