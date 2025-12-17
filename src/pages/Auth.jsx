@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar/Navbar";
+import API_URL from "../apiConfig";
 
 const Auth = () => {
   const [activeTab, setActiveTab] = useState("login");
@@ -27,7 +28,7 @@ const Auth = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        `${API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
@@ -37,9 +38,8 @@ const Auth = () => {
         }
       );
 
-      const data = await response.json();
-
       if (response.ok) {
+        const data = await response.json();
         localStorage.setItem("token", data.token);
         localStorage.setItem(
           "user",
@@ -48,10 +48,17 @@ const Auth = () => {
         navigate("/");
         window.location.reload();
       } else {
-        setError(data.message || "Login failed");
+        let errorMessage = "Login failed";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          // If response.json() fails, use default message
+        }
+        setError(errorMessage);
       }
-    } catch (err) {
-      setError(err.message || "Something went wrong");
+    } catch {
+      setError("Something went wrong");
     }
   };
 
@@ -66,7 +73,7 @@ const Auth = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/register`,
+        `${API_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {
@@ -76,9 +83,8 @@ const Auth = () => {
         }
       );
 
-      const data = await response.json();
-
       if (response.ok) {
+        const data = await response.json();
         localStorage.setItem("token", data.token);
         localStorage.setItem(
           "user",
@@ -87,10 +93,17 @@ const Auth = () => {
         navigate("/");
         window.location.reload();
       } else {
-        setError(data.message || "Registration failed");
+        let errorMessage = "Registration failed";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          // If response.json() fails, use default message
+        }
+        setError(errorMessage);
       }
-    } catch (err) {
-      setError(err.message || "Something went wrong");
+    } catch {
+      setError("Something went wrong");
     }
   };
 

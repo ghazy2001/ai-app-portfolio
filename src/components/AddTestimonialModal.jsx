@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API_URL from "../apiConfig";
 
 const AddTestimonialModal = ({ isOpen, onClose, onAdded }) => {
     const [name, setName] = useState('');
@@ -14,7 +15,7 @@ const AddTestimonialModal = ({ isOpen, onClose, onAdded }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('${import.meta.env.VITE_API_URL}/api/tp/testimonial', {
+            const res = await fetch(`${API_URL}/api/tp/testimonial`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

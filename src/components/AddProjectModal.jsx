@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
+import API_URL from "../apiConfig";
 
 const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
     const [title, setTitle] = useState('');
@@ -31,7 +32,7 @@ const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
         }
 
         try {
-            const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects', {
+            const res = await fetch(`${API_URL}/api/projects`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

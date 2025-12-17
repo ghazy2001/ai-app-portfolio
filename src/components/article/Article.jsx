@@ -1,7 +1,8 @@
 import "./article.css";
 import { RiDeleteBin6Line, RiEditLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
-const Article = ({ imgUrl, date, title, isAdmin, onDelete, onEdit }) => {
+const Article = ({ imgUrl, date, title, isAdmin, onDelete, onEdit, id }) => {
   return (
     <div className="MN__blog-container_article" style={{ position: 'relative' }}>
       <div className="MN__blog-container_article-image">
@@ -12,7 +13,7 @@ const Article = ({ imgUrl, date, title, isAdmin, onDelete, onEdit }) => {
           <p>{date}</p>
           <h3>{title}</h3>
         </div>
-        <p>Read Full Article</p>
+        <Link to={`/blog/${id}`} style={{cursor: 'pointer', color: 'inherit', textDecoration: 'none'}}>Read Full Article</Link>
       </div>
       
       {isAdmin && (

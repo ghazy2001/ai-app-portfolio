@@ -2,6 +2,10 @@
 import { useState, useEffect, useRef } from "react";
 import "./testimonials.css";
 import AddTestimonialModal from "../../components/AddTestimonialModal";
+import EditTestimonialModal from "../../components/EditTestimonialModal";
+import { RiEdit2Line } from "react-icons/ri";
+
+import API_URL from "../../apiConfig";
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -9,10 +13,12 @@ const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedTestimonial, setSelectedTestimonial] = useState(null);
 
   const fetchTestimonials = async () => {
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/api/tp/testimonial");
+      const res = await fetch(`${API_URL}/api/tp/testimonial`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setTestimonials(data);
@@ -89,6 +95,12 @@ const Testimonials = () => {
   return (
     <section className="testimonials-section" dir="rtl">
       <AddTestimonialModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAdded={fetchTestimonials} />
+      <EditTestimonialModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        testimonial={selectedTestimonial}
+        onUpdated={() => { fetchTestimonials(); setIsEditModalOpen(false); setSelectedTestimonial(null); }} 
+      />
       
       <div className="testimonials-container">
         <div className="testimonials-header">
@@ -102,11 +114,33 @@ const Testimonials = () => {
             <div className="testimonial-card-new">
                 <p className="quote">"{current.text}"</p>
                 <div className="author-row">
-                <div>
-                    <h4>{current.name}</h4>
-                    {current.title && <p>{current.title}</p>}
+                  <div>
+                      <h4>{current.name}</h4>
+                      {current.title && <p>{current.title}</p>}
+                  </div>
                 </div>
-                </div>
+                {isAdmin && (
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); setSelectedTestimonial(current); setIsEditModalOpen(true); }}
+                        style={{
+                            position: 'absolute',
+                            top: '10px',
+                            left: '10px',
+                            background: '#042c54',
+                            color: 'white',
+                            border: '1px solid #FF4820',
+                            borderRadius: '50%',
+                            width: '30px',
+                            height: '30px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <RiEdit2Line size={16} />
+                    </button>
+                )}
             </div>
           )}
 
@@ -161,6 +195,23 @@ const Testimonials = () => {
                     {t.title && <p>{t.title}</p>}
                   </div>
                 </div>
+                {isAdmin && (
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); setSelectedTestimonial(t); setIsEditModalOpen(true); }}
+                        style={{
+                            marginTop: '10px',
+                            background: 'transparent',
+                            color: '#FF4820',
+                            border: '1px solid #FF4820',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontSize: '0.8rem',
+                            padding: '2px 5px'
+                        }}
+                    >
+                        Edit
+                    </button>
+                )}
               </div>
             ))}
         </div>

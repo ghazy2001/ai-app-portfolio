@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API_URL from "../apiConfig";
 
 const AddBlogModal = ({ isOpen, onClose, onBlogAdded }) => {
     const [title, setTitle] = useState('');
@@ -23,7 +24,7 @@ const AddBlogModal = ({ isOpen, onClose, onBlogAdded }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('${import.meta.env.VITE_API_URL}/api/blog', {
+            const res = await fetch(`${API_URL}/api/blog`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

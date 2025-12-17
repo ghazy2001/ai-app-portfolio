@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { RiCloseCircleFill } from "react-icons/ri";
 import "./clinetscarousal.css";
 import AddPartnerModal from "../../components/AddPartnerModal";
+import EditPartnerModal from "../../components/EditPartnerModal";
+import { RiPencilFill } from "react-icons/ri";
 import clients1 from "../../assets/clients1.jpg";
 import clients2 from "../../assets/clients2.jpg";
 import clients3 from "../../assets/clients3.jpg";
@@ -17,11 +20,14 @@ import clients13 from "../../assets/clients13.jpg";
 import clients14 from "../../assets/clients14.png";
 import clients15 from "../../assets/clients15.png";
 import clients16 from "../../assets/clients16.jpg";
+import API_URL from "../../apiConfig";
 
 const ClinetsCarousal = () => {
   const [partners, setPartners] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedPartner, setSelectedPartner] = useState(null);
 
   // Default images fallback
   const clientImages = [
@@ -31,7 +37,7 @@ const ClinetsCarousal = () => {
 
   const fetchPartners = async () => {
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/api/tp/partner");
+      const res = await fetch(`${API_URL}/api/tp/partner`);
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         setPartners(data);
@@ -45,6 +51,27 @@ const ClinetsCarousal = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+      if (!window.confirm("Are you sure you want to delete this partner?")) return;
+      try {
+          const token = localStorage.getItem('token');
+          const res = await fetch(`${API_URL}/api/tp/partner/${id}`, {
+              method: 'DELETE',
+              headers: {
+                   'Authorization': `Bearer ${token}`
+              }
+          });
+          if (res.ok) {
+              setPartners(prev => prev.filter(p => p._id !== id));
+          } else {
+              alert("Failed to delete partner");
+          }
+      } catch (error) {
+          console.error(error);
+          alert("Error deleting partner");
+      }
+  };
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.role === 'admin') {
@@ -55,15 +82,23 @@ const ClinetsCarousal = () => {
 
   const getImageUrl = (imagePath) => {
     if (imagePath.startsWith('http')) return imagePath;
-    return `${import.meta.env.VITE_API_URL}/${imagePath.replace(/\\/g, '/')}`;
+    return `${API_URL}/${imagePath.replace(/\\/g, '/')}`;
   };
 
   // Decide what to show: API partners or Default partners
-  const displayPartners = partners.length > 0 ? partners : clientImages.map((img, i) => ({ _id: i, image: img, isLocal: true }));
+  // Decide what to show: Merge Default partners AND API partners
+  const localPartners = clientImages.map((img, i) => ({ _id: `local-${i}`, image: img, isLocal: true }));
+  const displayPartners = [...localPartners, ...partners];
 
   return (
     <div className="clients-wrapper">
       <AddPartnerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAdded={fetchPartners} />
+      <EditPartnerModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        partner={selectedPartner}
+        onUpdated={() => { fetchPartners(); setIsEditModalOpen(false); setSelectedPartner(null); }}
+      />
       
       <h2 className="clients-title gradient__text">شركاؤنا في النجاح</h2>
       
@@ -76,21 +111,113 @@ const ClinetsCarousal = () => {
       <div className="logos">
         <div className="logos-slide">
             {displayPartners.map((partner, index) => (
-            <img 
-                key={partner._id || index} 
-                src={partner.isLocal ? partner.image : getImageUrl(partner.image)} 
-                alt={`Partner ${index + 1}`} 
-            />
+            <div key={partner._id || index} style={{position: 'relative', display: 'inline-block', margin: '0 40px'}}>
+                <img 
+                    src={partner.isLocal ? partner.image : getImageUrl(partner.image)} 
+                    alt={`Partner ${index + 1}`} 
+                    style={{margin: 0}}
+                />
+                {isAdmin && !partner.isLocal && (
+                    <>
+                        <button
+                            onClick={() => handleDelete(partner._id)}
+                            style={{
+                                position: 'absolute',
+                                top: '-10px',
+                                right: '-10px',
+                                background: 'white',
+                                color: 'red',
+                                borderRadius: '50%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                        >
+                            <RiCloseCircleFill size={20} />
+                        </button>
+                        <button
+                            onClick={() => { setSelectedPartner(partner); setIsEditModalOpen(true); }}
+                            style={{
+                                position: 'absolute',
+                                top: '-10px',
+                                left: '-10px',
+                                background: 'white',
+                                color: '#1582db',
+                                borderRadius: '50%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                        >
+                            <RiPencilFill size={20} />
+                        </button>
+                    </>
+                )}
+            </div>
             ))}
         </div>
 
         <div className="logos-slide">
             {displayPartners.map((partner, index) => (
-            <img 
-                key={`dup-${partner._id || index}`} 
-                src={partner.isLocal ? partner.image : getImageUrl(partner.image)} 
-                alt={`Partner ${index + 1}`} 
-            />
+            <div key={`dup-${partner._id || index}`} style={{position: 'relative', display: 'inline-block', margin: '0 40px'}}>
+                <img 
+                    src={partner.isLocal ? partner.image : getImageUrl(partner.image)} 
+                    alt={`Partner ${index + 1}`} 
+                    style={{margin: 0}}
+                />
+                {isAdmin && !partner.isLocal && (
+                    <>
+                        <button
+                            onClick={() => handleDelete(partner._id)}
+                            style={{
+                                position: 'absolute',
+                                top: '-10px',
+                                right: '-10px',
+                                background: 'white',
+                                color: 'red',
+                                borderRadius: '50%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                        >
+                            <RiCloseCircleFill size={20} />
+                        </button>
+                        <button
+                            onClick={() => { setSelectedPartner(partner); setIsEditModalOpen(true); }}
+                            style={{
+                                position: 'absolute',
+                                top: '-10px',
+                                left: '-10px',
+                                background: 'white',
+                                color: '#1582db',
+                                borderRadius: '50%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                        >
+                            <RiPencilFill size={20} />
+                        </button>
+                    </>
+                )}
+            </div>
             ))}
         </div>
       </div>

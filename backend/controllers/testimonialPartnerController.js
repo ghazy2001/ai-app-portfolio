@@ -34,6 +34,23 @@ const deleteTestimonial = asyncHandler(async (req, res) => {
     res.json({ id: req.params.id });
 });
 
+// @desc Update testimonial
+// @route PUT /api/testimonial/:id
+const updateTestimonial = asyncHandler(async (req, res) => {
+    const testimonial = await Testimonial.findById(req.params.id);
+    if (!testimonial) {
+        res.status(404); throw new Error('Testimonial not found');
+    }
+
+    const { name, title, text } = req.body;
+    testimonial.name = name || testimonial.name;
+    testimonial.title = title || testimonial.title;
+    testimonial.text = text || testimonial.text;
+
+    const updatedTestimonial = await testimonial.save();
+    res.json(updatedTestimonial);
+});
+
 
 // --- Partners ---
 
@@ -74,7 +91,31 @@ const deletePartner = asyncHandler(async (req, res) => {
     res.json({ id: req.params.id });
 });
 
+// @desc Update partner
+// @route PUT /api/partner/:id
+const updatePartner = asyncHandler(async (req, res) => {
+    const partner = await Partner.findById(req.params.id);
+    if (!partner) {
+        res.status(404); throw new Error('Partner not found');
+    }
+
+    if (req.file) {
+        // Delete old image
+        if (partner.image) {
+            const oldPath = path.resolve(partner.image);
+            if(fs.existsSync(oldPath)) {
+                fs.unlinkSync(oldPath);
+            }
+        }
+        partner.image = req.file.path;
+    }
+
+    const updatedPartner = await partner.save();
+    res.json(updatedPartner);
+});
+
 module.exports = {
-    getTestimonials, createTestimonial, deleteTestimonial,
-    getPartners, createPartner, deletePartner
+    getTestimonials, createTestimonial, deleteTestimonial, updateTestimonial,
+    getPartners, createPartner, deletePartner, updatePartner
 };
+

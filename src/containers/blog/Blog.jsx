@@ -5,6 +5,8 @@ import EditableText from "../../components/EditableText";
 import AddBlogModal from "../../components/AddBlogModal";
 import EditBlogModal from "../../components/EditBlogModal";
 
+import API_URL from "../../apiConfig";
+
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -16,7 +18,7 @@ const Blog = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog`);
+      const res = await fetch(`${API_URL}/api/blog`);
       const data = await res.json();
       setBlogs(data);
     } catch (error) {
@@ -35,7 +37,7 @@ const Blog = () => {
 
   const getImageUrl = (imagePath) => {
     if (imagePath.startsWith("http")) return imagePath;
-    return `${import.meta.env.VITE_API_URL}/${imagePath.replace(/\\/g, "/")}`;
+    return `${API_URL}/${imagePath.replace(/\\/g, "/")}`;
   };
 
   const handleDeleteBlog = async (blogId) => {
@@ -44,7 +46,7 @@ const Blog = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog/${blogId}`, {
+      const res = await fetch(`${API_URL}/api/blog/${blogId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -153,6 +155,7 @@ const Blog = () => {
                 imgUrl={getImageUrl(currentBlogs[0].coverImage || "")}
                 date={new Date(currentBlogs[0].createdAt).toLocaleDateString()}
                 title={currentBlogs[0].title}
+                id={currentBlogs[0]._id}
                 isAdmin={isAdmin}
                 onDelete={() => handleDeleteBlog(currentBlogs[0]._id)}
                 onEdit={() => handleEditBlog(currentBlogs[0])}
@@ -165,6 +168,7 @@ const Blog = () => {
                   imgUrl={getImageUrl(blog.coverImage || "")}
                   date={new Date(blog.createdAt).toLocaleDateString()}
                   title={blog.title}
+                  id={blog._id}
                   isAdmin={isAdmin}
                   onDelete={() => handleDeleteBlog(blog._id)}
                   onEdit={() => handleEditBlog(blog)}

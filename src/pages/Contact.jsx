@@ -4,22 +4,97 @@ import { Navbar } from "../components";
 import { Footer } from "../containers";
 import { Link, useNavigate } from "react-router-dom";
 import "./contact.css";
+import API_URL from "../apiConfig";
 
 const Contact = () => {
   const [selectedBudget, setSelectedBudget] = useState(25000);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    referral: "",
+    interests: []
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (!user) {
-      navigate('/auth');
+        // Allow public access to contact page or redirect? 
+        // Typically Contact is public, but user context implies auth might be needed for other reasons
+        // Keeping redirect for now based on previous code, but Contact usually should be public
+        navigate('/auth');
     }
   }, [navigate]);
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleInterestClick = (interest) => {
+    setFormData((prev) => {
+        const interests = prev.interests.includes(interest)
+            ? prev.interests.filter(i => i !== interest)
+            : [...prev.interests, interest];
+        return { ...prev, interests };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+
+    try {
+        const res = await fetch(`${API_URL}/api/contact`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ...formData,
+                budget: `$${selectedBudget}`
+            })
+        });
+
+        if (res.ok) {
+            setSuccess(true);
+            setFormData({
+                name: "",
+                email: "",
+                message: "",
+                referral: "",
+                interests: []
+            });
+            setSelectedBudget(25000);
+        } else {
+            const data = await res.json();
+            setError(data.message || "Something went wrong");
+        }
+    } catch (err) {
+        setError("Failed to send message");
+        console.error(err);
+    } finally {
+        setLoading(false);
+    }
+  };
+
+  // Budget slider background calculation
+  const getBackgroundSize = () => {
+    return {
+        backgroundSize: `${((selectedBudget - 25000) * 100) / (500000 - 25000)}% 100%`
+    };
+  };
 
   return (
     <>
       <Navbar />
-      <main className="contact-page section__padding">
+      <main className="contact-page section__padding" dir="rtl">
         
         <div className="contact-container">
             {/* Left Side: Bold Header & Info */}
@@ -56,23 +131,41 @@ const Contact = () => {
 
             {/* Right Side: Minimal Form */}
             <div className="contact-form-container">
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>ما اسمك؟</label>
-                        <input type="text" placeholder="الاسم الكامل" />
+                        <input 
+                            type="text" 
+                            name="name" 
+                            placeholder="الاسم الكامل" 
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
                     <div className="form-group">
                         <label>بريدك الإلكتروني؟</label>
-                        <input type="email" placeholder="email@address.com" />
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="email@address.com" 
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
                     
                     <div className="form-group">
                         <label>بماذا أنت مهتم؟</label>
                         <div className="form-options-grid">
                             {["Brand Strategy & Design", "Content Strategy", "Web UX & UI Design", "eCommerce Design", "Web Development", "App Design & Development", "Performance Marketing", "Venture Design"].map(opt => (
-                                <div key={opt} className="option-pill" onClick={(e) => {
-                                    e.target.classList.toggle('active');
-                                }}>{opt}</div>
+                                <div 
+                                    key={opt} 
+                                    className={`option-pill ${formData.interests.includes(opt) ? 'active' : ''}`} 
+                                    onClick={() => handleInterestClick(opt)}
+                                >
+                                    {opt}
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -90,12 +183,10 @@ const Contact = () => {
                                     min="25000" 
                                     max="500000" 
                                     step="5000" 
-                                    value={selectedBudget || 25000}
+                                    value={selectedBudget}
                                     className="budget-range"
                                     onChange={(e) => setSelectedBudget(e.target.value)}
-                                    style={{
-                                        backgroundSize: `${((selectedBudget - 25000) * 100) / (500000 - 25000)}% 100%`
-                                    }}
+                                    style={getBackgroundSize()}
                                  />
                              </div>
 
@@ -108,12 +199,23 @@ const Contact = () => {
 
                     <div className="form-group">
                         <label>أهداف شراكتك</label>
-                        <textarea rows="2" placeholder="أدخل النص..."></textarea>
+                        <textarea 
+                            name="message"
+                            rows="2" 
+                            placeholder="أدخل النص..."
+                            value={formData.message}
+                            onChange={handleInputChange}
+                            required
+                        ></textarea>
                     </div>
 
                     <div className="form-group">
                         <label>مصدر الإحالة (اختياري)</label>
-                        <select defaultValue="">
+                        <select 
+                            name="referral"
+                            value={formData.referral}
+                            onChange={handleInputChange}
+                        >
                             <option value="" disabled>اختر خياراً</option>
                             <option value="google">بحث جوجل</option>
                             <option value="social">وسائل التواصل الاجتماعي</option>
@@ -122,7 +224,11 @@ const Contact = () => {
                         </select>
                     </div>
 
-                    <button type="submit" className="submit-btn">إرسال الطلب</button>
+                    <button type="submit" className="submit-btn" disabled={loading}>
+                        {loading ? "جاري الإرسال..." : "إرسال الطلب"}
+                    </button>
+                    {success && <p style={{color: '#4caf50', marginTop: '1rem', textAlign: 'center'}}>تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</p>}
+                    {error && <p style={{color: '#f44336', marginTop: '1rem', textAlign: 'center'}}>{error}</p>}
                 </form>
             </div>
         </div>
@@ -139,11 +245,11 @@ const Contact = () => {
                     <EditableText section="contact" contentKey="faq1A" defaultContent="نقدم خدمات تسويق رقمي شاملة تشمل إدارة وسائل التواصل، تحسين محركات البحث، وتصميم الهوية البصرية." type="p" style={{color: '#9f9f9f'}} />
                 </div>
                 <div className="faq-item">
-                     <EditableText section="contact" contentKey="faq2Q" defaultContent="كم تكلفة المشاريع عادة؟" type="h4" style={{marginBottom: '0.5rem', color:'#fff', fontSize: '20px'}} />
+                    <EditableText section="contact" contentKey="faq2Q" defaultContent="كم تكلفة المشاريع عادة؟" type="h4" style={{marginBottom: '0.5rem', color:'#fff', fontSize: '20px'}} />
                     <EditableText section="contact" contentKey="faq2A" defaultContent="تختلف التكلفة بناءً على نطاق العمل، لكننا نقدم باقات مرنة تناسب الشركات الناشئة والمؤسسات الكبيرة." type="p" style={{color: '#9f9f9f'}} />
                 </div>
                 <div className="faq-item">
-                     <EditableText section="contact" contentKey="faq3Q" defaultContent="كم يستغرق تنفيذ المشروع؟" type="h4" style={{marginBottom: '0.5rem', color:'#fff', fontSize: '20px'}} />
+                    <EditableText section="contact" contentKey="faq3Q" defaultContent="كم يستغرق تنفيذ المشروع؟" type="h4" style={{marginBottom: '0.5rem', color:'#fff', fontSize: '20px'}} />
                     <EditableText section="contact" contentKey="faq3A" defaultContent="نحن نلتزم بالجداول الزمنية بصرامة. المشاريع الصغيرة قد تستغرق أسبوعين، بينما المشاريع الكبيرة قد تمتد لشهر أو أكثر." type="p" style={{color: '#9f9f9f'}} />
                 </div>
             </div>

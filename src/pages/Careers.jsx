@@ -5,6 +5,7 @@ import EditableText from "../components/EditableText";
 import AddJobModal from "../components/AddJobModal";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import "./contact.css";
+import API_URL from "../apiConfig";
 
 const Careers = () => {
   const [jobs, setJobs] = useState([]);
@@ -21,7 +22,7 @@ const Careers = () => {
 
   const fetchJobs = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`);
+      const res = await fetch(`${API_URL}/api/jobs`);
       const data = await res.json();
       setJobs(data);
     } catch (err) {
@@ -34,7 +35,7 @@ const Careers = () => {
     if (!window.confirm("Are you sure you want to delete this job?")) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs/${id}`, {
+      const res = await fetch(`${API_URL}/api/jobs/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,7 +58,7 @@ const Careers = () => {
         onJobAdded={(newJob) => setJobs([newJob, ...jobs])}
       />
 
-      <main className="section__padding">
+      <main className="section__padding" dir="rtl">
         {/* Hero Section */}
         <div
           style={{

@@ -12,6 +12,18 @@ const contactSchema = mongoose.Schema({
     message: {
         type: String,
         required: true
+    },
+    budget: {
+        type: String,
+        required: false
+    },
+    interests: {
+        type: [String],
+        required: false
+    },
+    referral: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

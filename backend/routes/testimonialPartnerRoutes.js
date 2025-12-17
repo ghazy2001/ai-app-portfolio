@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {
-    getTestimonials, createTestimonial, deleteTestimonial,
-    getPartners, createPartner, deletePartner
+    getTestimonials, createTestimonial, deleteTestimonial, updateTestimonial,
+    getPartners, createPartner, deletePartner, updatePartner
 } = require('../controllers/testimonialPartnerController');
 const { protect, adminOnly } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
@@ -13,7 +13,8 @@ router.route('/testimonial')
     .post(protect, adminOnly, createTestimonial);
 
 router.route('/testimonial/:id')
-    .delete(protect, adminOnly, deleteTestimonial);
+    .delete(protect, adminOnly, deleteTestimonial)
+    .put(protect, adminOnly, updateTestimonial);
 
 // Partners
 router.route('/partner')
@@ -21,6 +22,7 @@ router.route('/partner')
     .post(protect, adminOnly, upload.single('image'), createPartner);
 
 router.route('/partner/:id')
-    .delete(protect, adminOnly, deletePartner);
+    .delete(protect, adminOnly, deletePartner)
+    .put(protect, adminOnly, upload.single('image'), updatePartner);
 
 module.exports = router;

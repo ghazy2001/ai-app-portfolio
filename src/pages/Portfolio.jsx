@@ -4,6 +4,7 @@ import { Footer } from "../containers";
 import EditableText from "../components/EditableText";
 import AddProjectModal from "../components/AddProjectModal";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import API_URL from "../apiConfig";
 
 const Portfolio = () => {
     const [projects, setProjects] = useState([]);
@@ -21,7 +22,7 @@ const Portfolio = () => {
 
     const fetchProjects = async () => {
         try {
-            const res = await fetch('${import.meta.env.VITE_API_URL}/api/projects');
+            const res = await fetch(`${API_URL}/api/projects`);
             const data = await res.json();
             setProjects(data);
         } catch (error) {
@@ -36,7 +37,7 @@ const Portfolio = () => {
         
         const token = localStorage.getItem('token');
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects/${id}`, {
+            const res = await fetch(`${API_URL}/api/projects/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -114,7 +115,7 @@ const Portfolio = () => {
                                     <div style={{ height: '250px', overflow: 'hidden', position: 'relative' }}>
                                         {project.images && project.images.length > 0 ? (
                                             <img 
-                                                src={`${import.meta.env.VITE_API_URL}/${project.images[0].replace(/\\/g, '/')}`} 
+                                                src={`${API_URL}/${project.images[0].replace(/\\/g, '/')}`} 
                                                 alt={project.title} 
                                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                             />

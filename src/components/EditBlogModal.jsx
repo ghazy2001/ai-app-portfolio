@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
+import API_URL from "../apiConfig";
 
 const EditBlogModal = ({ isOpen, onClose, blog, onBlogUpdated }) => {
     const [title, setTitle] = useState('');
@@ -39,7 +40,7 @@ const EditBlogModal = ({ isOpen, onClose, blog, onBlogUpdated }) => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog/${blog._id}`, {
+            const res = await fetch(`${API_URL}/api/blog/${blog._id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`

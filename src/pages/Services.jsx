@@ -9,7 +9,7 @@ const Services = () => {
   return (
     <>
       <Navbar />
-      <main className="services-section section__padding">
+      <main className="services-section section__padding" dir="rtl">
         
         {/* Header */}
         <div className="services-header">

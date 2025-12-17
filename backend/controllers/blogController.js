@@ -11,11 +11,19 @@ const getBlogs = asyncHandler(async (req, res) => {
     res.status(200).json(blogs);
 });
 
-// @desc    Get blog by slug
+// @desc    Get blog by slug or ID
 // @route   GET /api/blog/:slug
 // @access  Public
 const getBlogBySlug = asyncHandler(async (req, res) => {
-    const blog = await Blog.findOne({ slug: req.params.slug });
+    const { slug } = req.params;
+    let blog;
+
+    // Check if input is a valid ObjectId
+    if (slug.match(/^[0-9a-fA-F]{24}$/)) {
+        blog = await Blog.findById(slug);
+    } else {
+        blog = await Blog.findOne({ slug });
+    }
     
     if(!blog) {
         res.status(404);

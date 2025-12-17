@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
+import API_URL from "../apiConfig";
 
 const AddJobModal = ({ isOpen, onClose, onJobAdded }) => {
     const [title, setTitle] = useState('');
@@ -18,7 +19,7 @@ const AddJobModal = ({ isOpen, onClose, onJobAdded }) => {
         const token = localStorage.getItem('token'); // Get auth token
 
         try {
-            const res = await fetch('${import.meta.env.VITE_API_URL}/api/jobs', {
+            const res = await fetch(`${API_URL}/api/jobs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
