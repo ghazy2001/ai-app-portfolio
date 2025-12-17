@@ -14,6 +14,21 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
+// Debugging Middleware
+app.use((req, res, next) => {
+    console.log(`[Request] ${req.method} ${req.url} | Origin: ${req.headers.origin}`);
+    next();
+});
+
+// Health Check Endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'ok', 
+        deployment: 'CORS_FIX_REFLECT_ORIGIN_V2', 
+        timestamp: new Date().toISOString() 
+    });
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
