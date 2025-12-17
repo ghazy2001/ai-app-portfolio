@@ -7,12 +7,15 @@ const app = express();
 
 // Middleware
 // Use origin: true to allow any origin while still supporting credentials
-// This essentially reflects the request origin back in the allow header
 app.use(cors({
   origin: true,
   credentials: true,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
+
+// Enable pre-flight across-the-board
+app.options('*', cors());
 
 // Debugging Middleware
 app.use((req, res, next) => {
