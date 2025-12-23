@@ -6,11 +6,10 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const app = express();
 
 // Middleware
-// Use origin: true to allow any origin while still supporting credentials
 app.use(cors({
-  origin: true,
+  origin: ['https://marketing-agency-chi.vercel.app', 'http://localhost:5173', 'http://localhost:5000'],
   credentials: true,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
