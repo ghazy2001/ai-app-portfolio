@@ -82,10 +82,10 @@ const Preloader = () => {
     return () => ctx.revert();
   }, [location.pathname]);
 
-  if (complete) return null;
+  // if (complete) return null; // REMOVED to prevent GSAP/React DOM conflicts
 
   return (
-    <div className="preloader" ref={containerRef}>
+    <div className={`preloader ${complete ? 'hidden' : ''}`} ref={containerRef} style={{ display: complete ? 'none' : 'flex' }}>
       <div className="preloader-panel-top" ref={topPanelRef}></div>
       <div className="preloader-panel-bottom" ref={bottomPanelRef}></div>
       

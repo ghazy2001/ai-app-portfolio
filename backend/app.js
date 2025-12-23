@@ -36,6 +36,7 @@ app.use('/api/blog', require('./routes/blogRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/tp', require('./routes/testimonialPartnerRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
+app.use('/api/seed', require('./routes/seedRoutes'));
 
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
