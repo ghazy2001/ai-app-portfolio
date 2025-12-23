@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar } from '../components';
-import { Footer } from '../containers';
+import { Footer, Contact } from '../containers';
 import './blogArticle.css'; // We'll create a basic CSS file for this too or use inline/existing styles
 
 import API_URL from '../apiConfig';
@@ -42,12 +42,14 @@ const BlogArticle = () => {
 
     return (
         <div className="blog-article-page" >
-            <Navbar />
-            <div className="section__padding blog-article-content"  style={{ color: 'white', minHeight: '60vh' }} dir="rtl" >
-                <Link to="/blog" style={{color: '#FF4820', marginBottom: '2rem', display: 'inline-block'}}>← Back to Blog</Link>
+            <div className="gradient__bg">
+                <Navbar />
+            </div>
+            <div className="section__padding blog-article-content"  style={{ color: 'white', minHeight: '60vh' }} dir="ltr" >
+                <Link to="/blog" style={{color: '#D4AF37', marginBottom: '2rem', display: 'inline-block', fontWeight: 'bold'}}>← Back to Blog</Link>
                 
-                <h1 className="gradient__text" style={{fontSize: '3rem', marginBottom: '1rem'}}>{blog.title}</h1>
-                <p style={{color: '#81AFDD', marginBottom: '2rem'}}>{new Date(blog.createdAt).toLocaleDateString()}</p>
+                <h1 style={{fontSize: '3rem', marginBottom: '1rem', color: '#fff', fontWeight: '800'}}>{blog.title}</h1>
+                <p style={{color: '#D4AF37', marginBottom: '2rem', fontSize: '1.2rem'}}>{new Date(blog.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 
                 <div className="article-main-wrapper">
                     {blog.coverImage && (
@@ -56,11 +58,12 @@ const BlogArticle = () => {
                         </div>
                     )}
 
-                    <div className="article-body sub_">
+                    <div className="article-body">
                         {blog.content}
                     </div>
                 </div>
             </div>
+            <Contact />
             <Footer />
         </div>
     );

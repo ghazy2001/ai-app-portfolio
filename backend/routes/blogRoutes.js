@@ -10,11 +10,11 @@ const {
 const { protect, adminOnly } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
-router.route('/').get(getBlogs).post(protect, adminOnly, upload.single('coverImage'), createBlog);
+router.route('/').get(getBlogs).post(upload.single('coverImage'), createBlog);
 router.route('/:slug').get(getBlogBySlug);
 router
     .route('/:id')
-    .put(protect, adminOnly, upload.single('coverImage'), updateBlog)
-    .delete(protect, adminOnly, deleteBlog);
+    .put(upload.single('coverImage'), updateBlog)
+    .delete(deleteBlog);
 
 module.exports = router;

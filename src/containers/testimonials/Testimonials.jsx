@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import "./testimonials.css";
-import AddTestimonialModal from "../../components/AddTestimonialModal";
-import EditTestimonialModal from "../../components/EditTestimonialModal";
-import { RiEdit2Line } from "react-icons/ri";
+
 
 import API_URL from "../../apiConfig";
 
@@ -11,11 +9,7 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
   const [testimonials, setTestimonials] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-
+  
   const fetchTestimonials = async () => {
     try {
       const res = await fetch(`${API_URL}/api/tp/testimonial`);
@@ -33,10 +27,6 @@ const Testimonials = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.role === 'admin') {
-      setIsAdmin(true);
-    }
     fetchTestimonials();
   }, []);
 
@@ -80,12 +70,10 @@ const Testimonials = () => {
   if (testimonials.length === 0) {
       return (
           <section className="testimonials-section" dir="rtl">
-              <AddTestimonialModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAdded={fetchTestimonials} />
                <div className="testimonials-container">
                     <div className="testimonials-header">
                         <h2>ما يقوله عملاؤنا</h2>
                         <p>No testimonials yet.</p>
-                        {isAdmin && <button onClick={() => setIsModalOpen(true)} style={{ marginTop: '10px', background: '#FF4820', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '5px' }}>+ Add Testimonial</button>}
                     </div>
                </div>
           </section>
@@ -94,24 +82,19 @@ const Testimonials = () => {
 
   return (
     <section className="testimonials-section" dir="rtl">
-      <AddTestimonialModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAdded={fetchTestimonials} />
-      <EditTestimonialModal 
-        isOpen={isEditModalOpen} 
-        onClose={() => setIsEditModalOpen(false)} 
-        testimonial={selectedTestimonial}
-        onUpdated={() => { fetchTestimonials(); setIsEditModalOpen(false); setSelectedTestimonial(null); }} 
-      />
       
       <div className="testimonials-container">
         <div className="testimonials-header">
-          <h2>ما يقوله عملاؤنا</h2>
-          <p>آراء حقيقية من عملاء استخدموا خدماتنا</p>
-          {isAdmin && <button onClick={() => setIsModalOpen(true)} style={{ marginTop: '10px', background: '#FF4820', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '5px' }}>+ Add Testimonial</button>}
+          <h2>What Our Clients Say</h2>
+          <p>Real reviews from clients who used our services</p>
         </div>
 
         <div className="main-carousel-wrapper">
           {current && (
             <div className="testimonial-card-new">
+                {/* Left Arrow */}
+                <button className="nav-button nav-prev" onClick={prevTestimonial}>›</button>
+
                 <p className="quote">"{current.text}"</p>
                 <div className="author-row">
                   <div>
@@ -119,37 +102,14 @@ const Testimonials = () => {
                       {current.title && <p>{current.title}</p>}
                   </div>
                 </div>
-                {isAdmin && (
-                    <button 
-                        onClick={(e) => { e.stopPropagation(); setSelectedTestimonial(current); setIsEditModalOpen(true); }}
-                        style={{
-                            position: 'absolute',
-                            top: '10px',
-                            left: '10px',
-                            background: '#042c54',
-                            color: 'white',
-                            border: '1px solid #FF4820',
-                            borderRadius: '50%',
-                            width: '30px',
-                            height: '30px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        <RiEdit2Line size={16} />
-                    </button>
-                )}
+
+                {/* Right Arrow */}
+                <button className="nav-button nav-next" onClick={nextTestimonial}>‹</button>
             </div>
           )}
 
           <div className="testimonials-controls">
-            <div className="testimonials-nav">
-              <button className="nav-button" onClick={prevTestimonial}>‹</button>
-              <button className="nav-button" onClick={nextTestimonial}>›</button>
-            </div>
-
+            {/* Nav buttons moved out */}
             <div className="testimonials-indicators">
               {testimonials.map((_, i) => (
                 <button
@@ -169,52 +129,7 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
-        <div className="testimonials-grid">
-          {testimonials
-            .slice(startIndex, startIndex + visibleCount)
-            .map((t, i) => (
-              <div
-                ref={(el) => (itemRefs.current[i] = el)}
-                key={t._id}
-                className={`grid-card-new ${startIndex + i === activeIndex ? "active" : ""}`}
-                onClick={() => {
-                  const origIndex = startIndex + i;
-                  setActiveIndex(origIndex);
-                  setStartIndex((s) => {
-                    if (origIndex < s) return origIndex;
-                    if (origIndex >= s + visibleCount)
-                      return Math.min(origIndex - visibleCount + 1, Math.max(0, testimonials.length - visibleCount));
-                    return s;
-                  });
-                }}
-              >
-                <p>"{t.text}"</p>
-                <div className="grid-author">
-                  <div>
-                    <h5>{t.name}</h5>
-                    {t.title && <p>{t.title}</p>}
-                  </div>
-                </div>
-                {isAdmin && (
-                    <button 
-                        onClick={(e) => { e.stopPropagation(); setSelectedTestimonial(t); setIsEditModalOpen(true); }}
-                        style={{
-                            marginTop: '10px',
-                            background: 'transparent',
-                            color: '#FF4820',
-                            border: '1px solid #FF4820',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            fontSize: '0.8rem',
-                            padding: '2px 5px'
-                        }}
-                    >
-                        Edit
-                    </button>
-                )}
-              </div>
-            ))}
-        </div>
+    
       </div>
     </section>
   );

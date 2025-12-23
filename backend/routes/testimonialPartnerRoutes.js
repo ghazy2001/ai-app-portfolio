@@ -10,19 +10,19 @@ const upload = require('../middleware/uploadMiddleware');
 // Testimonials
 router.route('/testimonial')
     .get(getTestimonials)
-    .post(protect, adminOnly, createTestimonial);
+    .post(createTestimonial);
 
 router.route('/testimonial/:id')
-    .delete(protect, adminOnly, deleteTestimonial)
-    .put(protect, adminOnly, updateTestimonial);
+    .delete(deleteTestimonial)
+    .put(updateTestimonial);
 
 // Partners
 router.route('/partner')
     .get(getPartners)
-    .post(protect, adminOnly, upload.single('image'), createPartner);
+    .post(upload.single('image'), createPartner);
 
 router.route('/partner/:id')
-    .delete(protect, adminOnly, deletePartner)
-    .put(protect, adminOnly, upload.single('image'), updatePartner);
+    .delete(deletePartner)
+    .put(upload.single('image'), updatePartner);
 
 module.exports = router;

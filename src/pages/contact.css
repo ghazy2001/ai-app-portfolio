@@ -1,11 +1,73 @@
 .contact-page {
-    background: var(--color-bg);
+    /* background: var(--color-bg); handled globally */
     min-height: 100vh;
     color: #fff;
 }
 
-.contact-container {
-    display: flex;
+.contact-method-item h4 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    color: #D4AF37; /* Gold */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-bottom-color: #D4AF37;
+}
+
+.option-pill:hover {
+    border-color: #D4AF37;
+}
+
+.option-pill.active {
+    background: #D4AF37;
+    border-color: #D4AF37;
+    color: #000;
+}
+
+.budget-value-display {
+    text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+    color: #D4AF37;
+    margin-bottom: 1rem;
+    font-family: var(--font-family);
+}
+
+.budget-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-image: linear-gradient(#D4AF37, #D4AF37);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.contact-submit-btn {
+    width: 100%;
+    background: #D4AF37; 
+    color: #000;
+    /* ... rest of styles ... */
+}
+
+.faq-item {
+    background: transparent;
+    margin-bottom: 2rem;
+    padding: 0;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 2rem;
+}
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 6rem;
@@ -47,7 +109,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
-    color: #ae67fa; /* Accent color */
+    color: #D4AF37; /* Accent color */
 }
 
 .contact-method-item p {
@@ -94,7 +156,7 @@
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-bottom-color: #ae67fa;
+    border-bottom-color: #D4AF37;
 }
 
 /* Form Options (Pills) */
@@ -118,12 +180,12 @@
 }
 
 .option-pill:hover {
-    border-color: #ae67fa;
+    border-color: #D4AF37;
 }
 
 .option-pill.active {
-    background: #ae67fa;
-    border-color: #ae67fa;
+    background: #D4AF37;
+    border-color: #D4AF37;
     color: #fff;
 }
 
@@ -181,7 +243,7 @@
     border: none;
     border-radius: 5px;
     outline: none;
-    background-image: linear-gradient(#ae67fa, #ae67fa);
+    background-image: linear-gradient(#D4AF37, #D4AF37);
     background-size: 0% 100%;
     background-repeat: no-repeat;
     cursor: pointer;

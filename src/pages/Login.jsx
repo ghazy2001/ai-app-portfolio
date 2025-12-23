@@ -4,6 +4,7 @@ import Navbar from '../components/navbar/Navbar';
 import API_URL from '../apiConfig';
 
 const Login = () => {
+    console.log('Login using API:', API_URL);
     const [formData, setFormData] = useState({
         email: '',
         password: '',

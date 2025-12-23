@@ -23,6 +23,42 @@
   --color-footer: #031b34;
   --color-card: #0d1b2a;
   --color-blog: #042c54;
+
+  /* Global Body Background with "Swimming" Animation */
+  html, body {
+    background-color: #040c18; /* Deep Blue Base */
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    overflow-x: hidden; /* CRITICAL: Hides the 200% width background animation */
+    /* Ensure no scroll on x-axis ever */
+    width: 100%;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; /* Fixed so it moves with scroll or stays put while content scrolls */
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    /* A rich, deep animated gradient */
+    background: radial-gradient(circle at center, rgba(0, 40, 83, 1) 0%, #040c18 60%, #000000 100%);
+    /* Adding subtle gold accent spots */
+    background-image: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.03) 0%, transparent 20%), 
+                      radial-gradient(circle at 70% 70%, rgba(97, 45, 154, 0.05) 0%, transparent 20%),
+                      radial-gradient(circle at center, rgba(0, 40, 83, 1) 0%, #040c18 70%);
+    animation: bodySwim 30s linear infinite;
+    z-index: -10; /* Far behind everything */
+    pointer-events: none;
+  }
+
+  @keyframes bodySwim {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
   
   /* Text Colors */
   --color-text: #81afdd;
@@ -40,6 +76,8 @@
   --space-2xl: 3rem;     /* 48px */
   --space-3xl: 4rem;     /* 64px */
   --space-4xl: 6rem;     /* 96px */
+  --space-5xl: 8rem;     /* 128px */
+  --space-6xl: 10rem;    /* 160px */
   
   /* Typography Scale */
   --text-xs: 0.75rem;    /* 12px */

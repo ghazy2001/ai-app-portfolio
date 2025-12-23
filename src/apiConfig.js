@@ -1,4 +1,4 @@
-let apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+let apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 // Ensure the URL starts with http:// or https:// to avoid relative path issues
 if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {

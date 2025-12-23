@@ -1,53 +1,69 @@
 import "./features.css";
 import Feature from "../../components/feature/Feature";
-import EditableText from "../../components/EditableText";
 
-const featureData = [
-  {
-    title: "إدارة الحملات الإعلانية",
-    text: "نصمم و نُدير حملات إعلانية فعّالة على جميع المنصات (Facebook , Instagram , Tiktok)، لزيادة الوعي و تحقيق أفضل عائد استثماري.",
-  },
-  {
-    title: "تحليل الأداء والتقارير",
-    text: "نوفر تقارير دقيقة و ذكية لتحليل نتائج حملاتك و مساعدتك في اتخاذ قرارات تسويقية مبنية على بيانات حقيقية.",
-  },
-  {
-    title: "إدارة المحتوى والسوشيال ميديا",
-    text: "نشئ محتوى جذّاب و مؤثر يعكس هوية علامتك و يزيد من تفاعل الجمهور معك عبر مختلف المنصات الرقمية.",
-  },
-  {
-    title: "العلامة التجارية والتصميم الإبداعي",
-    text: "نساعدك في بناء هوية بصرية قوية و تصميمات احترافية تميزك عن المنافسين و تُبرز قيم علامتك التجارية.",
-  },
-];
+import servicesData from "../../constants/servicesData";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { RiArrowRightLine } from "react-icons/ri";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // Delay between each card
+      delayChildren: 0.3    // Delay before starting
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  }
+};
 
 const Features = () => {
   return (
-    <div
-      className="MN__features section__padding"
-      id="features"
-      style={{ direction: "rtl" }}
-    >
-      <div className="MN__features-heading">
-        <EditableText
-            section="features"
-            contentKey="mainHeading"
-            defaultContent="نقدّم حلولًا مبتكرة لتطوير حضورك الرقمي و زيادة مبيعاتك. دعنا نساعدك على بناء استراتيجية تسويقية تنقل علامتك إلى المستوى التالي."
-            className="gradient__text"
-            type="h1"
-        />
-        <button className="cta-button">ابدأ الآن و حقق نجاحك التسويقي</button>
-      </div>
-      <div className="MN__features-container">
-        {featureData.map((item, index) => (
-          <Feature
-            title={item.title}
-            text={item.text}
-            key={item.title + index}
-            index={index}
-          />
+    <div className="MN__features section__padding" id="features">
+      {/* Heading Animation (Independent) */}
+      <motion.div 
+        className="MN__features-heading"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1 className="features-title">Accelerate Your Growth with Performance-Driven Marketing.</h1>
+        <p className="features-subtext">We provide comprehensive digital solutions designed to scale your business and maximize ROI.</p>
+        <Link to="/services">
+          <button className="cta-button" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+            View All Services <RiArrowRightLine size={20} />
+          </button>
+        </Link>
+      </motion.div>
+
+      {/* Grid Container with Staggered Children */}
+      <motion.div 
+        className="MN__features-container"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {servicesData.slice(0, 4).map((item, index) => (
+          <motion.div key={item.title + index} variants={cardVariants}>
+            <Feature
+              title={item.title}
+              text={item.text}
+              index={index}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

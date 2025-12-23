@@ -15,7 +15,7 @@ app.use(cors({
 }));
 
 // Enable pre-flight across-the-board
-app.options('*', cors());
+app.options(/.*/, cors());
 
 // Debugging Middleware
 app.use((req, res, next) => {
@@ -37,16 +37,26 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/blog', require('./routes/blogRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
-app.use('/api/content', require('./routes/contentRoutes'));
 app.use('/api/tp', require('./routes/testimonialPartnerRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
 
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../dist')));
+
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, '../', 'dist', 'index.html'))
+    );
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running....');
+    });
+}
 
 // Error Handler
 app.use(notFound);

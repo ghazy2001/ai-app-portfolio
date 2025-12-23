@@ -3,18 +3,18 @@
 /* ===================== */
 
 .MN__cta {
-  direction: rtl;
+  direction: ltr;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: var(--space-3xl) var(--space-2xl);
   margin: var(--space-4xl) var(--space-2xl);
   border-radius: var(--radius-xl);
-  background: var(--gradient-bar);
-  border: 1px solid rgba(174, 103, 250, 0.2);
+  background: linear-gradient(135deg, rgba(4, 12, 24, 0.95), rgba(0, 40, 83, 0.95)); /* Dark Blue Gradient */
+  border: 1px solid rgba(255, 215, 0, 0.3); /* Gold Border */
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-lg), 0 0 60px rgba(174, 103, 250, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.1);
 }
 
 .MN__cta::before {
@@ -24,7 +24,7 @@
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(241, 140, 224, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%); /* Gold Shine */
   animation: rotate 20s linear infinite;
   pointer-events: none;
 }
@@ -37,14 +37,17 @@
 .MN__cta-content {
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
 .MN__cta-content p {
   font-family: var(--font-family);
-  font-size: var(--text-xl);
-  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--text-lg);
+  color: #FFD700; /* Gold text */
   margin-bottom: var(--space-sm);
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .MN__cta-content h3 {
@@ -53,7 +56,6 @@
   font-size: var(--text-3xl);
   color: #ffffff;
   line-height: var(--leading-tight);
-  letter-spacing: -0.01em;
 }
 
 .MN__cta-btn {
@@ -62,10 +64,11 @@
   align-items: center;
   position: relative;
   z-index: 1;
+  margin-left: 2rem;
 }
 
 /* ===================== */
-/*   MODERN CTA BUTTON   */
+/*   GOLD CTA BUTTON     */
 /* ===================== */
 
 .glow-btn {
@@ -73,20 +76,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-lg) var(--space-3xl);
-  color: #ffffff;
+  padding: 1rem 3rem;
+  color: #000;
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 1px;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-lg);
+  background: #FFD700; /* Solid Gold */
+  border-radius: 50px;
   font-family: var(--font-heading);
-  transition: all var(--transition-slow);
+  transition: all 0.3s ease;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .glow-btn::before {
@@ -96,7 +98,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
   transition: left 0.5s;
 }
 
@@ -105,13 +107,10 @@
 }
 
 .glow-btn:hover {
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--brand-purple);
-  border-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4),
-              0 0 40px rgba(174, 103, 250, 0.3),
-              0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+  background: #fff;
+  color: #000;
 }
 
 .glow-btn span {
@@ -138,20 +137,30 @@
   .MN__cta {
     flex-direction: column;
     text-align: center;
-    gap: var(--space-xl);
-    padding: var(--space-2xl) var(--space-lg);
+    gap: 2rem;
+    padding: 3rem 1.5rem;
+    margin: 4rem 1rem;
+    border-radius: 20px;
   }
   
   .MN__cta-content h3 {
-    font-size: var(--text-xl);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
   }
   
   .MN__cta-content p {
-    font-size: var(--text-base);
+    font-size: 1rem;
   }
   
+  .MN__cta-btn {
+    margin-left: 0; /* Reset margin */
+    width: 100%;
+  }
+
   .glow-btn {
-    padding: var(--space-md) var(--space-xl);
-    font-size: var(--text-base);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    width: 100%; /* Full width button on mobile */
+    max-width: 300px;
   }
 }

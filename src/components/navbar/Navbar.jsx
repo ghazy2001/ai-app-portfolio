@@ -1,4 +1,5 @@
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import logo from "../../assets/logo2.png";
 
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,41 +8,33 @@ import "./navbar.css";
 const Menu = () => (
   <>
     <p>
-      <Link to="/">الرئيسية</Link>
+      <Link to="/">Home</Link>
     </p>
     <p>
-      <Link to="/about">من نحن</Link>
-    </p>
-
-    <p>
-      <Link to="/services">خدماتنا</Link>
+      <Link to="/about">About Us</Link>
     </p>
 
     <p>
-      <Link to="/portfolio">أعمالنا</Link>
-    </p>
-    <p>
-      <Link to="/blog">المدونة</Link>
+      <Link to="/services">Services</Link>
     </p>
 
     <p>
-      <Link to="/careers">الوظائف</Link>
+      <Link to="/portfolio">Portfolio</Link>
+    </p>
+    <p>
+      <Link to="/blog">Blog</Link>
+    </p>
+
+    <p>
+      <Link to="/careers">Careers</Link>
     </p>
   </>
 );
 
 const Navbar = () => {
   const [togglemenu, settogglemenu] = useState(false);
-  const [user, setUser] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   // Scroll behavior: hide on scroll down, show on scroll up
   useEffect(() => {
@@ -73,35 +66,19 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
-    window.location.href = "/";
-  };
-
   return (
     <div className={`MN__navbar ${scrolled ? "navbar-hidden" : ""}`}>
       <div className="MN__navbar-links">
         <div className="MN__navbar-links_logo">
-          <h1 className="gradient__text">MARKETING AGENCY</h1>
+          <img src={logo} alt="logo" />
         </div>
         <div className="MN__navbar-links_container">
           <Menu />
         </div>
       </div>
       <div className="MN__navbar-sign">
-        {user ? (
-          <p>
-            <button type="button" onClick={handleLogout} style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontFamily: 'var(--font-family)', fontSize: '18px', fontWeight: '500', textTransform: 'capitalize', lineHeight: '25px' }}>تسجيل خروج</button>
-          </p>
-        ) : (
-          <p>
-            <Link to="/auth">تسجيل الدخول</Link>
-          </p>
-        )}
         <Link to="/contact">
-          <button type="button">تواصل معنا</button>
+          <button type="button">Contact Us</button>
         </Link>
       </div>
       <div className="MN__navbar-menu">
@@ -127,17 +104,8 @@ const Navbar = () => {
             <div className="MN__navbar-menu_container-links">
               <Menu />
               <div className="MN__navbar-menu_container-links-sign">
-                {user ? (
-                  <p>
-                    <button type="button" onClick={handleLogout} style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontFamily: 'var(--font-family)', fontSize: '18px', fontWeight: '500', textTransform: 'capitalize', lineHeight: '25px' }}>تسجيل خروج</button>
-                  </p>
-                ) : (
-                  <p>
-                    <Link to="/auth">تسجيل الدخول</Link>
-                  </p>
-                )}
                 <Link to="/contact">
-                  <button type="button">تواصل معنا</button>
+                  <button type="button">Contact Us</button>
                 </Link>
               </div>
             </div>

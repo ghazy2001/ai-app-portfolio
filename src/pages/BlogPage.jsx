@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "../components";
-import { Blog, Footer } from "../containers";
+import { Blog, Footer, Contact } from "../containers";
 
 const BlogPage = () => {
   return (
@@ -9,6 +9,7 @@ const BlogPage = () => {
       <main>
         <Blog />
       </main>
+      <Contact />
       <Footer />
     </>
   );

@@ -1,113 +1,176 @@
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./whatMN.css";
-import EditableText from "../../components/EditableText";
-import { RiUserHeartLine, RiBookOpenLine, RiEyeLine, RiCompassLine } from "react-icons/ri";
+import logo from "../../assets/logo2.png";
+import { RiEyeLine, RiCompassLine, RiTeamLine, RiBookOpenLine } from "react-icons/ri";
+import facebook from "../../assets/facebook.svg";
+import instagram from "../../assets/instgram.svg";
+import linkedin from "../../assets/linkedin.svg";
+import tiktok from "../../assets/tiktok.svg";
+import youtube from "../../assets/youtube.svg";
+import { Link } from "react-router-dom";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const WhatMN = () => {
+  useEffect(() => {
+    // Context for easy cleanup
+    let ctx = gsap.context(() => {
+      
+
+
+      const cards = gsap.utils.toArray(".whatmn-card");
+      const ctaBtn = document.querySelector(".whatmn-cta"); // Select the button wrapper
+
+      // Initial state: Button Hidden
+      gsap.set(ctaBtn, { opacity: 0, y: 30, pointerEvents: "none" });
+
+      /* Entry Animation Moved to Desktop MatchMedia to avoid hiding on mobile */
+      
+      // Use matchMedia to run this ONLY on Desktop
+      ScrollTrigger.matchMedia({
+        
+        // Desktop (min-width: 851px)
+        "(min-width: 851px)": function() {
+          
+          // Entry Animation (Desktop Only)
+          gsap.from(".MN__whatmn", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".MN__whatmn",
+              start: "top 85%", 
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          gsap.set(cards, { yPercent: 100, opacity: 1, zIndex: 1 });
+          gsap.set(cards[0], { yPercent: 0, opacity: 1, zIndex: 1 }); 
+
+          ScrollTrigger.create({
+            trigger: ".MN__whatmn",
+            start: "top top",
+            end: "+=3000",
+            pin: true,
+            scrub: 1, // Smoother scrub
+            anticipatePin: 1,
+            animation: gsap.timeline()
+              // Move Card 2 Up
+              .to(cards[1], { yPercent: 0, duration: 1, zIndex: 2 })
+              .to(cards[0], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
+              
+              // Move Card 3 Up
+              .to(cards[2], { yPercent: 0, duration: 1, zIndex: 3 })
+              .to(cards[1], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
+
+              // Move Card 4 Up
+              .to(cards[3], { yPercent: 0, duration: 1, zIndex: 4 })
+              .to(cards[2], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
+
+              // REVEAL BUTTON AFTER SLIDES
+              .to(ctaBtn, { opacity: 1, y: 0, pointerEvents: "all", duration: 0.5, ease: "back.out(1.7)" })
+          });
+        },
+        
+        "(max-width: 850px)": function() {
+             // Kill all scroll triggers on mobile
+             // Ensure everything is visible
+             gsap.set(".MN__whatmn", { clearProps: "opacity, transform" });
+             gsap.set(cards, { clearProps: "all", opacity: 1, visibility: "visible" });
+             gsap.set(ctaBtn, { clearProps: "all", opacity: 1, pointerEvents: "all" });
+        }
+      });
+
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="MN__whatmn section__padding" id="wmn">
-      {/* Header Section */}
-      <div className="whatmn-header">
-        <EditableText 
-          section="whatMN" 
-          contentKey="mainTitle" 
-          defaultContent="من نحن" 
-          className="gradient__text"
-          type="h1"
-        />
-        <EditableText 
-          section="whatMN" 
-          contentKey="mainSubtitle" 
-          defaultContent="نحن فريق من المحترفين الشغوفين بتحويل الأفكار إلى واقع رقمي" 
-          className="text-color"
-          type="p"
-        />
+      
+      {/* 1. Spinning Icons Section (Left Column) */}
+      <div className="MN__whatmn-icons-container">
+        
+        {/* 3D Scene Wrapper */}
+        <div className="whatmn-scene">
+          <div className="MN__whatmn-logo">
+            <img src={logo} alt="MN Logo" />
+          </div>
+          
+          <div className="MN__whatmn-social-icons">
+            <img src={facebook} alt="Facebook" />
+            <img src={instagram} alt="Instagram" />
+            <img src={linkedin} alt="LinkedIn" />
+            <img src={tiktok} alt="TikTok" />
+            <img src={youtube} alt="YouTube" />
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="whatmn-cta">
+          <Link to="/contact">
+            <button className="cta-button-pulse">Call Us Now</button>
+          </Link>
+        </div>
+
       </div>
 
-      {/* Cards Grid */}
-      <div className="whatmn-cards-grid">
-        {/* Who We Are Card */}
-        <div className="whatmn-card">
-          <div className="whatmn-card-icon">
-            <RiUserHeartLine size={48} />
+      {/* Right Column Content Wrapper */}
+      <div className="MN__whatmn-content-wrapper">
+        
+        {/* 4 Cards Grid - Unified Layout */}
+        <div className="whatmn-cards-grid">
+          
+            {/* Card 1: Who We Are */}
+          <div className="whatmn-card">
+            <div className="whatmn-card-icon">
+              <RiTeamLine size={48} />
+            </div>
+            <h2 className="whatmn-card-title">Who We Are</h2>
+            <p className="whatmn-card-text">
+              We have over 5 years of experience delivering effective, data-driven marketing solutions. We help brands grow by executing performance-focused campaigns that drive measurable results.
+            </p>
           </div>
-          <EditableText 
-            section="whatMN" 
-            contentKey="whoWeAreTitle" 
-            defaultContent="من نحن" 
-            className="whatmn-card-title"
-            type="h2"
-          />
-          <EditableText 
-            section="whatMN" 
-            contentKey="whoWeAreText" 
-            defaultContent="فريق متخصص في التسويق الرقمي والتصميم. نؤمن أن التسويق الحقيقي يبني علاقات دائمة بين العلامات والعملاء. نجمع بين الإبداع والبيانات لإنشاء حملات تحقق نتائج ملموسة وتضاعف مبيعاتك." 
-            className="whatmn-card-text"
-            type="p"
-          />
+
+          {/* Card 2: Company Story */}
+          <div className="whatmn-card">
+            <div className="whatmn-card-icon">
+              <RiBookOpenLine size={48} />
+            </div>
+            <h2 className="whatmn-card-title">Our Story</h2>
+            <p className="whatmn-card-text">
+              Founded on the belief that marketing should create real business impact, not just visibility. We fix the core problem of running campaigns without clear results.
+            </p>
+          </div>
+
+          {/* Card 3: Vision */}
+          <div className="whatmn-card">
+            <div className="whatmn-card-icon">
+              <RiEyeLine size={48} />
+            </div>
+            <h2 className="whatmn-card-title">Our Vision</h2>
+            <p className="whatmn-card-text">
+              To become a leading performance marketing agency that helps brands scale sustainably through data-driven strategies and continuous optimization.
+            </p>
+          </div>
+
+          {/* Card 4: Mission */}
+          <div className="whatmn-card">
+            <div className="whatmn-card-icon">
+              <RiCompassLine size={48} />
+            </div>
+            <h2 className="whatmn-card-title">Our Mission</h2>
+            <p className="whatmn-card-text">
+              Driving real results for brands by building smart strategies, executing high-performance campaigns, and continuously optimizing for ROI.
+            </p>
+          </div>
+
         </div>
 
-        {/* Our Story Card */}
-        <div className="whatmn-card">
-          <div className="whatmn-card-icon">
-            <RiBookOpenLine size={48} />
-          </div>
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourStoryTitle" 
-            defaultContent="قصتنا" 
-            className="whatmn-card-title"
-            type="h2"
-          />
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourStoryText" 
-            defaultContent="بدأنا رحلتنا بحلم بسيط: تمكين الشركات العربية من التميز في العالم الرقمي. على مدى السنوات، ساعدنا مئات العلامات التجارية على النمو والازدهار من خلال استراتيجيات تسويقية مبتكرة ومحتوى جذاب." 
-            className="whatmn-card-text"
-            type="p"
-          />
-        </div>
-
-        {/* Our Vision Card */}
-        <div className="whatmn-card">
-          <div className="whatmn-card-icon">
-            <RiEyeLine size={48} />
-          </div>
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourVisionTitle" 
-            defaultContent="رؤيتنا" 
-            className="whatmn-card-title"
-            type="h2"
-          />
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourVisionText" 
-            defaultContent="أن نكون الشريك الأول للشركات العربية في رحلتها الرقمية، ونساهم في بناء علامات تجارية قوية تترك أثراً إيجابياً في مجتمعاتها وتحقق نجاحاً مستداماً في عالم دائم التطور." 
-            className="whatmn-card-text"
-            type="p"
-          />
-        </div>
-
-        {/* Our Mission Card */}
-        <div className="whatmn-card">
-          <div className="whatmn-card-icon">
-            <RiCompassLine size={48} />
-          </div>
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourMissionTitle" 
-            defaultContent="مهمتنا" 
-            className="whatmn-card-title"
-            type="h2"
-          />
-          <EditableText 
-            section="whatMN" 
-            contentKey="ourMissionText" 
-            defaultContent="تقديم حلول تسويقية متكاملة تجمع بين الإبداع والتكنولوجيا، مع التركيز على تحقيق نتائج قابلة للقياس. نلتزم بفهم عميق لأهداف عملائنا وتقديم استراتيجيات مخصصة تحقق النمو والتميز." 
-            className="whatmn-card-text"
-            type="p"
-          />
-        </div>
       </div>
     </div>
   );

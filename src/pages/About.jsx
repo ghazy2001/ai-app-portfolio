@@ -1,6 +1,6 @@
 
 import { Navbar } from "../components";
-import { WhatMN, Footer } from "../containers";
+import { WhatMN, Footer, Contact } from "../containers";
 
 const About = () => {
   return (
@@ -10,6 +10,7 @@ const About = () => {
       
         <WhatMN />
       </main>
+      <Contact />
       <Footer />
     </>
   );

@@ -26,30 +26,14 @@ a:hover {
   opacity: 0.9;
 }
 
-/* Enhanced Gradient Background */
+/* Enhanced Gradient Background - Simplified */
 .gradient__bg {
-  background: radial-gradient(
-    circle at 3% 25%,
-    rgba(0, 40, 83, 1) 0%,
-    rgba(4, 12, 24, 1) 25%,
-    rgba(4, 12, 24, 1) 100%
-  );
+  background: transparent;
   position: relative;
 }
 
 .gradient__bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at 80% 20%,
-    rgba(174, 103, 250, 0.08) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
+  content: none;
 }
 
 /* Enhanced Gradient Text */
@@ -65,7 +49,7 @@ a:hover {
 
 /* Improved Section Spacing */
 .section__padding {
-  padding: var(--space-4xl) var(--space-2xl);
+  padding: var(--space-6xl) var(--space-2xl);
 }
 
 .section__margin {

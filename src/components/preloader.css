@@ -1,0 +1,75 @@
+/* Preloader Container - Invisible itself, holds the panels */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: all; /* Blocks clicks until complete */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The two curtains */
+.preloader-panel-top,
+.preloader-panel-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: #040c18; /* Brand Deep Navy */
+  z-index: 1;
+}
+
+.preloader-panel-top {
+  top: 0;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1); /* Subtle gold line */
+}
+
+.preloader-panel-bottom {
+  bottom: 0;
+  border-top: 1px solid rgba(255, 215, 0, 0.1); /* Subtle gold line */
+}
+
+/* Center Content (sits on top of curtains) */
+.preloader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Logo Styling */
+.preloader-logo {
+  width: 150px;
+  height: auto;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Counter Text */
+.preloader-counter {
+  font-family: var(--font-heading, "Poppins", sans-serif);
+  font-size: 5rem;
+  font-weight: 700;
+  color: #FFD700; /* Gold */
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  line-height: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .preloader-logo {
+    width: 120px;
+  }
+  .preloader-counter {
+    font-size: 3rem;
+  }
+}

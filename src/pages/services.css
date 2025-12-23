@@ -1,7 +1,7 @@
 /* Services Page Styles - Professional Polish */
 .services-section {
     position: relative;
-    background: var(--color-bg);
+    /* background: var(--color-bg); Removed to match site flow */
 }
 
 .services-grid {
@@ -12,19 +12,23 @@
 }
 
 .service-card {
-    background: var(--color-card);
+    background: rgba(4, 12, 24, 0.6); /* Darker, more neutral background */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: var(--space-2xl) var(--space-xl);
     border-radius: var(--radius-xl);
     position: relative;
     overflow: hidden;
     transition: all var(--transition-slow);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle white border */
     display: flex;
     flex-direction: column;
     height: 100%;
     cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
+/* Gold Top Bar */
 .service-card::before {
     content: '';
     position: absolute;
@@ -32,7 +36,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-bar);
+    background: #ffd700; /* Gold */
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--transition-slow);
@@ -44,15 +48,16 @@
 
 .service-card:hover {
     transform: translateY(-12px);
-    box-shadow: var(--shadow-xl), 0 0 40px rgba(174, 103, 250, 0.15);
-    border-color: rgba(174, 103, 250, 0.4);
-    background: linear-gradient(135deg, var(--color-card) 0%, rgba(174, 103, 250, 0.05) 100%);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.4);
+    background: rgba(4, 12, 24, 0.95);
 }
 
 .service-icon-wrapper {
     width: 72px;
     height: 72px;
-    background: linear-gradient(135deg, rgba(174, 103, 250, 0.15), rgba(21, 130, 219, 0.1));
+    background: rgba(255, 215, 0, 0.05); /* Subtle Gold Tint */
+    border: 1px solid rgba(255, 215, 0, 0.1);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -60,13 +65,14 @@
     margin-bottom: var(--space-xl);
     transition: all var(--transition-slow);
     position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .service-icon-wrapper::after {
     content: '';
     position: absolute;
     inset: -2px;
-    background: var(--gradient-bar);
+    background: linear-gradient(135deg, #FFD700, #D4AF37); /* Gold Gradient Border */
     border-radius: var(--radius-lg);
     opacity: 0;
     transition: opacity var(--transition-slow);
@@ -74,14 +80,25 @@
 }
 
 .service-card:hover .service-icon-wrapper {
-    background: var(--gradient-vibrant);
-    color: #fff;
+    background: #D4AF37; /* Solid Gold on Hover */
+    color: #000; /* Icon becomes black if SVG fill allows, handled via prop usually, but wrapper bg changes */
     transform: scale(1.1) rotate(5deg);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    border-color: #D4AF37;
+}
+
+/* To ensure icon changes color if it's an SVG that inherits, we might need global SVG styling or rely on prop. 
+   Since we passed prop color="#D4AF37", it will stay gold. 
+   If we want it Black on hover, we need a CSS rule that targets the SVG or we accept Gold on Gold (bad contrast).
+   Let's check if we can target svg path. 
+*/
+.service-card:hover .service-icon-wrapper svg {
+    color: #000 !important; /* Force black icon on gold background */
+    fill: #000 !important;
 }
 
 .service-card:hover .service-icon-wrapper::after {
-    opacity: 0.4;
+    opacity: 0.6;
 }
 
 .service-title {
@@ -95,14 +112,14 @@
 
 .service-desc {
     font-size: var(--text-base);
-    color: var(--color-text);
+    color: var(--color-text-dim, #ccc); /* Matched to WhatMN text */
     line-height: var(--leading-relaxed);
     margin-bottom: var(--space-xl);
     flex-grow: 1;
 }
 
 .service-link {
-    color: var(--color-primary);
+    color: #D4AF37; /* Gold */
     font-weight: 600;
     text-decoration: none;
     display: inline-flex;
@@ -116,7 +133,8 @@
 
 .service-link:hover {
     gap: var(--space-md);
-    color: var(--color-accent);
+    color: #fff; /* White on hover */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 /* Header Section */

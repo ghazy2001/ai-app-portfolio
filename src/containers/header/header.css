@@ -1,15 +1,54 @@
 .MN__header {
   display: flex;
   flex-direction: column;
+  /* background-image removed, moving to ::before */
+  min-height: 100vh; /* Ensure it covers the full viewport height or desired height */
+  position: relative; /* For overlay if needed */
+  z-index: 0;
 }
+
+.MN__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/mn-banner.png');
+  background-size: cover;
+  background-position: center ;
+  z-index: -1;
+  /* Seamless Blend: Fade image to transparent over the dark background */
+  background-color: #040c18; /* Ensure base color matches site */
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+
+
+/* Optional: Overlay to improve text readability */
+/* .MN__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 0;
+} */
 
 .MN__header-content {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; /* Align items to the left */
   flex-direction: column;
-  margin-right: 5rem;
+  margin: 0; 
+  text-align: left; /* Left align text */
+  z-index: 1; 
+  padding-top: 5rem; 
+  padding-left: 5rem; /* "Some to the left" */
 }
 
 .MN__header-content h1 {
@@ -18,6 +57,9 @@
   font-size: 62px;
   line-height: 75px;
   letter-spacing: -0.04em;
+  color: #fff; /* Explicitly white */
+  margin-bottom: .5rem;
+  margin-top: 2rem;
 }
 
 .MN__header-content p {
@@ -26,165 +68,91 @@
   font-weight: normal;
   font-size: 20px;
   line-height: 27px;
-  color: var(--color-text);
+  color: #fff; /* Explicitly white */
   margin-top: 1.5rem;
+  max-width: 800px; /* Limit width for readability */
 }
 
-.MN__header-content__input {
-  margin: 2rem 0 1rem;
-  width: 100%;
-  display: flex;
-}
-
-.MN__header-content__input input {
-  flex: 2;
-  width: 100%;
-  min-height: 50px;
-  background: var(--color-footer);
-  font-family: var(--font-family);
-  border: 2px solid var(--color-footer);
-  padding: 0 1rem;
-  outline: none;
-  color: #3d6184;
-  font-size: 20px;
-  line-height: 27px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.MN__header-content__input button {
-  flex: 0.6;
-  width: 100%;
-  min-height: 50px;
-  background: #0972c9;
-  font-family: var(--font-family);
-  color: #fff;
-  font-size: 20px;
-  line-height: 27px;
-  cursor: pointer;
-  font-weight: bold;
-  outline: none;
-  padding: 0 1rem;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-.MN__header-content__input button:hover {
-  background: #ae67fa;
-}
-.MN__header-content__people {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-items: flex-start;
+.MN__header-btn-container {
   margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start; /* Left align buttons */
 }
 
-.MN__header-content__people img {
-  height: 38px;
-  width: 181.79px;
-}
-
-.MN__header-content__people p {
+.MN__header-btn {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
   font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 38px;
-  color: #fff;
-  margin: 0 0 0 1rem;
-  text-align: center;
-}
-
-/* ===== الصورة + الأيقونات ===== */
-.MN__header-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
-}
-
-.MN__header-image-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-  z-index: 0;
-}
-
-/* ===== اللوجو ===== */
-.MN__header-logo {
-  width: 100%;
-  height: auto;
-  max-width: 500px;
-  position: relative;
-  z-index: 5;
-  animation: logoScale 4s ease-in-out infinite;
-}
-
-/* ===== الحاوية العامة للأيقونات ===== */
-.MN__header-social-icons {
-  position: absolute;
-  top: 50%;
-  left: 42.5%;
-  width: 0;
-  height: 0;
-  transform-style: preserve-3d;
-  transform: translate(-50%, -50%);
-  z-index: 1; /* keep icons behind the main navbar */
-}
-
-/* ===== توزيع الأيقونات ===== */
-.MN__header-social-icons img {
-  position: absolute;
-  width: 40px;
-  height: 40px;
+  font-weight: bold;
+  font-size: 18px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  transform-origin: center center -180px; /* المسافة بين الأيقونة ومركز الدوران (اللوجو) */
-  animation: orbit 10s linear infinite;
+  border: 2px solid #fff;
+  transition: all 0.3s ease;
 }
 
-/* كل أيقونة تبدأ من زاوية مختلفة لتوزيعها حول اللوجو */
-.MN__header-social-icons img:nth-child(1) {
-  animation-delay: 0s;
-}
-.MN__header-social-icons img:nth-child(2) {
-  animation-delay: -2s;
-}
-.MN__header-social-icons img:nth-child(3) {
-  animation-delay: -4s;
-}
-.MN__header-social-icons img:nth-child(4) {
-  animation-delay: -6s;
-}
-.MN__header-social-icons img:nth-child(5) {
-  animation-delay: -8s;
+.MN__header-btn-primary {
+  background: #fff;
+  color: #000; /* Or brand color */
 }
 
-.MN__header-social-icons img:hover {
-  transform: scale(1.3) translateZ(30px);
+.MN__header-btn-primary:hover {
+  background: transparent;
+  color: #fff;
 }
 
-/* ===== الأنيميشن ===== */
-@keyframes orbit {
-  from {
-    transform: rotateY(0deg) translateZ(180px) rotateY(0deg);
+.MN__header-btn-secondary {
+  background: transparent;
+  color: #fff;
+}
+
+.MN__header-btn-secondary:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Clients Carousel */
+.MN__header-clients {
+  width: 100%;
+  max-width: 435px; /* Match button container width */
+  overflow: hidden;
+  margin-top: 3rem;
+  z-index: 2; /* Ensure it sits above background */
+  position: relative;
+}
+
+.MN__header-clients-slider {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.MN__header-clients-slider img {
+  height: 40px; /* Adjust logo height */
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  filter: grayscale(100%) brightness(200%); /* Make them white/monochrome */
+}
+
+.MN__header-clients-slider img:hover {
+  opacity: 1;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
-  to {
-    transform: rotateY(360deg) translateZ(180px) rotateY(-360deg);
-  }
-}
-
-@keyframes logoScale {
-  0%,
   100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
+    transform: translateX(-50%); /* Scroll halfway (since content is duplicated) */
   }
 }
+
+
+/* Legacy styles removed or repurposed */
+
 
 /* ===== الريسبونسيف ===== */
 
@@ -193,15 +161,31 @@
     flex-direction: row-reverse;
   }
   .MN__header-content {
-    margin-right: 5rem;
+    margin-right: 0;
     text-align: left;
   }
 }
 
 @media screen and (max-width: 1050px) {
+  .MN__header {
+     /* Background handled by ::before now */
+  }
+  
   .MN__header-content {
-    margin: 0 0 3rem;
-    text-align: center;
+    padding-left: 0; /* Reset the large left padding */
+    padding-top: 9rem;
+    margin: 0 2rem 3rem; /* Add consistent side margins */
+    align-items: center; /* Center align items for mobile */
+    text-align: center; /* Center text */
+  }
+
+  .MN__header-btn-container {
+    justify-content: center; /* Center buttons */
+  }
+
+  .MN__header::before {
+    background-position: 80% center ; 
+    filter: blur(4px);
   }
 }
 
@@ -301,5 +285,66 @@
   }
   .MN__header-logo {
     max-width: 240px;
+  }
+}
+
+/* New Header Typography */
+.MN__header-kicker {
+  font-family: var(--font-base);
+  color: #FFD700; /* Gold */
+  font-size: var(--text-sm);
+  letter-spacing: 4px; /* Wide spacing for professional look */
+  text-transform: uppercase;
+  font-weight: 600;
+
+  display: block;
+  margin-bottom: 0;
+}
+
+.MN__header-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(3rem, 6vw, 62px); /* Responsive Large */
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(90deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-lg);
+}
+
+.MN__header-subtitle {
+  font-family: var(--font-base);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: var(--space-2xl);
+  max-width: 600px;
+  margin-right: auto;
+}
+
+/* Shiny Gold Text Animation */
+.shiny-text {
+  background: linear-gradient(
+    to right,
+    #BF953F 0%,
+    #FCF6BA 25%, /* Lighter shine */
+    #B38728 50%,
+    #FBF5B7 75%,
+    #AA771C 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; 
+  background-size: 200% auto;
+  animation: shine 4s linear infinite;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
 }

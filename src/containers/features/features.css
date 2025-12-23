@@ -3,6 +3,10 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  align-items: flex-start;
+  gap: 4rem;
+  /* background removed for global unity */
+  position: relative; /* For seamless layering if needed */
 }
 
 .MN__features-heading {
@@ -11,117 +15,203 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-
-  margin-left: 5rem;
+  text-align: left;
 }
 
+/* Main Heading - Solid White */
 .MN__features-heading h1 {
-  font-size: 34px;
-  line-height: 45px;
+  font-size: 48px;
+  line-height: 60px;
   font-weight: 800;
-  font-family: var(--font-family);
+  font-family: var(--font-heading);
+  color: var(--color-white); /* Solid White */
+  margin-bottom: 2rem;
 }
 
+/* Subtext - Match WhatMN Text */
+.features-subtext {
+  font-size: 18px;
+  line-height: 28px;
+  font-family: var(--font-base);
+  color: var(--color-text-dim, #ccc); /* Matched "Driving real results" color */
+  margin-bottom: 3rem;
+  max-width: 500px;
+}
+
+/* Button - Gold (Solid) */
 .cta-button {
-  background: #0972c9;
-  color: #fff;
-  font-size: 25px;
-  line-height: 30px;
-  font-weight: 500;
-  font-family: var(--font-family);
+  background: #ffd700; /* Gold */
+  color: #000; /* Black Text for Contrast */
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  font-family: var(--font-base);
   border: none;
-  padding: 15px 30px;
-  border-radius: 50px;
+  padding: 1rem 2rem;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 2rem;
-  transition: all 0.3s ease, clip-path 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-}
-
-.cta-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
 }
 
 .cta-button:hover {
+  background-color: #ffed4a; /* Lighter Gold */
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  background-color: #ffd700;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
 }
 
-.cta-button:hover::before {
-  left: 100%;
-}
-
-.cta-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
+/* Main Container Refactor: 2-Column Grid for Cards */
 .MN__features-container {
-  flex: 2;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
+  flex: 1.5;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2x2 Grid */
+  gap: 2rem;
+  width: 100%;
 }
 
+/* Override Feature Component Styles locally to look like Glass Cards */
+/* Override Feature Component Styles locally for Minimalist Look */
+.MN__features-container .MN__features-container__feature {
+  display: flex !important;
+  flex-direction: column !important; /* Stack vertical */
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  
+  background: transparent;
+  backdrop-filter: none;
+  padding: 2rem 1rem; /* Reduced horizontal padding since no border */
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+  height: 100%;
+}
+
+/* Feature Top Bar - Gold Accent Preserved */
+.MN__features-container .MN__features-container__feature::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px; /* Short accent bar instead of full width? Or keep full width? Full width over no-bg might look odd. Let's try full width but thin. */
+  width: 100%;
+  height: 2px; /* Thinner */
+  background: #ffd700; /* Gold Bar */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.MN__features-container .MN__features-container__feature:hover {
+  transform: translateY(-5px);
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.MN__features-container .MN__features-container__feature:hover::before {
+  transform: scaleX(1);
+}
+
+/* Feature Title Tweaks */
+.MN__features-container .MN__features-container__feature-title {
+  max-width: 100% !important;
+  margin-bottom: 1rem;
+}
+
+.MN__features-container .MN__features-container__feature-title h1 {
+  width: auto !important;
+  font-size: 22px !important;
+  line-height: 28px !important;
+  font-family: var(--font-heading);
+  color: var(--color-white) !important;
+}
+
+.MN__features-container .MN__features-container__feature-title div {
+  width: 40px !important;
+  height: 3px !important;
+  margin-bottom: 0.5rem !important;
+  border-radius: 2px;
+  background: #ffd700 !important; /* Gold Override */
+  box-shadow: none !important;
+}
+
+/* Feature Text Tweaks */
+.MN__features-container .MN__features-container_feature-text {
+  max-width: 100% !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: var(--color-text-light) !important;
+}
+
+.MN__features-container .MN__features-container_feature-text p {
+  font-size: 15px !important;
+  line-height: 24px !important;
+  color: var(--color-text-light) !important;
+}
+
+@media screen and (max-width: 1050px) {
+  .MN__features-container {
+    grid-template-columns: 1fr; /* Single column on tablet/mobile */
+  }
+}
+
+/* Adjust Responsive Query */
 @media screen and (max-width: 990px) {
   .MN__features {
+    display: flex;
     flex-direction: column;
+    gap: 2rem;
   }
 
+  /* Unwrap the heading so we can reorder children relative to the container */
   .MN__features-heading {
-    margin: 0 0 2rem 0;
+    display: contents; /* Children become direct flex items of .MN__features */
+    text-align: center; /* Fallback */
   }
-}
 
-@media screen and (max-width: 768px) {
-  .MN__features-heading h1 {
-    font-size: 28px;
-    line-height: 38px;
+  /* 1. Title comes first */
+  .features-title {
+    order: 1;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
   }
-  .cta-button {
-    font-size: 18px;
-    line-height: 24px;
-    padding: 12px 24px;
+  
+  /* 2. Subtext comes second */
+  .features-subtext {
+    order: 2;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 3. Cards Container comes third */
+  .MN__features-container {
+    order: 3;
+    width: 100%;
+  }
+  
+  /* 4. Button (Link) comes last */
+  .MN__features-heading a {
+    order: 4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
   }
 }
 
 @media screen and (max-width: 550px) {
   .MN__features-heading h1 {
-    font-size: 22px;
-    line-height: 30px;
-  }
-  .cta-button {
-    font-size: 16px;
-    line-height: 20px;
-    padding: 10px 20px;
+    font-size: 34px;
+    line-height: 45px;
   }
 }
 
-@media screen and (max-width: 380px) {
-  .MN__features-heading h1 {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  .cta-button {
-    font-size: 14px;
-    line-height: 18px;
-    padding: 8px 16px;
-  }
-}

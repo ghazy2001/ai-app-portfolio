@@ -1,5 +1,5 @@
 import React from "react";
-import { Brand, CTA, Feature, Navbar } from "../components";
+import { CTA, Navbar } from "../components";
 import {
   Header,
   WhatMN,
@@ -9,6 +9,7 @@ import {
   ClinetsCarousal,
   Testimonials,
   Footer,
+  Contact,
 } from "../containers";
 
 const Home = () => {
@@ -18,14 +19,18 @@ const Home = () => {
         <Navbar />
         <Header />
       </div>
-      <Brand />
+
+     
       <WhatMN />
       <Features />
       <Possibility />
       <CTA />
-      <Blog />
-      <ClinetsCarousal />
+       <ClinetsCarousal />
+      
+      <Blog limit={3} />
+     
       <Testimonials />
+      <Contact />
       <Footer />
     </>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import EditableText from "../../components/EditableText";
+
 import result1 from "../../assets/result1.jpg";
 import result2 from "../../assets/result2.jpg";
 import result3 from "../../assets/result3.jpg";
@@ -22,39 +22,39 @@ const ImageModal = ({ imageId, onClose }) => {
   // Define default details for each image
   const imageDetails = {
     meta1: [
-      "معدل العائد على الإنفاق (ROAS): 11.67",
-      "التكلفة لكل نتيجة: 31.9 ج.م",
-      "إجمالي المشتريات: 26,236 عملية",
-      "القيمة الإجمالية للمشتريات: 9.47 مليون ج.م",
-      "معدل التحويل: 4.3%",
+      "ROAS: 11.67",
+      "Cost per Result: 31.9 EGP",
+      "Total Purchases: 26,236",
+      "Total Sales Value: 9.47 Million EGP",
+      "Conversion Rate: 4.3%",
     ],
     meta4: [
-      "إجمالي الإنفاق الإعلاني: 811 ألف ج.م",
-      "متوسط تكلفة الحملة: 203 ألف ج.م",
-      "أفضل حملة أداءً: حملة العروض الخاصة بـ ROAS 14.2",
-      "أقل تكلفة نتيجة: 19.5 ج.م",
-      "عدد الحملات النشطة: 4 حملات",
+      "Total Ad Spend: 811k EGP",
+      "Avg. Cost per Campaign: 203k EGP",
+      "Best Performing Campaign: Special Offers (ROAS 14.2)",
+      "Lowest Cost per Result: 19.5 EGP",
+      "Active Campaigns: 4",
     ],
     tiktok2: [
-      "معدل العائد على الإنفاق (ROAS): 15.89",
-      "التكلفة لكل نتيجة: 22.8 ج.م",
-      "إجمالي المشتريات: 9,970 عملية",
-      "القيمة الإجمالية للمشتريات: 3.61 مليون ج.م",
-      "معدل التحويل: 5.8%",
+      "ROAS: 15.89",
+      "Cost per Result: 22.8 EGP",
+      "Total Purchases: 9,970",
+      "Total Sales Value: 3.61 Million EGP",
+      "Conversion Rate: 5.8%",
     ],
     dashboard3: [
-      "إجمالي الإيرادات: 13.08 مليون ج.م",
-      "صافي الأرباح: 4.2 مليون ج.م",
-      "هامش الربح: 32.1%",
-      "عدد الطلبات: 36,206 طلب",
-      "متوسط قيمة الطلب: 361 ج.م",
+      "Total Revenue: 13.08 Million EGP",
+      "Net Profit: 4.2 Million EGP",
+      "Profit Margin: 32.1%",
+      "Total Orders: 36,206",
+      "Avg. Order Value: 361 EGP",
     ],
     dashboard5: [
-      "الزيارات اليومية: 45,230 زيارة",
-      "الطلبات اليومية: 1,245 طلب",
-      "معدل التحويل اليومي: 2.75%",
-      "معدل التخلي عن السلة: 68.3%",
-      "متوسط وقت الجلسة: 4 دقائق 23 ثانية",
+      "Daily Visits: 45,230",
+      "Daily Orders: 1,245",
+      "Daily Conversion Rate: 2.75%",
+      "Cart Abandonment Rate: 68.3%",
+      "Avg. Session Time: 4m 23s",
     ],
   };
 
@@ -76,47 +76,27 @@ const ImageModal = ({ imageId, onClose }) => {
           />
           {/* Details on the right */}
           <div className="modal-text">
-            <EditableText 
-              section="possibility" 
-              contentKey={`${imageId}Title`}
-              defaultContent={
-                imageId === "meta1" ? "تقرير أداء الحملات الرئيسية (Meta)" :
-                imageId === "meta4" ? "تحليل تكلفة النتائج وعائد الإنفاق (Meta)" :
-                imageId === "tiktok2" ? "لوحة تحكم إعلانات تيك توك (TikTok)" :
-                imageId === "dashboard3" ? "الإحصائيات الكلية للأرباح والمبيعات" :
-                "مؤشرات الأداء اليومية للمتجر"
-              }
-              type="h2"
-            />
-            <EditableText 
-              section="possibility" 
-              contentKey={`${imageId}Description`}
-              defaultContent={
-                imageId === "meta1" ? "نظرة معمقة على مقاييس الأداء الرئيسية (ROAS، التكلفة لكل نتيجة، المشتريات) التي تعكس الكفاءة العالية في تحقيق الأهداف الإعلانية على منصة Meta." :
-                imageId === "meta4" ? "تفاصيل دقيقة لعمليات الشراء، توضح العلاقة بين حجم الإنفاق الإعلاني والعائد المحقق، مما يبرز فعالية استهدافنا وقياس الأداء." :
-                imageId === "tiktok2" ? "توضيح مباشر لأداء المجموعات الإعلانية على TikTok، مع التركيز على انخفاض التكلفة لكل نتيجة (Cost per result) وارتفاع قيمة الشراء." :
-                imageId === "dashboard3" ? "عرض إجمالي لإيرادات المتجر، صافي الأرباح، ومعدلات التحويل المتميزة التي تؤكد النمو المستدام للمتجر." :
-                "تتبع لحظي للزيارات والطلبات ومعدل التخلي عن السلة، مما يوفر رؤية سريعة حول أداء المتجر في فترة زمنية قصيرة."
-              }
-              type="p"
-            />
+            <h2>
+              {imageId === "meta1" ? "Meta Main Campaigns Performance" :
+               imageId === "meta4" ? "Cost Analysis & ROAS (Meta)" :
+               imageId === "tiktok2" ? "TikTok Ads Dashboard" :
+               imageId === "dashboard3" ? "Total Sales & Profit Overview" :
+               "Daily Performance Indicators"}
+            </h2>
+            <p>
+              {imageId === "meta1" ? "In-depth look at key performance metrics (ROAS, CPR, Purchases) reflecting high efficiency in achieving advertising goals on Meta." :
+               imageId === "meta4" ? "Detailed purchase analysis showing the relationship between ad spend and realized revenue, highlighting targeting effectiveness." :
+               imageId === "tiktok2" ? "Direct insight into TikTok ad set performance, focusing on low Cost per Result and high purchase value." :
+               imageId === "dashboard3" ? "Overview of store revenue, net profit, and outstanding conversion rates confirming sustainable growth." :
+               "Real-time tracking of visits, orders, and cart abandonment, providing quick insights into short-term performance."}
+            </p>
             {details && details.length > 0 && (
               <div className="modal-details">
-                <EditableText 
-                  section="possibility" 
-                  contentKey="modalDetailsHeading" 
-                  defaultContent="📊 التفاصيل الرئيسية:" 
-                  type="h3"
-                />
+                <h3>📊 Key Details:</h3>
                 <ul>
                   {details.map((detail, index) => (
                     <li key={index}>
-                      <EditableText 
-                        section="possibility" 
-                        contentKey={`${imageId}Detail${index + 1}`}
-                        defaultContent={detail}
-                        type="span"
-                      />
+                      <span>{detail}</span>
                     </li>
                   ))}
                 </ul>

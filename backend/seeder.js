@@ -115,38 +115,38 @@ const seedData = async () => {
 
         // 4. Create Blogs
         // 4. Create Blogs (Restoring original 5 topics)
-        const blogs = [
-            {
-                title: 'تيك توك وواتساب للأعمال: أدوات جديدة لزيادة التحويلات وتوسيع قاعدة العملاء',
-                slug: 'tiktok-whatsapp-business',
-                content: 'تيك توك وواتساب أصبحا من أهم أدوات التسويق الحديثة...',
-                coverImage: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                title: 'التجارة الإلكترونية في مصر 2026: استغلال الفرص وتجاوز التحديات اللوجستية',
-                slug: 'ecommerce-egypt-2026',
-                content: 'السوق المصري ينمو بسرعة هائلة في مجال التجارة الإلكترونية...',
-                coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                title: 'ما وراء الأرقام: كيف تُستخدم تحليلات البيانات في بناء شخصية العميل (Buyer Persona)؟',
-                slug: 'beyond-numbers-data-analytics',
-                content: 'البيانات ليست مجرد أرقام، بل هي مفتاح فهم سلوك العميل...',
-                coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                title: 'ملخص مؤتمر DigiMarCon North Africa 2025: أبرز الاتجاهات التي شكلت مستقبل الديجيتال ماركتنج',
-                slug: 'digimarcon-2025-summary',
-                content: 'أبرز ما جاء في المؤتمر من تقنيات واستراتيجيات جديدة...',
-                coverImage: 'https://images.unsplash.com/photo-1544531696-6014cd4a938c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-            },
-            {
-                title: 'ثورة الذكاء الاصطناعي: كيف يغير الـ AI قواعد اللعبة في استراتيجيات المحتوى؟',
-                slug: 'ai-content-strategy-revolution',
-                content: 'الذكاء الاصطناعي لم يعد خياراً، بل ضرورة في صناعة المحتوى...',
-                coverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-            }
-        ];
+    const blogs = [
+    {
+        title: 'TikTok and WhatsApp Business: New Tools to Boost Conversions and Expand Customer Base',
+        slug: 'tiktok-whatsapp-business',
+        content: 'TikTok and WhatsApp have become some of the most essential tools in modern marketing...',
+        coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        title: 'E-commerce in Egypt 2026: Seizing Opportunities and Overcoming Logistics Challenges',
+        slug: 'ecommerce-egypt-2026',
+        content: 'The Egyptian market is growing at a massive pace in the e-commerce sector...',
+        coverImage: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        title: 'Beyond Numbers: How Data Analytics is Used to Build a Buyer Persona',
+        slug: 'beyond-numbers-data-analytics',
+        content: 'Data is not just numbers; it is the key to understanding customer behavior...',
+        coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        title: 'DigiMarCon North Africa 2025 Summary: Top Trends Shaping the Future of Digital Marketing',
+        slug: 'digimarcon-2025-summary',
+        content: 'Key takeaways from the conference regarding new technologies and strategies...',
+        coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        title: 'The AI Revolution: How Artificial Intelligence is Changing the Game in Content Strategies',
+        slug: 'ai-content-strategy-revolution',
+        content: 'Artificial Intelligence is no longer an option; it has become a necessity in content creation...',
+        coverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    }
+];
         await Blog.insertMany(blogs);
         console.log('✅ Blogs Created');
 

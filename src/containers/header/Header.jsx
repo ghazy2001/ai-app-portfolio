@@ -1,16 +1,19 @@
 import "./header.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import EditableText from "../../components/EditableText";
 
-import logo from "../../assets/logo2.png";
-import facebook from "../../assets/facebook.svg";
-import instagram from "../../assets/instgram.svg";
-import linkedin from "../../assets/linkedin.svg";
-import tiktok from "../../assets/tiktok.svg";
-import youtube from "../../assets/youtube.svg";
+import caro1 from "../../assets/caro1.png";
+import caro2 from "../../assets/caro2.png";
+import caro3 from "../../assets/caro3.png";
+import caro4 from "../../assets/caro4.png";
+import caro5 from "../../assets/caro5.png";
+import caro6 from "../../assets/caro6.png";
+import caro7 from "../../assets/caro7.png";
+
+
 
 const Header = () => {
+  const clients = [caro1, caro2, caro3, caro4, caro5, caro6, caro7];
   return (
     <motion.div
       className="MN__header section__padding"
@@ -19,71 +22,41 @@ const Header = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
     >
-      {/* ===== اللوجو والأيقونات (يظهروا أولاً) ===== */}
-      <motion.div
-        className="MN__header-image"
-        initial={{ scale: 0.5, opacity: 0, rotateY: 90 }}
-        animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-        transition={{ duration: 1.3, ease: "easeOut" }}
-      >
-        <div className="MN__header-image-wrapper">
-          <div className="MN__header-social-icons">
-            <img src={facebook} alt="facebook" />
-            <img src={instagram} alt="instagram" />
-            <img src={linkedin} alt="linkedin" />
-            <img src={tiktok} alt="tiktok" />
-            <img src={youtube} alt="youtube" />
-          </div>
-          <motion.img
-            src={logo}
-            alt="logo"
-            className="MN__header-logo"
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{
-              duration: 1.2,
-              ease: "easeOut",
-              delay: 0.3,
-            }}
-          />
-        </div>
-      </motion.div>
-
-      {/* ===== محتوى النصوص (يظهر بعد اللوجو) ===== */}
       <motion.div
         className="MN__header-content"
-        initial={{ x: -80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut", delay: 1.3 }}
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
       >
-
-        <EditableText 
-          section="header" 
-          contentKey="title" 
-          defaultContent="نضع البيانات في قلب كل قرار ونبني استراتيجيات" 
-          className="gradient__text"
-          type="h1"
-        />
-        <EditableText 
-          section="header" 
-          contentKey="subtitle" 
-          defaultContent="قابلة للقياس تحقق نموًا حقيقيًا لأعمالك. تنفيذنا دقيق ومتكامل — من استهداف الجمهور وصياغة الرسائل إلى إدارة الحملات وتحليل الأداء — مع دورات تحسين مستمرة تُقلّل تكلفة الاكتساب وتضاعف عائد الاستثمار." 
-          type="p"
-        />
-        <div className="MN__header-content__input">
-          <input type="email" placeholder="Your Email Address" />{" "}
+        <h5 className="MN__header-kicker shiny-text">Sales First .. Always</h5>
+        <h1 className="MN__header-title">Performance Marketing Agency</h1>
+        <p className="MN__header-subtitle">Helping Businesses Scale with Smart Campaigns | 5 Years of Experience in Performance Marketing</p>
+        
+        <div className="MN__header-btn-container">
           <Link to="/contact">
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              احصل على خطة
-            </motion.button>
+            <button className="MN__header-btn MN__header-btn-primary">
+              Contact us
+            </button>
+          </Link>
+          <Link to="/portfolio">
+             <button className="MN__header-btn MN__header-btn-secondary">
+              Browse Our Portfolio
+            </button>
           </Link>
         </div>
-        <p>استشارة مهنية لمدة 30 دقيقة؛ بدون التزام.</p>
+
+        <div className="MN__header-clients">
+         
+          <div className="MN__header-clients-slider">
+            {clients.map((logo, index) => (
+              <img key={index} src={logo} alt={`client-${index}`} />
+            ))}
+             {/* Duplicate for infinite scroll effect */}
+             {clients.map((logo, index) => (
+              <img key={`dup-${index}`} src={logo} alt={`client-dup-${index}`} />
+            ))}
+          </div>
+        </div>
       </motion.div>
     </motion.div>
   );
