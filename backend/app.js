@@ -7,7 +7,22 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://marketing-agency-chi.vercel.app', 'http://localhost:5173', 'http://localhost:5000'],
+  origin: (origin, callback) => {
+    // Check if the origin matches any of the allowed patterns or is undefined (e.g. mobile apps, curl)
+    const allowedOrigins = [
+      'https://marketing-agency-chi.vercel.app',
+      'http://localhost:5173', 
+      'http://localhost:5000'
+    ];
+    
+    // Allow if origin is in the list or if it's not defined (same-origin or non-browser)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
