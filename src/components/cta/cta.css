@@ -10,7 +10,11 @@
   padding: var(--space-3xl) var(--space-2xl);
   margin: var(--space-4xl) var(--space-2xl);
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, rgba(4, 12, 24, 0.95), rgba(0, 40, 83, 0.95)); /* Dark Blue Gradient */
+  background: linear-gradient(
+    135deg,
+    rgba(4, 12, 24, 0.95),
+    rgba(0, 40, 83, 0.95)
+  ); /* Dark Blue Gradient */
   border: 1px solid rgba(255, 215, 0, 0.3); /* Gold Border */
   position: relative;
   overflow: hidden;
@@ -18,20 +22,28 @@
 }
 
 .MN__cta::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%); /* Gold Shine */
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.08) 0%,
+    transparent 70%
+  ); /* Gold Shine */
   animation: rotate 20s linear infinite;
   pointer-events: none;
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .MN__cta-content {
@@ -43,7 +55,7 @@
 .MN__cta-content p {
   font-family: var(--font-family);
   font-size: var(--text-lg);
-  color: #FFD700; /* Gold text */
+  color: #ffd700; /* Gold text */
   margin-bottom: var(--space-sm);
   font-weight: 600;
   text-transform: uppercase;
@@ -83,8 +95,9 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   text-decoration: none;
-  background: #FFD700; /* Solid Gold */
+  background: #ffd700; /* Solid Gold */
   border-radius: 50px;
+  border: 1px solid transparent; /* Prevent layout shift on hover */
   font-family: var(--font-heading);
   transition: all 0.3s ease;
   overflow: hidden;
@@ -92,13 +105,18 @@
 }
 
 .glow-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -109,13 +127,42 @@
 .glow-btn:hover {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
-  background: #fff;
-  color: #000;
+  background: transparent;
+  color: #ffd700;
+  border: 1px solid #ffd700;
 }
 
 .glow-btn span {
   position: relative;
   z-index: 1;
+}
+
+.glow-btn svg {
+  /* Initial state: visible and centered */
+}
+
+/* Launch Animation */
+@keyframes launch {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  30% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  31% {
+    opacity: 0;
+    transform: translateX(-20px); /* Reset to left */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.glow-btn:hover svg {
+  animation: launch 0.6s ease forwards;
 }
 
 /* ===================== */
@@ -127,7 +174,7 @@
     padding: var(--space-2xl) var(--space-xl);
     margin: var(--space-3xl) var(--space-xl);
   }
-  
+
   .MN__cta-content h3 {
     font-size: var(--text-2xl);
   }
@@ -142,16 +189,16 @@
     margin: 4rem 1rem;
     border-radius: 20px;
   }
-  
+
   .MN__cta-content h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
   }
-  
+
   .MN__cta-content p {
     font-size: 1rem;
   }
-  
+
   .MN__cta-btn {
     margin-left: 0; /* Reset margin */
     width: 100%;

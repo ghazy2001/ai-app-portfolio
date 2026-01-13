@@ -10,8 +10,6 @@ import caro5 from "../../assets/caro5.png";
 import caro6 from "../../assets/caro6.png";
 import caro7 from "../../assets/caro7.png";
 
-
-
 const Header = () => {
   const clients = [caro1, caro2, caro3, caro4, caro5, caro6, caro7];
   return (
@@ -30,8 +28,11 @@ const Header = () => {
       >
         <h5 className="MN__header-kicker shiny-text">Sales First .. Always</h5>
         <h1 className="MN__header-title">Performance Marketing Agency</h1>
-        <p className="MN__header-subtitle">Helping Businesses Scale with Smart Campaigns | 5 Years of Experience in Performance Marketing</p>
-        
+        <p className="MN__header-subtitle">
+          Helping Businesses Scale with Smart Campaigns | 5 Years of Experience
+          in Performance Marketing
+        </p>
+
         <div className="MN__header-btn-container">
           <Link to="/contact">
             <button className="MN__header-btn MN__header-btn-primary">
@@ -39,21 +40,24 @@ const Header = () => {
             </button>
           </Link>
           <Link to="/portfolio">
-             <button className="MN__header-btn MN__header-btn-secondary">
+            <button className="MN__header-btn MN__header-btn-secondary">
               Browse Our Portfolio
             </button>
           </Link>
         </div>
 
         <div className="MN__header-clients">
-         
           <div className="MN__header-clients-slider">
             {clients.map((logo, index) => (
               <img key={index} src={logo} alt={`client-${index}`} />
             ))}
-             {/* Duplicate for infinite scroll effect */}
-             {clients.map((logo, index) => (
-              <img key={`dup-${index}`} src={logo} alt={`client-dup-${index}`} />
+            {/* Duplicate for infinite scroll effect */}
+            {clients.map((logo, index) => (
+              <img
+                key={`dup-${index}`}
+                src={logo}
+                alt={`client-dup-${index}`}
+              />
             ))}
           </div>
         </div>

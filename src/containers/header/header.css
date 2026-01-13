@@ -8,23 +8,21 @@
 }
 
 .MN__header::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../assets/mn-banner.png');
+  background-image: url("../../assets/mn-banner.png");
   background-size: cover;
-  background-position: center ;
+  background-position: center;
   z-index: -1;
   /* Seamless Blend: Fade image to transparent over the dark background */
   background-color: #040c18; /* Ensure base color matches site */
   -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
-
-
 
 /* Optional: Overlay to improve text readability */
 /* .MN__header::before {
@@ -44,10 +42,10 @@
   justify-content: center;
   align-items: flex-start; /* Align items to the left */
   flex-direction: column;
-  margin: 0; 
+  margin: 0;
   text-align: left; /* Left align text */
-  z-index: 1; 
-  padding-top: 5rem; 
+  z-index: 1;
+  padding-top: 5rem;
   padding-left: 5rem; /* "Some to the left" */
 }
 
@@ -58,7 +56,7 @@
   line-height: 75px;
   letter-spacing: -0.04em;
   color: #fff; /* Explicitly white */
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   margin-top: 2rem;
 }
 
@@ -99,7 +97,9 @@
 
 .MN__header-btn-primary:hover {
   background: transparent;
-  color: #fff;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  transform: translateY(-2px);
 }
 
 .MN__header-btn-secondary {
@@ -146,13 +146,13 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Scroll halfway (since content is duplicated) */
+    transform: translateX(
+      -50%
+    ); /* Scroll halfway (since content is duplicated) */
   }
 }
 
-
 /* Legacy styles removed or repurposed */
-
 
 /* ===== الريسبونسيف ===== */
 
@@ -168,9 +168,9 @@
 
 @media screen and (max-width: 1050px) {
   .MN__header {
-     /* Background handled by ::before now */
+    /* Background handled by ::before now */
   }
-  
+
   .MN__header-content {
     padding-left: 0; /* Reset the large left padding */
     padding-top: 9rem;
@@ -184,7 +184,7 @@
   }
 
   .MN__header::before {
-    background-position: 80% center ; 
+    background-position: 80% center;
     filter: blur(4px);
   }
 }
@@ -291,7 +291,7 @@
 /* New Header Typography */
 .MN__header-kicker {
   font-family: var(--font-base);
-  color: #FFD700; /* Gold */
+  color: #ffd700; /* Gold */
   font-size: var(--text-sm);
   letter-spacing: 4px; /* Wide spacing for professional look */
   text-transform: uppercase;
@@ -329,15 +329,15 @@
 .shiny-text {
   background: linear-gradient(
     to right,
-    #BF953F 0%,
-    #FCF6BA 25%, /* Lighter shine */
-    #B38728 50%,
-    #FBF5B7 75%,
-    #AA771C 100%
+    #bf953f 0%,
+    #fcf6ba 25%,
+    /* Lighter shine */ #b38728 50%,
+    #fbf5b7 75%,
+    #aa771c 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; 
+  color: transparent;
   background-size: 200% auto;
   animation: shine 4s linear infinite;
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);

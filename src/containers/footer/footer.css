@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   width: 100%;
   text-align: left;
-  padding-top: var(--space-xl);
+  padding-top: var(--space-md);
   gap: 2rem;
 }
 
@@ -50,7 +50,7 @@
   font-size: 18px;
   line-height: 1.2;
   font-family: var(--font-heading);
-  color: #FFD700; /* Gold Headings */
+  color: #ffd700; /* Gold Headings */
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
@@ -71,7 +71,7 @@
 }
 
 .MN__footer-col p a:hover {
-  color: #FFD700;
+  color: #ffd700;
   padding-left: 5px; /* Subtle slide */
 }
 
@@ -87,7 +87,7 @@
 }
 
 .footer-contact-item svg {
-  color: #FFD700;
+  color: #ffd700;
   font-size: 18px;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .footer-contact-item a:hover {
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .footer-socials {
@@ -114,12 +114,12 @@
 }
 
 .footer-socials a:hover {
-  color: #FFD700;
+  color: #ffd700;
   transform: translateY(-2px);
 }
 
 .MN__footer-copyright {
-  margin-top: 4rem;
+  margin-top: 2rem;
   text-align: center;
   width: 100%;
   margin-bottom: 1rem;
@@ -147,7 +147,7 @@
     align-items: flex-start;
     gap: 2rem;
   }
-  
+
   .MN__footer-col {
     width: 100%;
   }

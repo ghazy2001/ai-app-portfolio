@@ -4,6 +4,7 @@ import {
   Header,
   WhatMN,
   Features,
+  RecentWork, // Imported
   Possibility,
   Blog,
   ClinetsCarousal,
@@ -20,15 +21,15 @@ const Home = () => {
         <Header />
       </div>
 
-     
       <WhatMN />
       <Features />
+      <RecentWork />
       <Possibility />
       <CTA />
-       <ClinetsCarousal />
-      
+      <ClinetsCarousal />
+
       <Blog limit={3} />
-     
+
       <Testimonials />
       <Contact />
       <Footer />

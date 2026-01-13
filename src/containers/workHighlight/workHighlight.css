@@ -1,0 +1,304 @@
+.work-highlight-wrapper {
+  width: 100%;
+  height: auto; /* Allow growth via Pin Spacer */
+  min-height: 100vh;
+  position: relative;
+  /* overflow: hidden;  <-- Remove this to let pin spacer work if needed, though usually fixed elements are fine */
+  background-color: transparent; /* Allow global background */
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+/* --- Section Label Group --- */
+.work-header-group {
+  position: absolute;
+  top: 120px; /* Fixed distance from top to clear navbar safely */
+  left: 6vw;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 400px; /* Broader for better readability */
+}
+
+.header-top-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.work-section-label {
+  font-size: 1rem; /* Increased visibility */
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #888;
+  font-weight: 600;
+}
+
+.work-header-dot {
+  width: 6px;
+  height: 6px; /* Smaller, sharper dot */
+  background-color: var(--color-subtext);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-subtext); /* Subtle glow */
+}
+
+.work-section-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #aaa;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* --- Dynamic Background --- */
+.work-dynamic-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  z-index: 0;
+  background-color: transparent; /* Start transparent to show global site BG */
+  transition: background-color 0.5s ease;
+}
+
+/* --- Slides --- */
+.highlight-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none; /* KEY FIX: Don't block clicks unless on interactive child */
+}
+
+.highlight-slide:first-child {
+  opacity: 1; /* Ensure first slide is visible initially */
+}
+
+/* 
+   New Big Poster Layout:
+   - Image takes massive center space.
+   - Title overlaps image on left.
+*/
+.slide-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Simple split or overlap */
+  grid-template-rows: 1fr;
+  position: relative;
+}
+
+/* 1. Image Area - The "Big Poster" - Larger but Safe */
+.slide-image-area {
+  position: absolute;
+  top: 50%;
+  left: 50%; /* Back to center as requested */
+  transform: translate(-50%, -50%);
+  width: 45vw; /* Increased from 35vw */
+  height: 70vh; /* Increased from 60vh */
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: none; /* Hide default/global cursor so only our "View Album" bubble shows */
+}
+
+/* Compensate for 'contain' shrinking the visual size by making the container bigger */
+.slide-image-area.is-contained {
+  width: 55vw; /* Increased from 45vw */
+  height: 85vh; /* Increased from 70vh */
+}
+
+.slide-image-area img,
+.slide-image-area video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  /* The "Highlight" effect */
+  transform: scale(1);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Special handling for 'contain' images to ensure shadow hugs content */
+.slide-image-area img.contain-img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* Shadow remains on the img element, which now hugs the content size */
+}
+
+/* Only hover the poster when entering the poster area itself */
+.slide-image-area:hover img,
+.slide-image-area:hover video {
+  transform: scale(1.05); /* Slight breathe on hover */
+}
+
+/* 2. Title Area - Overlapping Big Text */
+.slide-title-area {
+  position: absolute;
+  top: 30%; /* Moved up significantly from 50% */
+  left: 5vw;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+  color: #fff;
+  max-width: 22vw; /* Stricter constraint to ensure gap */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.highlight-title {
+  font-size: 3rem; /* Significantly reduced to fit in left column */
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  white-space: normal; /* Allow wrapping if needed */
+  max-width: 25vw; /* strict width constraint */
+  text-shadow: none; /* No shadow needed if no overlap */
+}
+
+.highlight-category {
+  display: block;
+  margin-bottom: 1rem; /* Move ABOVE title like reference "VI - 002" */
+  font-size: 1.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.9;
+}
+
+/* 3. Description - Bottom Right Block (Outside Poster) */
+.slide-desc-area {
+  position: absolute;
+  bottom: 20vh; /* Moved up slightly */
+  right: 5vw;
+  width: 20vw; /* Narrower to stay outside poster */
+  z-index: 2;
+  text-align: left;
+  pointer-events: none;
+  /* Add clearer separation/readability */
+}
+
+.slide-desc-area p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+  font-weight: 400;
+  text-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left: 1rem;
+}
+
+/* --- Custom Cursor --- */
+.custom-view-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px; /* Increased for "View Album" */
+  height: 100px;
+  background-color: var(--color-subtext);
+  color: #000;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem; /* Slightly smaller font to fit */
+  font-weight: 700;
+  text-transform: uppercase;
+  /* Centering via margin since we use translate3d(x,y,0) in JS */
+  margin-left: -50px; /* Half of 100px width */
+  margin-top: -50px; /* Half of 100px height */
+  transform: translate3d(0, 0, 0);
+
+  /* Initial State: Hidden */
+  opacity: 0;
+  transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: normal;
+}
+
+.custom-view-cursor.active {
+  opacity: 1;
+  /* Ensure it stays visible */
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 1024px) {
+  .slide-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  /* Reorder for mobile: Image first, then title, then desc */
+  .slide-image-area {
+    order: 2;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .slide-title-area {
+    order: 1;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .highlight-title {
+    font-size: 3rem;
+  }
+
+  .slide-desc-area {
+    order: 3;
+    text-align: left;
+  }
+
+  .slide-desc-area p {
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .work-section-label {
+    top: 70px;
+    left: 1.5rem;
+  }
+
+  /* Disable custom cursor on touch devices */
+  .custom-view-cursor {
+    display: none;
+  }
+
+  .work-highlight-wrapper {
+    cursor: auto;
+    height: auto; /* Allow natural scroll if content is long */
+    min-height: 100vh;
+  }
+
+  /* Reset Slide Positioning for mobile vertical scroll if needed, 
+     but "pinning" might still be cool. Let's keep pinning but adjust layout. */
+}

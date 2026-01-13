@@ -1,20 +1,85 @@
 /* Portfolio Page - Premium Design */
 
 .portfolio-page {
-  background: var(--color-bg);
+  background: transparent; /* Allow global animated background to show */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
+/* --- New Portfolio Intro Header --- */
+.portfolio-intro-header {
+  position: relative;
+  padding: 220px 6vw 40px 6vw; /* Moved down significantly as requested */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100vw; /* Allow full width */
+}
+
+.portfolio-intro-header .header-top-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.portfolio-intro-header .work-section-label {
+  font-size: 1.5rem; /* Increased from 1rem */
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #fff; /* Brighter for emphasis */
+  font-weight: 700;
+  line-height: 1;
+}
+
+.portfolio-intro-header .work-header-dot {
+  width: 10px; /* Larger dot */
+  height: 10px;
+  background-color: var(--color-subtext);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--color-subtext);
+}
+
+.portfolio-intro-header .work-section-intro {
+  font-size: 1.5rem; /* Increased from 1.1rem */
+  line-height: 1.5;
+  color: #ccc;
+  font-weight: 400;
+  margin: 0;
+  white-space: nowrap; /* Force single line */
+  max-width: none;
+  position: relative;
+  padding-bottom: 30px; /* Space for the line */
+  width: fit-content; /* Ensure container only spans text width */
+}
+
+.portfolio-intro-header .work-section-intro::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Extended to Full Width */
+  height: 2px;
+  background-color: var(--color-subtext); /* Gold accent */
+}
+
 /* Background Decoration */
 .portfolio-page::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 15% 50%, rgba(13, 27, 42, 0.5) 0%, transparent 25%),
-              radial-gradient(circle at 85% 30%, rgba(13, 27, 42, 0.5) 0%, transparent 25%);
+  background: radial-gradient(
+      circle at 15% 50%,
+      rgba(13, 27, 42, 0.5) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(13, 27, 42, 0.5) 0%,
+      transparent 25%
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -41,57 +106,89 @@
   margin: var(--space-md) auto;
   color: var(--color-text);
   line-height: var(--leading-relaxed);
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .portfolio-header h1 {
+    font-size: var(--text-4xl);
+  }
+
+  .portfolio-header p {
+    font-size: var(--text-base);
+  }
+}
+
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text-muted);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--color-white);
+  color: #000;
+  border-color: var(--color-white);
+  transform: translateY(-2px);
 }
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: var(--space-2xl);
-  position: relative;
-  z-index: 1;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px; /* Tighter professional gap */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Project Card - Glassmorphism & Premium Feel */
+/* Specific span overrides removed for uniformity */
+/* Specific span overrides removed for uniformity */
+
+@media (min-width: 1024px) {
+  /* Ensure 3 columns on desktop if space permits */
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Project Card */
 .project-card {
-  background: rgba(13, 27, 42, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  aspect-ratio: 1/1;
+  border-radius: 0; /* Sharp, museum-like edges */
+  overflow: hidden;
+  cursor: pointer;
+  background: #000; /* Deep black backing */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle frame */
+  width: 100%;
 }
 
 .project-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(174, 103, 250, 0.3);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6),
-              0 0 20px rgba(174, 103, 250, 0.1);
+  transform: none; /* remove jumpy scale */
   z-index: 2;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Image Container */
+/* Image Container - Restoring Missing Rule */
 .project-image {
-  height: 240px;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
   position: relative;
-}
-
-.project-image::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(4, 12, 24, 0.8) 100%);
-  opacity: 0.6;
-  transition: opacity var(--transition-base);
+  overflow: hidden;
 }
 
 .project-card:hover .project-image::after {
@@ -105,8 +202,54 @@
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.project-card:hover .project-image img {
+.project-card:hover .project-image img,
+.project-card:hover .project-image video {
   transform: scale(1.1);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-category-tag {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Button inside card */
+.project-link-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: auto; /* Push to bottom */
+  align-self: flex-start;
+  transition: all 0.3s ease;
+  font-size: 12px;
+}
+
+.project-link-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
 }
 
 /* No Image Placeholder */
@@ -124,12 +267,34 @@
 }
 
 /* Content Area */
+/* Content Area - Now Overlay */
 .project-content {
-  padding: var(--space-xl);
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  backdrop-filter: blur(3px);
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.project-card:hover .project-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 0; /* Smooth fade out instead of display none */
 }
 
 .project-header {
@@ -233,9 +398,15 @@
 
 /* Animations */
 @keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 @keyframes slideUpFade {
@@ -254,25 +425,135 @@
 }
 
 /* Staggered Animation Delays */
-.project-card:nth-child(1) { animation-delay: 0.1s; }
-.project-card:nth-child(2) { animation-delay: 0.2s; }
-.project-card:nth-child(3) { animation-delay: 0.3s; }
-.project-card:nth-child(4) { animation-delay: 0.4s; }
-.project-card:nth-child(5) { animation-delay: 0.5s; }
-.project-card:nth-child(6) { animation-delay: 0.6s; }
+.project-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.project-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.project-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.project-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.project-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.project-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Album Modal */
+.album-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain; /* Prevent scroll chaining to body */
+  animation: fadeIn 0.3s ease;
+}
+
+.album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.album-header h2 {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+}
+
+.close-album-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.close-album-btn:hover {
+  transform: rotate(90deg);
+  color: var(--color-subtext);
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.album-item {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.album-media {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-  .portfolio-header h1 {
-    font-size: var(--text-4xl);
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
   }
-  
+}
+
+@media (max-width: 768px) {
+  .portfolio-page {
+    padding-bottom: 4rem; /* Bottom padding for mobile scroll */
+  }
+
+  .portfolio-header {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
   .portfolio-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: 20px;
+    padding: 0 1.5rem;
   }
-  
-  .project-image {
-    height: 220px;
+
+  /* .project-overlay left as default for now to maintain hover effect */
+
+  .project-content {
+    /* Improve touch feel */
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .album-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .album-modal {
+    padding: 1rem;
   }
 }

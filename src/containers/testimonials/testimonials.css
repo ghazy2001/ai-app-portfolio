@@ -22,7 +22,7 @@
   font-family: var(--font-heading);
   font-size: var(--text-4xl);
   font-weight: 700;
-  color: #D4AF37; /* Gold */
+  color: #d4af37; /* Gold */
   margin-bottom: var(--space-sm);
   letter-spacing: -0.02em;
   text-transform: capitalize;
@@ -81,7 +81,9 @@
 
 /* Quote */
 .quote {
-  font-family: var(--font-heading); /* Serif or Heading font for quote looks more editorial */
+  font-family: var(
+    --font-heading
+  ); /* Serif or Heading font for quote looks more editorial */
   font-size: var(--text-2xl);
   line-height: 1.6;
   color: #ffffff;
@@ -107,7 +109,7 @@
 
 .author-row h4 {
   font-family: var(--font-family);
-  color: #D4AF37; /* Gold Name */
+  color: #d4af37; /* Gold Name */
   margin: 0;
   font-size: var(--text-lg);
   font-weight: 600;
@@ -127,7 +129,7 @@
 /* ----------- Controls ----------- */
 .testimonials-controls {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   gap: var(--space-xl);
   margin-top: 0; /* Tighter integration */
@@ -147,18 +149,17 @@
 }
 
 .indicator {
-  width: 50px; 
+  width: 50px;
   height: 2px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
   transition: all 0.3s ease;
-  cursor: pointer;
   border: none;
   padding: 0;
 }
 
 .indicator.active {
-  background: #D4AF37;
+  background: #d4af37;
   width: 70px;
 }
 
@@ -174,16 +175,15 @@
   justify-content: center;
   align-items: center;
   color: #fff;
-  cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
   z-index: 10;
 }
 
 .nav-button:hover {
-  background: #D4AF37;
+  background: #d4af37;
   color: #000;
-  border-color: #D4AF37;
+  border-color: #d4af37;
   transform: scale(1.1);
 }
 
@@ -193,8 +193,13 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.3); /* Add background for contrast inside card */
-    border-color: rgba(255,215,0,0.2);
+    background: rgba(
+      0,
+      0,
+      0,
+      0.3
+    ); /* Add background for contrast inside card */
+    border-color: rgba(255, 215, 0, 0.2);
   }
   .nav-prev {
     left: 20px; /* Inside left */
@@ -212,57 +217,50 @@
     align-items: center;
     gap: var(--space-xl);
   }
-  
-  /* On mobile, maybe keep them inside but smaller, or move them out? 
-     If inside, they might cover text.
-     User didn't specify, but usually inside is fine if card has padding.
-     Let's keep them inside but at bottom corners or centered on sides?
-     Side centering might overlap text on narrow screens.
-     Let's put them at the bottom of the card or flank the indicators.
-     Actually, if they are children of the card now, we can position them at bottom.
-  */
+
+  /* Mobile Controls Positioning */
 
   .nav-button {
     position: absolute;
-    top: 50%; 
+    top: 50%;
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
     font-size: 16px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
   }
-  
+
   .nav-prev {
-      left: 10px;
+    left: 10px;
   }
   .nav-next {
-      right: 10px;
+    right: 10px;
   }
-  
+
   /* Make sure text doesn't hit buttons */
   .testimonial-card-new {
-      padding-left: 50px;
-      padding-right: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
-  
+
   /* Indicators below buttons */
   .testimonials-indicators {
-      margin-top: 2rem; 
+    margin-top: 2rem;
   }
 }
 
 @media screen and (max-width: 600px) {
-    .nav-button {
-        /* On very small screens, maybe move them to bottom to avoid overlap? */
-        top: auto;
-        bottom: 20px;
-        transform: none;
-    }
-    .testimonial-card-new {
-        padding-left: var(--space-lg);
-        padding-right: var(--space-lg);
-        padding-bottom: 80px; /* Space for buttons */
-    }
+  .nav-button {
+    /* On very small screens, maybe move them to bottom to avoid overlap? */
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+  .testimonial-card-new {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    padding-bottom: 80px; /* Space for buttons */
+  }
 }
 
 /* ----------- Grid (Secondary) ----------- */
@@ -279,7 +277,6 @@
   padding: var(--space-lg);
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -287,7 +284,8 @@
   height: 100%;
 }
 
-.grid-card-new:hover, .grid-card-new.active {
+.grid-card-new:hover,
+.grid-card-new.active {
   border-color: rgba(212, 175, 55, 0.5); /* Dim gold */
   background: rgba(255, 215, 0, 0.03);
   transform: translateY(-5px);
@@ -317,7 +315,7 @@
 
 .grid-author p {
   font-size: 0.7rem;
-  color: #D4AF37; /* Highlight title in small cards */
+  color: #d4af37; /* Highlight title in small cards */
   margin-top: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -350,15 +348,15 @@
 
 @media screen and (max-width: 600px) {
   .testimonials-grid {
-    display: none; 
+    display: none;
   }
-  
+
   .testimonial-card-new::before {
     font-size: 80px; /* Smaller watermark on mobile */
     top: -5px;
     left: 10px;
   }
-  
+
   .quote {
     font-size: var(--text-lg);
     line-height: 1.5;
@@ -374,7 +372,7 @@
     height: 48px;
     font-size: 18px;
   }
-  
+
   .testimonials-indicators {
     max-width: 100%;
     overflow-x: auto;
@@ -394,10 +392,10 @@
     min-width: 12px;
     border-radius: 50%;
   }
-  
+
   .indicator.active {
     width: 30px; /* Stretch active one */
-    background: #D4AF37;
+    background: #d4af37;
     border-radius: 10px;
   }
 }

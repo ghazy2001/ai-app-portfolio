@@ -4,7 +4,7 @@
   /* background: linear-gradient... REMOVED for global bg */
   position: relative;
   /* Specific override to keep distance from Header small ("perfect" as requested) */
-  padding-top: var(--space-2xl); 
+  padding-top: var(--space-2xl);
   /* But allow bottom padding to be large from global section__padding if applied via class, 
      but usually specific class styles override generic ones. 
      Let's explicitly set padding if the generic class isn't doing it alone. 
@@ -26,7 +26,6 @@
   box-sizing: border-box;
 }
 
-
 /* Header Section (if preserved, mostly integrated now) */
 .whatmn-header {
   text-align: center;
@@ -40,7 +39,7 @@
 .MN__whatmn-icons-container {
   /* position: sticky removed for GSAP control */
   width: 100%;
-  height: auto; 
+  height: auto;
   display: flex;
   flex-direction: column; /* Stack scene and button */
   justify-content: center;
@@ -57,7 +56,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1200px; 
+  perspective: 1200px;
   transform-style: preserve-3d;
 }
 
@@ -66,7 +65,7 @@
   height: 300px;
   background: transparent;
   border-radius: 50%;
-  box-shadow: none; 
+  box-shadow: none;
   /* z-index removed to let 3D transforms handle sorting */
   animation: logoScale 3s ease-in-out infinite;
   display: flex;
@@ -91,26 +90,36 @@
   justify-content: center;
   align-items: center;
   /* Keep the slight tilt for better depth if desired, or remove to be purely flat like header */
-  transform: rotateX(0deg); 
+  transform: rotateX(0deg);
 }
 
 .MN__whatmn-social-icons img {
   position: absolute;
   width: 50px; /* Smaller icons 60->50 */
   height: 50px;
-  
+
   /* Counter-rotate to keep icons upright */
   animation: orbit 20s linear infinite;
-  
+
   transition: transform 0.3s ease;
 }
 
 /* Animation Delays */
-.MN__whatmn-social-icons img:nth-child(1) { animation-delay: 0s; }
-.MN__whatmn-social-icons img:nth-child(2) { animation-delay: -4s; }
-.MN__whatmn-social-icons img:nth-child(3) { animation-delay: -8s; }
-.MN__whatmn-social-icons img:nth-child(4) { animation-delay: -12s; }
-.MN__whatmn-social-icons img:nth-child(5) { animation-delay: -16s; }
+.MN__whatmn-social-icons img:nth-child(1) {
+  animation-delay: 0s;
+}
+.MN__whatmn-social-icons img:nth-child(2) {
+  animation-delay: -4s;
+}
+.MN__whatmn-social-icons img:nth-child(3) {
+  animation-delay: -8s;
+}
+.MN__whatmn-social-icons img:nth-child(4) {
+  animation-delay: -12s;
+}
+.MN__whatmn-social-icons img:nth-child(5) {
+  animation-delay: -16s;
+}
 
 .MN__whatmn-social-icons img:hover {
   /* Removed hover effects */
@@ -119,24 +128,34 @@
 }
 
 @keyframes orbit {
-  from { transform: rotateY(0deg) translateZ(240px) rotateY(0deg); } /* Smaller orbit radius 320->240 */
-  to { transform: rotateY(360deg) translateZ(240px) rotateY(-360deg); }
+  from {
+    transform: rotateY(0deg) translateZ(240px) rotateY(0deg);
+  } /* Smaller orbit radius 320->240 */
+  to {
+    transform: rotateY(360deg) translateZ(240px) rotateY(-360deg);
+  }
 }
 
 @keyframes logoScale {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 /* Pulse Button Style */
 .cta-button-pulse {
-  background: #FFD700; /* Gold */
+  background: #ffd700; /* Gold */
   color: #000;
   font-weight: 800;
   padding: 1rem 3rem; /* Bigger padding */
   border: none;
   border-radius: 50px;
   font-size: 1.2rem; /* Bigger font */
+  border: 1px solid transparent; /* Prevent layout shift on hover */
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -150,7 +169,9 @@
 .cta-button-pulse:hover {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
-  background: #fff; /* Flash white on hover */
+  background: transparent;
+  color: #ffd700;
+  border: 1px solid #ffd700;
 }
 
 @keyframes pulseGold {
@@ -179,8 +200,8 @@
 
 /* --- New Text Sections --- */
 .MN__whatmn-text-section {
-  width: 100%; 
-  text-align: left; 
+  width: 100%;
+  text-align: left;
   position: relative;
   z-index: 2;
   /* Add spacing for scroll rhythm */
@@ -200,10 +221,10 @@
   width: 100%;
   height: 60vh; /* Substantial fixed height for the "stage" */
   min-height: 500px;
-  display: block; 
+  display: block;
   padding-bottom: 0;
   /* Hide cards sliding in from bottom */
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* Minimalist Card Style - Text Only */
@@ -217,14 +238,14 @@
   justify-content: center;
   align-items: flex-start;
   gap: var(--space-md);
-  
+
   /* Absolute Positioning for Overlap preserved */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; 
-  
+  height: 100%;
+
   box-shadow: none;
   transition: opacity 0.3s ease;
 }
@@ -252,7 +273,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #FFD700;
+  color: #ffd700;
   font-size: 40px;
   margin-bottom: var(--space-md);
   transition: transform 0.3s ease;
@@ -265,14 +286,14 @@
 
 .whatmn-card-title {
   font-family: var(--font-heading);
-  font-size: var(--text-4xl); 
+  font-size: var(--text-4xl);
   color: #fff;
   font-weight: 600;
   margin: 0;
 }
 
 .whatmn-card-text {
-  font-size: var(--text-xl); 
+  font-size: var(--text-xl);
   color: var(--color-text-dim, #ccc);
   line-height: 1.8;
   margin: 0;
@@ -305,13 +326,13 @@
 
 @media screen and (max-width: 850px) {
   /* Background Scene & Bottom Button Logic */
-  .MN__whatmn-icons-container { 
+  .MN__whatmn-icons-container {
     position: absolute; /* Occupy full section background */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; 
+    z-index: 0;
     pointer-events: none; /* Let clicks pass through to content, EXCEPT button */
     display: flex;
     flex-direction: column;
@@ -319,7 +340,7 @@
     align-items: center;
     padding-bottom: 2rem; /* Space for button at bottom */
   }
-  
+
   /* Scene fade out to be a background watermark */
   .whatmn-scene {
     position: absolute;
@@ -331,15 +352,15 @@
     z-index: -1;
   }
 
-  .MN__whatmn-logo { 
-    width: 200px; 
+  .MN__whatmn-logo {
+    width: 200px;
     height: 200px;
     filter: none;
   }
-  
-  .MN__whatmn-social-icons img { 
-    width: 40px; 
-    height: 40px; 
+
+  .MN__whatmn-social-icons img {
+    width: 40px;
+    height: 40px;
   }
 
   /* Specific Wrapper for Button to make it clickable and bottom */
@@ -362,7 +383,7 @@
     position: relative;
     padding-bottom: 6rem; /* Make space for the absolute/fixed button area */
   }
-  
+
   .MN__whatmn-content-wrapper {
     position: relative;
     z-index: 2; /* Clearly on top of icons */
@@ -375,8 +396,12 @@
 /* Specific fix for orbit radius on mobile */
 @media screen and (max-width: 850px) {
   @keyframes orbit {
-    from { transform: rotateY(0deg) translateZ(100px) rotateY(0deg); } /* Much smaller radius */
-    to { transform: rotateY(360deg) translateZ(100px) rotateY(-360deg); }
+    from {
+      transform: rotateY(0deg) translateZ(100px) rotateY(0deg);
+    } /* Much smaller radius */
+    to {
+      transform: rotateY(360deg) translateZ(100px) rotateY(-360deg);
+    }
   }
 }
 /* Responsive Design */
@@ -396,17 +421,17 @@
     gap: var(--space-xl);
     padding-bottom: var(--space-4xl);
   }
-  
+
   .whatmn-card {
-    position: relative; 
+    position: relative;
     height: auto;
     width: 100%;
   }
-  
+
   .whatmn-header h1 {
     font-size: var(--text-4xl);
   }
-  
+
   .whatmn-header p {
     font-size: var(--text-lg);
   }
@@ -416,31 +441,30 @@
   .whatmn-header h1 {
     font-size: var(--text-3xl);
   }
-  
+
   .whatmn-header p {
     font-size: var(--text-base);
   }
-  
+
   .whatmn-card {
     padding: var(--space-xl) 1rem;
   }
-  
+
   .whatmn-card-icon {
     width: 64px;
     height: 64px;
   }
-  
+
   .whatmn-card-icon svg {
     width: 32px;
     height: 32px;
   }
-  
+
   .whatmn-card-title {
     font-size: var(--text-2xl);
   }
-  
+
   .whatmn-card-text {
     font-size: var(--text-sm);
   }
 }
-

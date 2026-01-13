@@ -14,6 +14,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.01em;
+  /* Hide default cursor for Neon Effect */
+  cursor: none;
+}
+
+/* Force hide cursor on interactive elements */
+a,
+button,
+input,
+select,
+textarea,
+.pointer {
+  cursor: none !important;
 }
 
 a {
@@ -58,7 +70,8 @@ a:hover {
 
 /* Smooth Scale Animation */
 .scale-up-center {
-  -webkit-animation: scale-up-center 0.35s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  -webkit-animation: scale-up-center 0.35s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
   animation: scale-up-center 0.35s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
@@ -109,7 +122,7 @@ a:hover {
   .section__padding {
     padding: var(--space-3xl) var(--space-xl);
   }
-  
+
   .section__margin {
     margin: var(--space-3xl) var(--space-xl);
   }
@@ -119,7 +132,7 @@ a:hover {
   .section__padding {
     padding: var(--space-2xl) var(--space-lg);
   }
-  
+
   .section__margin {
     margin: var(--space-2xl) var(--space-lg);
   }
@@ -129,8 +142,84 @@ a:hover {
   .section__padding {
     padding: var(--space-xl) var(--space-md);
   }
-  
+
   .section__margin {
     margin: var(--space-xl) var(--space-md);
   }
+}
+
+/* Premium Cursor Styles */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #ffd700; /* Solid Gold Dot */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001; /* Very top */
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white ring initially */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000; /* Below dot */
+  transform: translate(-50%, -50%);
+  transition: border-color 0.3s ease, background-color 0.3s ease; /* Scale handled by GSAP */
+}
+
+/* Hide cursor on tablet/mobile */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* Hide Global Cursor in Recent Work Banner to avoid conflict with "VIEW" cursor */
+body:has(.mn__recentwork:hover) .cursor-dot,
+body:has(.mn__recentwork:hover) .cursor-ring {
+  opacity: 0 !important;
+}
+
+/* Global Golden Button Utility */
+.golden-btn {
+  padding: 0.6rem 1.2rem;
+  background: #ffd700;
+  border-radius: 5px;
+  color: #000;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  border: 1px solid #ffd700;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.golden-btn:hover {
+  background: transparent;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  transform: translateY(-2px);
+}
+
+/* Hover-Only Utility */
+.golden-hover:hover {
+  background: transparent !important;
+  color: #ffd700 !important;
+  border: 1px solid #ffd700 !important;
+  transform: translateY(-2px);
+  text-decoration: none;
 }

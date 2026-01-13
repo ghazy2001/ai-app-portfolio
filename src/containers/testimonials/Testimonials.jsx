@@ -2,14 +2,13 @@
 import { useState, useEffect, useRef } from "react";
 import "./testimonials.css";
 
-
 import API_URL from "../../apiConfig";
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
   const [testimonials, setTestimonials] = useState([]);
-  
+
   const fetchTestimonials = async () => {
     try {
       const res = await fetch(`${API_URL}/api/tp/testimonial`);
@@ -18,7 +17,7 @@ const Testimonials = () => {
         setTestimonials(data);
       } else {
         console.error("Expected array but got:", data);
-        setTestimonials([]); 
+        setTestimonials([]);
       }
     } catch (error) {
       console.error("Error fetching testimonials:", error);
@@ -38,7 +37,10 @@ const Testimonials = () => {
       const next = (prev + 1) % testimonials.length;
       setStartIndex((s) => {
         if (next >= s + visibleCount) {
-          return Math.min(s + 1, Math.max(0, testimonials.length - visibleCount));
+          return Math.min(
+            s + 1,
+            Math.max(0, testimonials.length - visibleCount)
+          );
         }
         if (next < s) return Math.max(0, next);
         return s;
@@ -56,7 +58,10 @@ const Testimonials = () => {
           return Math.max(0, s - 1);
         }
         if (next >= s + visibleCount) {
-          return Math.min(next - visibleCount + 1, Math.max(0, testimonials.length - visibleCount));
+          return Math.min(
+            next - visibleCount + 1,
+            Math.max(0, testimonials.length - visibleCount)
+          );
         }
         return s;
       });
@@ -68,21 +73,20 @@ const Testimonials = () => {
   const itemRefs = useRef([]);
 
   if (testimonials.length === 0) {
-      return (
-          <section className="testimonials-section" dir="rtl">
-               <div className="testimonials-container">
-                    <div className="testimonials-header">
-                        <h2>ما يقوله عملاؤنا</h2>
-                        <p>No testimonials yet.</p>
-                    </div>
-               </div>
-          </section>
-      )
+    return (
+      <section className="testimonials-section" dir="rtl">
+        <div className="testimonials-container">
+          <div className="testimonials-header">
+            <h2>ما يقوله عملاؤنا</h2>
+            <p>No testimonials yet.</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
     <section className="testimonials-section" dir="rtl">
-      
       <div className="testimonials-container">
         <div className="testimonials-header">
           <h2>What Our Clients Say</h2>
@@ -92,19 +96,23 @@ const Testimonials = () => {
         <div className="main-carousel-wrapper">
           {current && (
             <div className="testimonial-card-new">
-                {/* Left Arrow */}
-                <button className="nav-button nav-prev" onClick={prevTestimonial}>›</button>
+              {/* Left Arrow */}
+              <button className="nav-button nav-prev" onClick={prevTestimonial}>
+                ›
+              </button>
 
-                <p className="quote">"{current.text}"</p>
-                <div className="author-row">
-                  <div>
-                      <h4>{current.name}</h4>
-                      {current.title && <p>{current.title}</p>}
-                  </div>
+              <p className="quote">"{current.text}"</p>
+              <div className="author-row">
+                <div>
+                  <h4>{current.name}</h4>
+                  {current.title && <p>{current.title}</p>}
                 </div>
+              </div>
 
-                {/* Right Arrow */}
-                <button className="nav-button nav-next" onClick={nextTestimonial}>‹</button>
+              {/* Right Arrow */}
+              <button className="nav-button nav-next" onClick={nextTestimonial}>
+                ‹
+              </button>
             </div>
           )}
 
@@ -120,7 +128,10 @@ const Testimonials = () => {
                     setStartIndex((s) => {
                       if (i < s) return i;
                       if (i >= s + visibleCount)
-                        return Math.min(i - visibleCount + 1, Math.max(0, testimonials.length - visibleCount));
+                        return Math.min(
+                          i - visibleCount + 1,
+                          Math.max(0, testimonials.length - visibleCount)
+                        );
                       return s;
                     });
                   }}
@@ -129,7 +140,6 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
-    
       </div>
     </section>
   );

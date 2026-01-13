@@ -1,0 +1,293 @@
+.mn__recentwork {
+  background: transparent;
+  /* Removed padding-top/bottom to allow full pinning height control via JS or layout */
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center; /* Center initial state vertically if needed */
+  justify-content: center;
+  position: relative;
+}
+
+.mn__banner-container {
+  display: block;
+  text-decoration: none;
+  /* Full screen base state. The "smallness" is handled by JS Mask (clip-path). */
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  /* border-radius removed here as it's handled by clip-path round */
+  overflow: hidden;
+
+  /* Optional: Shadow/Border might be tricky with clip-path, removing for cleaner 'pro' look */
+  /* box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); */
+  /* border: 1px solid rgba(255, 255, 255, 0.1); */
+
+  cursor: none;
+
+  /* Performance: Hint browser about clip-path change */
+  will-change: clip-path;
+  transform: translateZ(0);
+}
+
+/* Custom Magnetic Cursor */
+.mn__banner-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ffd700; /* Gold */
+  color: #000; /* Black Text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  pointer-events: none; /* Crucial: clicks pass through to the Link */
+  z-index: 9999;
+
+  /* Centering the fixed element on the mouse coordinates */
+  margin-left: -40px;
+  margin-top: -40px;
+
+  /* Initial State: Hidden */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mn__banner-cursor.active {
+  opacity: 1;
+}
+
+/* Custom "Arrow" Cursor Effect - using a class if we had a custom image, 
+   but standard pointer is best for UX. 
+   If user specifically wanted an ARROW not a HAND, we can use:
+   cursor: n-resize; (up arrow) or similar, but let's stick to pointer for now
+   unless we find a specific asset. 
+*/
+.mn__banner-container:hover .banner-title {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* Collage Layer */
+.mn__banner-collage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* Changed from Grid to Flex for columns */
+  justify-content: space-between;
+  gap: 1rem; /* Gap between columns */
+  padding: 0 1rem; /* Gentle side padding */
+  z-index: 1;
+  background: #000; /* Dark background behind images */
+  transform: skewY(
+    0deg
+  ); /* Optional: can add slight skew for edgy look, keeping flat for now */
+}
+
+.collage-column {
+  flex: 1;
+  height: 120%; /* Taller than container to allow movement range if needed, but track handles it */
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.collage-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Vertical gap between images */
+  /* Animation Basics */
+  will-change: transform;
+  /* Hardware acceleration hack */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Specific Animations per Column */
+/* Odd Columns (1, 3, 5) -> Scroll Up */
+.collage-column.col-1 .collage-track,
+.collage-column.col-3 .collage-track,
+.collage-column.col-5 .collage-track {
+  animation: scrollUp 40s linear infinite;
+}
+
+/* Even Columns (2, 4) -> Scroll Down */
+.collage-column.col-2 .collage-track,
+.collage-column.col-4 .collage-track {
+  animation: scrollDown 45s linear infinite; /* Slightly different speed */
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(
+      -50%
+    ); /* Move up by half the track (since we duplicated contents) */
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-50%); /* Start halfway up */
+  }
+  100% {
+    transform: translateY(0); /* Scroll down to 0 */
+  }
+}
+
+.collage-item-wrapper {
+  width: 100%;
+  aspect-ratio: 3/4; /* Vertical portrait boxes */
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px; /* Soft corners for content */
+}
+
+.collage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: grayscale(20%); /* Slight vintage desaturation */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Hovering overlay shouldn't stop animation to keep flow alive, 
+   but maybe slight scale on image wrapper? */
+
+.collage-item-wrapper:hover .collage-img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
+
+/* Blur Overlay - PREMIUM UPDATE */
+.mn__banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Radial Vignette: Clear center, dark edges */
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  z-index: 2;
+  pointer-events: none; /* Let clicks pass through if needed, though buttons are above z-index */
+}
+
+/* Content */
+.mn__banner-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.banner-tag {
+  display: none;
+}
+
+.banner-title {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 64px; /* Larger */
+  font-weight: 800;
+  line-height: 1;
+  max-width: 900px;
+  margin-bottom: 2rem;
+  /* Cinematic blend */
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  letter-spacing: -2px;
+}
+
+.mn__banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: #ffd700; /* Solid Gold */
+  border: 1px solid #ffd700;
+  color: #000; /* Black text */
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 50px; /* Pillow shape */
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); /* Gold glow */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect on hover */
+.mn__banner-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.mn__banner-cta:hover::after {
+  left: 100%;
+}
+
+.mn__banner-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .mn__banner-container {
+    height: 500px;
+    border-radius: 20px;
+  }
+
+  /* Show fewer columns on mobile? */
+  .collage-column:nth-child(2),
+  .collage-column:nth-child(4) {
+    display: none; /* Hide 2 columns to prevent clutter */
+  }
+
+  .mn__banner-collage {
+    gap: 0.5rem;
+  }
+
+  .banner-title {
+    font-size: 36px;
+  }
+
+  .mn__banner-cta {
+    padding: 0.8rem 1.5rem;
+    font-size: 14px;
+  }
+}

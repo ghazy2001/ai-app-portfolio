@@ -6,17 +6,27 @@
   --font-heading: "Poppins", "Inter", sans-serif;
 
   /* Your Unique Brand Gradients (Preserved) */
-  --gradient-text: linear-gradient(89.97deg, #612d9a 1.84%, #ac1793 50%, #1582db 102.67%);
-  --gradient-bar: linear-gradient(103.22deg, #612d9a 13.86%, #ac1793 50%, #1582db 99.55%);
+  --gradient-text: linear-gradient(
+    89.97deg,
+    #612d9a 1.84%,
+    #ac1793 50%,
+    #1582db 102.67%
+  );
+  --gradient-bar: linear-gradient(
+    103.22deg,
+    #612d9a 13.86%,
+    #ac1793 50%,
+    #1582db 99.55%
+  );
   --gradient-vibrant: linear-gradient(135deg, #612d9a 0%, #ac1793 100%);
-  
+
   /* Enhanced Color System (Your Purple/Pink Theme) */
   --color-primary: #ae67fa;
   --color-primary-light: #c18cfa;
   --color-primary-dark: #8b47d6;
   --color-secondary: #1582db;
   --color-accent: #f18ce0;
-  
+
   /* Background Colors */
   --color-bg: #040c18;
   --color-bg-light: #0a1628;
@@ -24,13 +34,23 @@
   --color-card: #0d1b2a;
   --color-blog: #042c54;
 
+  /* Dynamic Background Gradient Variables for GSAP */
+  --bg-grad-center: rgba(0, 40, 83, 1);
+  --bg-grad-outer: #040c18;
+
   /* Global Body Background with "Swimming" Animation */
-  html, body {
+  html,
+  body {
     background-color: #040c18; /* Deep Blue Base */
     margin: 0;
     padding: 0;
-    font-family: var(--font-family);
+    box-sizing: border-box;
+    font-family: "Roobert", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     overflow-x: hidden; /* CRITICAL: Hides the 200% width background animation */
+    /* Match ScrollSmoother example for solid feel */
+    overscroll-behavior: none;
     /* Ensure no scroll on x-axis ever */
     width: 100%;
     position: relative;
@@ -38,81 +58,102 @@
   }
 
   body::before {
-    content: '';
+    content: "";
     position: fixed; /* Fixed so it moves with scroll or stays put while content scrolls */
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     /* A rich, deep animated gradient */
-    background: radial-gradient(circle at center, rgba(0, 40, 83, 1) 0%, #040c18 60%, #000000 100%);
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 40, 83, 1) 0%,
+      #040c18 60%,
+      #000000 100%
+    );
     /* Adding subtle gold accent spots */
-    background-image: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.03) 0%, transparent 20%), 
-                      radial-gradient(circle at 70% 70%, rgba(97, 45, 154, 0.05) 0%, transparent 20%),
-                      radial-gradient(circle at center, rgba(0, 40, 83, 1) 0%, #040c18 70%);
+    background-image: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 215, 0, 0.03) 0%,
+        transparent 20%
+      ),
+      radial-gradient(
+        circle at 70% 70%,
+        rgba(97, 45, 154, 0.05) 0%,
+        transparent 20%
+      ),
+      radial-gradient(
+        circle at center,
+        var(--bg-grad-center) 0%,
+        var(--bg-grad-outer) 70%
+      );
     animation: bodySwim 30s linear infinite;
     z-index: -10; /* Far behind everything */
     pointer-events: none;
   }
 
   @keyframes bodySwim {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
-  
+
   /* Text Colors */
   --color-text: #81afdd;
   --color-text-light: #a8c5e6;
   --color-text-muted: #5a7a9c;
   --color-white: #ffffff;
   --color-subtext: #ffd700;
-  
+
   /* Spacing System (Professional Scale) */
-  --space-xs: 0.5rem;    /* 8px */
-  --space-sm: 0.75rem;   /* 12px */
-  --space-md: 1rem;      /* 16px */
-  --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 3rem;     /* 48px */
-  --space-3xl: 4rem;     /* 64px */
-  --space-4xl: 6rem;     /* 96px */
-  --space-5xl: 8rem;     /* 128px */
-  --space-6xl: 10rem;    /* 160px */
-  
+  --space-xs: 0.5rem; /* 8px */
+  --space-sm: 0.75rem; /* 12px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+  --space-4xl: 6rem; /* 96px */
+  --space-5xl: 8rem; /* 128px */
+  --space-6xl: 10rem; /* 160px */
+
   /* Typography Scale */
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-  --text-4xl: 2.25rem;   /* 36px */
-  --text-5xl: 3rem;      /* 48px */
-  --text-6xl: 3.75rem;   /* 60px */
-  
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+
   /* Line Heights */
   --leading-tight: 1.25;
   --leading-normal: 1.5;
   --leading-relaxed: 1.75;
-  
+
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-base: 250ms ease-in-out;
   --transition-slow: 350ms ease-in-out;
-  
+
   /* Shadows (Enhanced) */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.45);
   --shadow-glow: 0 0 30px rgba(174, 103, 250, 0.3);
-  
+
   /* Border Radius */
-  --radius-sm: 0.5rem;   /* 8px */
-  --radius-md: 0.75rem;  /* 12px */
-  --radius-lg: 1rem;     /* 16px */
-  --radius-xl: 1.5rem;   /* 24px */
+  --radius-sm: 0.5rem; /* 8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
 }
 
 /* Utility Classes */
