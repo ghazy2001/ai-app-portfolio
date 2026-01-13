@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 import Preloader from "./components/Preloader";
+import ScrollToTop from "./components/ScrollToTop";
 import Cursor from "./components/Cursor";
 
 import FloatingSocials from "./components/FloatingSocials";
@@ -46,6 +47,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Preloader />
       <Cursor />
       <FloatingSocials />
