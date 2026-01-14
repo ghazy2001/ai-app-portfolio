@@ -4,7 +4,7 @@ import "./preloader.css";
 import logo from "../assets/logo2.png";
 import { useLocation } from "react-router-dom";
 
-const Preloader = () => {
+const Preloader = ({ setLoading }) => {
   const [complete, setComplete] = useState(false);
   const containerRef = useRef(null);
   const topPanelRef = useRef(null);
@@ -26,6 +26,7 @@ const Preloader = () => {
       const tl = gsap.timeline({
         onComplete: () => {
           setComplete(true);
+          if (setLoading) setLoading(false);
         },
       });
       // ... existing timeline ...

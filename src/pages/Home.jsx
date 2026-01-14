@@ -13,12 +13,12 @@ import {
   Contact,
 } from "../containers";
 
-const Home = () => {
+const Home = ({ loading }) => {
   return (
     <>
       <div className="gradient__bg">
         <Navbar />
-        <Header />
+        <Header loading={loading} />
       </div>
 
       <WhatMN />

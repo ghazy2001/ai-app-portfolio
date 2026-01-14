@@ -536,9 +536,15 @@
   }
 
   .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 1.5rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for better density */
+    gap: 15px;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* Back to 1 column for very small screens */
   }
 
   /* .project-overlay left as default for now to maintain hover effect */

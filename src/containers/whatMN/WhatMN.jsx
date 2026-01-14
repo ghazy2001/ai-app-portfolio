@@ -107,86 +107,119 @@ const WhatMN = () => {
   }, []);
 
   return (
-    <div className="MN__whatmn section__padding" id="wmn" ref={containerRef}>
-      {/* 1. Spinning Icons Section (Left Column) */}
-      <div className="MN__whatmn-icons-container">
-        {/* 3D Scene Wrapper */}
-        <div className="whatmn-scene">
-          <div className="MN__whatmn-logo">
-            <img src={logo} alt="MN Logo" />
+    <div style={{ width: "100%" }}>
+      <div className="MN__whatmn section__padding" id="wmn" ref={containerRef}>
+        {/* 1. Spinning Icons Section (Left Column) */}
+        <div className="MN__whatmn-icons-container">
+          {/* 3D Scene Wrapper */}
+          <div className="whatmn-scene">
+            <div className="MN__whatmn-logo">
+              <img src={logo} alt="MN Logo" />
+            </div>
+
+            <div className="MN__whatmn-social-icons">
+              <a
+                href="https://www.facebook.com/mnmarketing.eg"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={facebook} alt="Facebook" />
+              </a>
+              <a
+                href="https://www.instagram.com/mn_marketingagency.eg"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={instagram} alt="Instagram" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/mnmarketingagency/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={linkedin} alt="LinkedIn" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@mnmarketing.eg"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={tiktok} alt="TikTok" />
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={youtube} alt="YouTube" />
+              </a>
+            </div>
           </div>
 
-          <div className="MN__whatmn-social-icons">
-            <img src={facebook} alt="Facebook" />
-            <img src={instagram} alt="Instagram" />
-            <img src={linkedin} alt="LinkedIn" />
-            <img src={tiktok} alt="TikTok" />
-            <img src={youtube} alt="YouTube" />
+          {/* CTA Button */}
+          <div className="whatmn-cta">
+            <Link to="/contact">
+              <button className="cta-button-pulse">Call Us Now</button>
+            </Link>
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="whatmn-cta">
-          <Link to="/contact">
-            <button className="cta-button-pulse">Call Us Now</button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Right Column Content Wrapper */}
-      <div className="MN__whatmn-content-wrapper">
-        {/* 4 Cards Grid - Unified Layout */}
-        <div className="whatmn-cards-grid">
-          {/* Card 1: Who We Are */}
-          <div className="whatmn-card">
-            <div className="whatmn-card-icon">
-              <RiTeamLine size={48} />
+        {/* Right Column Content Wrapper */}
+        <div className="MN__whatmn-content-wrapper">
+          {/* 4 Cards Grid - Unified Layout */}
+          <div className="whatmn-cards-grid">
+            {/* Card 1: Who We Are */}
+            <div className="whatmn-card">
+              <div className="whatmn-card-icon">
+                <RiTeamLine size={48} />
+              </div>
+              <h2 className="whatmn-card-title">Who We Are</h2>
+              <p className="whatmn-card-text">
+                We have over 5 years of experience delivering effective,
+                data-driven marketing solutions. We help brands grow by
+                executing performance-focused campaigns that drive measurable
+                results.
+              </p>
             </div>
-            <h2 className="whatmn-card-title">Who We Are</h2>
-            <p className="whatmn-card-text">
-              We have over 5 years of experience delivering effective,
-              data-driven marketing solutions. We help brands grow by executing
-              performance-focused campaigns that drive measurable results.
-            </p>
-          </div>
 
-          {/* Card 2: Company Story */}
-          <div className="whatmn-card">
-            <div className="whatmn-card-icon">
-              <RiBookOpenLine size={48} />
+            {/* Card 2: Company Story */}
+            <div className="whatmn-card">
+              <div className="whatmn-card-icon">
+                <RiBookOpenLine size={48} />
+              </div>
+              <h2 className="whatmn-card-title">Our Story</h2>
+              <p className="whatmn-card-text">
+                Founded on the belief that marketing should create real business
+                impact, not just visibility. We fix the core problem of running
+                campaigns without clear results.
+              </p>
             </div>
-            <h2 className="whatmn-card-title">Our Story</h2>
-            <p className="whatmn-card-text">
-              Founded on the belief that marketing should create real business
-              impact, not just visibility. We fix the core problem of running
-              campaigns without clear results.
-            </p>
-          </div>
 
-          {/* Card 3: Vision */}
-          <div className="whatmn-card">
-            <div className="whatmn-card-icon">
-              <RiEyeLine size={48} />
+            {/* Card 3: Vision */}
+            <div className="whatmn-card">
+              <div className="whatmn-card-icon">
+                <RiEyeLine size={48} />
+              </div>
+              <h2 className="whatmn-card-title">Our Vision</h2>
+              <p className="whatmn-card-text">
+                To become a leading performance marketing agency that helps
+                brands scale sustainably through data-driven strategies and
+                continuous optimization.
+              </p>
             </div>
-            <h2 className="whatmn-card-title">Our Vision</h2>
-            <p className="whatmn-card-text">
-              To become a leading performance marketing agency that helps brands
-              scale sustainably through data-driven strategies and continuous
-              optimization.
-            </p>
-          </div>
 
-          {/* Card 4: Mission */}
-          <div className="whatmn-card">
-            <div className="whatmn-card-icon">
-              <RiCompassLine size={48} />
+            {/* Card 4: Mission */}
+            <div className="whatmn-card">
+              <div className="whatmn-card-icon">
+                <RiCompassLine size={48} />
+              </div>
+              <h2 className="whatmn-card-title">Our Mission</h2>
+              <p className="whatmn-card-text">
+                Driving real results for brands by building smart strategies,
+                executing high-performance campaigns, and continuously
+                optimizing for ROI.
+              </p>
             </div>
-            <h2 className="whatmn-card-title">Our Mission</h2>
-            <p className="whatmn-card-text">
-              Driving real results for brands by building smart strategies,
-              executing high-performance campaigns, and continuously optimizing
-              for ROI.
-            </p>
           </div>
         </div>
       </div>

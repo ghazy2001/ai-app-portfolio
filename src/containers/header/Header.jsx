@@ -10,21 +10,29 @@ import caro5 from "../../assets/caro5.png";
 import caro6 from "../../assets/caro6.png";
 import caro7 from "../../assets/caro7.png";
 
-const Header = () => {
+const Header = ({ loading }) => {
   const clients = [caro1, caro2, caro3, caro4, caro5, caro6, caro7];
+
+  // If loading is undefined (e.g. strict mode re-renders or other pages), default to false (show content)
+  const shouldShow = loading === undefined ? true : !loading;
+
   return (
     <motion.div
       className="MN__header section__padding"
       id="home"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: shouldShow ? 1 : 0 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
     >
       <motion.div
         className="MN__header-content"
         initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+        animate={{ y: shouldShow ? 0 : 30, opacity: shouldShow ? 1 : 0 }}
+        transition={{
+          duration: 1.2,
+          ease: "easeOut",
+          delay: shouldShow ? 0.5 : 0,
+        }}
       >
         <h5 className="MN__header-kicker shiny-text">Sales First .. Always</h5>
         <h1 className="MN__header-title">Performance Marketing Agency</h1>

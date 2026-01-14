@@ -42,15 +42,15 @@ const Navbar = () => {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // If at the top, always show navbar
       if (currentScrollY < 10) {
         setScrolled(false);
-      } 
+      }
       // If scrolling down, hide navbar
       else if (currentScrollY > lastScrollY) {
         setScrolled(true);
-      } 
+      }
       // If scrolling up, show navbar
       else {
         setScrolled(false);
@@ -70,7 +70,9 @@ const Navbar = () => {
     <div className={`MN__navbar ${scrolled ? "navbar-hidden" : ""}`}>
       <div className="MN__navbar-links">
         <div className="MN__navbar-links_logo">
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <div className="MN__navbar-links_container">
           <Menu />
