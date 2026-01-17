@@ -166,7 +166,7 @@
 /* Responsive Text Sizing */
 @media screen and (max-width: 768px) {
   .MN__whatmn {
-    padding: 8rem 1.5rem; /* Increased top padding to clear fixed navbar */
+    padding: 12rem 1.5rem 4rem 1.5rem; /* Increased top padding to clear fixed navbar and logo */
   }
 
   .whatmn-card {

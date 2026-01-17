@@ -12,7 +12,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("adminAuthenticated");
-    navigate("/admin-login");
+    navigate("/");
   };
 
   return (
