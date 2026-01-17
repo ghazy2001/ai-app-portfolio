@@ -1,172 +1,138 @@
-/* About Section - Modern Card Design with Logo Colors */
+/* What MN Section - Full Width Vertical Layout */
 
 .MN__whatmn {
-  /* background: linear-gradient... REMOVED for global bg */
   position: relative;
-  /* Specific override to keep distance from Header small ("perfect" as requested) */
-  padding-top: var(--space-2xl);
-  /* But allow bottom padding to be large from global section__padding if applied via class, 
-     but usually specific class styles override generic ones. 
-     Let's explicitly set padding if the generic class isn't doing it alone. 
-     Actually, let's just use !important for top if needed, or just set it here since ID/class specificity might match.
-  */
-  padding-right: var(--space-2xl);
-  padding-bottom: var(--space-4xl);
-  padding-left: var(--space-2xl);
-  direction: ltr; /* Switch to LTR for English content */
-  /* Fix horizontal overflow */
-  overflow-x: hidden;
-  overflow-y: clip; /* clip is safer for sticky/pinned elements sometimes, or visible */
-  display: flex; /* Flexbox for side-by-side layout */
-  flex-direction: column; /* Default to column for Mobile */
+  /* Significant top/bottom padding for breathing room */
+  padding: var(--space-4xl) var(--space-2xl);
+  direction: ltr;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-4xl);
-  min-height: 100vh;
-  /* Ensure padding doesn't cause overflow */
+  min-height: auto;
   box-sizing: border-box;
+  background-color: transparent;
 }
 
-/* Header Section (if preserved, mostly integrated now) */
-.whatmn-header {
-  text-align: center;
-  max-width: 800px;
+/* --- Content Wrapper (Full Width) --- */
+.MN__whatmn-content-wrapper {
+  width: 100%;
+  max-width: 1200px; /* Optional cap for very wide screens */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  text-align: left;
+}
+
+/* --- Cards Grid (Vertical Stack) --- */
+.whatmn-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* Increased gap */
+  width: 100%;
+}
+
+.whatmn-card {
   position: relative;
-  z-index: 1;
   width: 100%;
-}
+  padding: 3.5rem; /* More generous padding */
 
-/* --- Spinning Icons Section (Left Side) --- */
-.MN__whatmn-icons-container {
-  /* position: sticky removed for GSAP control */
-  width: 100%;
-  height: auto;
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px; /* Softer corners */
+
   display: flex;
-  flex-direction: column; /* Stack scene and button */
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  gap: 3rem; /* Space between scene and button */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  opacity: 1;
+
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* New Wrapper for the 3D Scene to keep it contained */
-.whatmn-scene {
-  width: 100%;
-  height: 400px; /* Reduced height for smaller scene */
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1200px;
-  transform-style: preserve-3d;
+.whatmn-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 215, 0, 0.3); /* Subtle gold border on hover */
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5); /* Lift effect */
 }
 
-.MN__whatmn-logo {
-  width: 300px; /* Increased slightly from 180px -> 220px */
-  height: 300px;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: none;
-  /* z-index removed to let 3D transforms handle sorting */
-  animation: logoScale 3s ease-in-out infinite;
+.whatmn-card-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.1),
+    rgba(255, 215, 0, 0.05)
+  );
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateZ(0); /* Anchor in 3D space */
+  color: #ffd700;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.MN__whatmn-logo img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+.whatmn-card:hover .whatmn-card-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.2),
+    rgba(255, 215, 0, 0.1)
+  );
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
-/* --- Orbit System (Simpler Header Style) --- */
-.MN__whatmn-social-icons {
-  position: absolute;
+.whatmn-card-title {
+  font-family: var(--font-heading);
+  font-size: 3rem; /* Larger, more impactful */
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+
+  /* Gradient Text */
+  background: linear-gradient(90deg, #ffffff 0%, #ffd700 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.whatmn-card-text {
+  font-size: 1.15rem;
+  color: #a0a0a0; /* Softer, richer grey */
+  line-height: 1.8;
+  margin: 0;
+  max-width: 850px;
+  font-weight: 300;
+}
+
+/* --- CTA Wrapper --- */
+.whatmn-cta-wrapper {
   width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Keep the slight tilt for better depth if desired, or remove to be purely flat like header */
-  transform: rotateX(0deg);
+  justify-content: center; /* Center the button */
+  margin-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.MN__whatmn-social-icons a {
-  position: absolute;
-  width: 50px; /* Smaller icons 60->50 */
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* Counter-rotate to keep icons upright */
-  animation: orbit 20s linear infinite;
-  transition: transform 0.3s ease;
-}
-
-.MN__whatmn-social-icons a img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Animation Delays */
-.MN__whatmn-social-icons a:nth-child(1) {
-  animation-delay: 0s;
-}
-.MN__whatmn-social-icons a:nth-child(2) {
-  animation-delay: -4s;
-}
-.MN__whatmn-social-icons a:nth-child(3) {
-  animation-delay: -8s;
-}
-.MN__whatmn-social-icons a:nth-child(4) {
-  animation-delay: -12s;
-}
-.MN__whatmn-social-icons a:nth-child(5) {
-  animation-delay: -16s;
-}
-
-.MN__whatmn-social-icons a:hover {
-  /* Removed hover effects */
-  transform: none;
-  filter: none;
-}
-
-@keyframes orbit {
-  from {
-    transform: rotateY(0deg) translateZ(240px) rotateY(0deg);
-  } /* Smaller orbit radius 320->240 */
-  to {
-    transform: rotateY(360deg) translateZ(240px) rotateY(-360deg);
-  }
-}
-
-@keyframes logoScale {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* Pulse Button Style */
 .cta-button-pulse {
-  background: #ffd700; /* Gold */
+  background: #ffd700;
   color: #000;
   font-weight: 800;
-  padding: 1rem 3rem; /* Bigger padding */
-  border: none;
+  padding: 1rem 3rem;
+  border: 1px solid #ffd700; /* Added border to match navbar structure */
   border-radius: 50px;
-  font-size: 1.2rem; /* Bigger font */
-  border: 1px solid transparent; /* Prevent layout shift on hover */
+  font-size: 1.2rem;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
   animation: pulseGold 2s infinite;
@@ -175,11 +141,11 @@
 }
 
 .cta-button-pulse:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
   background: transparent;
   color: #ffd700;
-  border: 1px solid #ffd700;
+  transform: translateY(-2px); /* Match navbar lift */
+  box-shadow: none; /* Remove previous shadow to match cleaner navbar style */
+  animation: none; /* Stop pulse on hover for clean interaction */
 }
 
 @keyframes pulseGold {
@@ -197,277 +163,53 @@
   }
 }
 
-/* --- Content Wrapper (Right Side) --- */
+/* Responsive Text Sizing */
+@media screen and (max-width: 768px) {
+  .MN__whatmn {
+    padding: 8rem 1.5rem; /* Increased top padding to clear fixed navbar */
+  }
+
+  .whatmn-card {
+    padding: 2rem 1.5rem; /* Tighter padding for mobile */
+    border-radius: 16px;
+  }
+
+  .whatmn-card-title {
+    font-size: 2rem;
+  }
+
+  .whatmn-card-text {
+    font-size: 1rem;
+  }
+
+  .whatmn-card-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* --- Animated SVG Border --- */
 .MN__whatmn-content-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xl);
-  text-align: left; /* Text to right (visual), implied left-align in LTR */
+  position: relative; /* Anchor for the SVG */
 }
 
-/* --- New Text Sections --- */
-.MN__whatmn-text-section {
-  width: 100%;
-  text-align: left;
-  position: relative;
-  z-index: 2;
-  /* Add spacing for scroll rhythm */
-  margin-bottom: 20vh;
-}
-
-.MN__whatmn-text-section:last-child {
-  margin-bottom: 0;
-}
-
-/* Cleaned up old story styles */
-
-/* Cards Grid Adjustment for Content Side */
-/* --- Unified Pinned Stack (Slideshow/Deck) --- */
-.whatmn-cards-grid {
-  position: relative;
-  width: 100%;
-  height: 60vh; /* Substantial fixed height for the "stage" */
-  min-height: 500px;
-  display: block;
-  padding-bottom: 0;
-  /* Hide cards sliding in from bottom */
-  overflow: hidden;
-}
-
-/* Minimalist Card Style - Text Only */
-.whatmn-card {
-  background: transparent;
-  border: none;
-  box-sizing: border-box;
-  padding: var(--space-2xl) 1rem; /* Added horizontal padding to prevent clipping */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: var(--space-md);
-
-  /* Absolute Positioning for Overlap preserved */
+.whatmn-border-svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
-  box-shadow: none;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible; /* CRITICAL: Allow drawing outside bounds */
 }
 
-.whatmn-card::before {
-  content: none;
-}
-
-.whatmn-card:hover {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-.whatmn-card:hover::before {
+.whatmn-border-path {
+  fill: none;
+  stroke: #ffd700;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); /* Enhanced glow */
   opacity: 1;
-}
-
-.whatmn-card-icon {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 215, 0, 0.1);
-  border-radius: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffd700;
-  font-size: 40px;
-  margin-bottom: var(--space-md);
-  transition: transform 0.3s ease;
-}
-
-.whatmn-card:hover .whatmn-card-icon {
-  transform: scale(1.1);
-  background: rgba(255, 215, 0, 0.2);
-}
-
-.whatmn-card-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-4xl);
-  color: #fff;
-  font-weight: 600;
-  margin: 0;
-}
-
-.whatmn-card-text {
-  font-size: var(--text-xl);
-  color: var(--color-text-dim, #ccc);
-  line-height: 1.8;
-  margin: 0;
-  max-width: 90%;
-}
-
-/* Responsive Design */
-@media screen and (min-width: 1100px) {
-  .MN__whatmn {
-    flex-direction: row; /* Side-by-side on desktop */
-    align-items: flex-start; /* Top align */
-    justify-content: space-between;
-    height: auto; /* Allow height to fit content */
-    min-height: 100vh;
-  }
-
-  .MN__whatmn-icons-container {
-    width: 45%; /* Left side width */
-    height: auto;
-    /* position: sticky removed */
-    align-self: flex-start; /* Or center */
-    min-height: 600px; /* Ensure space for orbit */
-  }
-
-  .MN__whatmn-content-wrapper {
-    width: 50%; /* Right side width */
-    padding-top: var(--space-4xl);
-  }
-}
-
-@media screen and (max-width: 850px) {
-  /* Background Scene & Bottom Button Logic */
-  .MN__whatmn-icons-container {
-    position: absolute; /* Occupy full section background */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none; /* Let clicks pass through to content, EXCEPT button */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Push button to bottom */
-    align-items: center;
-    padding-bottom: 2rem; /* Space for button at bottom */
-  }
-
-  /* Scene fade out to be a background watermark */
-  /* Scene fade out to be a background watermark */
-  .whatmn-scene {
-    display: none !important; /* User requested removal on mobile */
-  }
-
-  .MN__whatmn-logo {
-    width: 200px;
-    height: 200px;
-    filter: none;
-  }
-
-  .MN__whatmn-social-icons a {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Specific Wrapper for Button to make it clickable and bottom */
-  .whatmn-cta {
-    position: relative;
-    z-index: 10;
-    pointer-events: auto; /* Re-enable clicks */
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: auto; /* Ensure it stays bottom if flex fails */
-  }
-
-  /* Make Main Content Relative and on TOP */
-  .MN__whatmn {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure full height for absolute to work */
-    padding-top: 2rem;
-    position: relative;
-    padding-bottom: 6rem; /* Make space for the absolute/fixed button area */
-  }
-
-  .MN__whatmn-content-wrapper {
-    position: relative;
-    z-index: 2; /* Clearly on top of icons */
-    width: 100%;
-    padding: var(--space-md);
-    background: transparent; /* Ensure transparency */
-  }
-}
-
-/* Specific fix for orbit radius on mobile */
-@media screen and (max-width: 850px) {
-  @keyframes orbit {
-    from {
-      transform: rotateY(0deg) translateZ(100px) rotateY(0deg);
-    } /* Much smaller radius */
-    to {
-      transform: rotateY(360deg) translateZ(100px) rotateY(-360deg);
-    }
-  }
-}
-/* Responsive Design */
-@media screen and (max-width: 1050px) {
-  .whatmn-header h1 {
-    font-size: var(--text-5xl);
-  }
-}
-
-@media screen and (max-width: 850px) {
-  /* Reset to vertical stack on mobile */
-  .whatmn-cards-grid {
-    height: auto;
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-    padding-bottom: var(--space-4xl);
-  }
-
-  .whatmn-card {
-    position: relative;
-    height: auto;
-    width: 100%;
-  }
-
-  .whatmn-header h1 {
-    font-size: var(--text-4xl);
-  }
-
-  .whatmn-header p {
-    font-size: var(--text-lg);
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .whatmn-header h1 {
-    font-size: var(--text-3xl);
-  }
-
-  .whatmn-header p {
-    font-size: var(--text-base);
-  }
-
-  .whatmn-card {
-    padding: var(--space-xl) 1rem;
-  }
-
-  .whatmn-card-icon {
-    width: 64px;
-    height: 64px;
-  }
-
-  .whatmn-card-icon svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .whatmn-card-title {
-    font-size: var(--text-2xl);
-  }
-
-  .whatmn-card-text {
-    font-size: var(--text-sm);
-  }
 }

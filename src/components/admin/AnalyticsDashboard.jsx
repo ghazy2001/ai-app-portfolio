@@ -73,12 +73,22 @@ const AnalyticsDashboard = () => {
       </div>
 
       <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+        }}
       >
         {/* Top Pages */}
-        <div style={sectionStyle}>
+        <div style={{ ...sectionStyle, overflowX: "auto" }}>
           <h3 style={sectionTitleStyle}>Most Visited Pages</h3>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              minWidth: "300px",
+            }}
+          >
             <thead>
               <tr style={{ borderBottom: "1px solid #444", textAlign: "left" }}>
                 <th style={{ padding: "0.5rem" }}>Page</th>
@@ -168,6 +178,8 @@ const sectionStyle = {
   backgroundColor: "rgba(255, 255, 255, 0.03)",
   padding: "1.5rem",
   borderRadius: "10px",
+  flex: "1 1 350px", // Grow, shrink, base width 350px for wrapping
+  minWidth: "0", // Prevent flex item from overflowing container
 };
 
 const sectionTitleStyle = {

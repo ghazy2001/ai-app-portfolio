@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./recentWork.css";
@@ -57,15 +57,15 @@ const RecentWork = () => {
     silver4, // New
   ];
 
+  /* Optimized: Removed useState for hover to prevent re-renders/lag */
   const cursorRef = useRef(null);
   const containerRef = useRef(null); // Ref for the Expandable Banner (Clip Path)
   const sectionRef = useRef(null); // Ref for the main section wrapper (Pin Trigger)
-  const [isHovered, setIsHovered] = useState(false);
 
   // Professional Pinned Expansion & Background Animation
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
+    // ... GSAP code matches existing context, no changes needed to useEffect body ...
     const ctx = gsap.context(() => {
       ScrollTrigger.matchMedia({
         // Desktop
@@ -101,10 +101,23 @@ const RecentWork = () => {
           );
         },
 
-        // Mobile - No Pinning, Static Layout
+        // Mobile - No Pinning, Static Layout, But KEEP Dark Background Effect
         "(max-width: 850px)": function () {
           // Ensure full width/scale on mobile without animation
           gsap.set(containerRef.current, { scale: 1, borderRadius: "0px" });
+
+          // Trigger background change on scroll (Scrubbed to match desktop feel)
+          gsap.to(document.documentElement, {
+            "--bg-grad-center": "rgba(0, 15, 30, 1)",
+            "--bg-grad-outer": "#000000",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%", // Start transition earlier
+              end: "bottom 20%",
+              scrub: true, // Smooth transition synced with scroll
+            },
+            ease: "none",
+          });
         },
       });
     }, sectionRef);
@@ -127,14 +140,15 @@ const RecentWork = () => {
           className="mn__banner-container"
           ref={containerRef}
           onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => {
+            if (cursorRef.current) cursorRef.current.classList.add("active");
+          }}
+          onMouseLeave={() => {
+            if (cursorRef.current) cursorRef.current.classList.remove("active");
+          }}
         >
           {/* Custom Cursor Element */}
-          <div
-            ref={cursorRef}
-            className={`mn__banner-cursor ${isHovered ? "active" : ""}`}
-          >
+          <div ref={cursorRef} className="mn__banner-cursor">
             VIEW
           </div>
 

@@ -14,15 +14,7 @@ const Services = () => {
       <main className="services-section section__padding" dir="ltr">
         {/* Header */}
         <div className="services-header">
-          <h1
-            className="services-title"
-            style={{
-              fontSize: "62px",
-              fontWeight: "800",
-              lineHeight: "1.2",
-              color: "#fff",
-            }}
-          >
+          <h1 className="services-title">
             Transforming Ideas into Digital Reality
           </h1>
           <p

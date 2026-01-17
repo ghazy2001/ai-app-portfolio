@@ -13,13 +13,13 @@ const elbazAssets = import.meta.glob(
   "../assets/elbaz*.{png,jpg,jpeg,svg,MOV}",
   {
     eager: true,
-  }
+  },
 );
 const sirasAssets = import.meta.glob(
   "../assets/siras*.{png,jpg,jpeg,svg,gif}",
   {
     eager: true,
-  }
+  },
 );
 const woodAssets = import.meta.glob("../assets/wood*.{png,jpg,jpeg,svg}", {
   eager: true,
@@ -53,7 +53,7 @@ export const brands = [
     description: "Premium cinematic showcase for a luxury silver brand.",
     cover: silverVid, // Use video as cover
     type: "video",
-    album: getImages(silverAssets),
+    album: [silverVid, ...getImages(silverAssets)],
     size: "wide",
     color: "#263143", // Deep Navy
   },
@@ -70,7 +70,7 @@ export const brands = [
   },
   {
     id: "wood",
-    title: "El-Hamidi Wood",
+    title: "El\u2011Hamidi Wood",
     category: "Wood Factory",
     description: "Modern organic wood factory design campaign.",
     cover: getCover(woodAssets, "wood7"),

@@ -44,7 +44,7 @@ const Testimonials = () => {
         if (next >= s + visibleCount) {
           return Math.min(
             s + 1,
-            Math.max(0, testimonials.length - visibleCount)
+            Math.max(0, testimonials.length - visibleCount),
           );
         }
         if (next < s) return Math.max(0, next);
@@ -65,7 +65,7 @@ const Testimonials = () => {
         if (next >= s + visibleCount) {
           return Math.min(
             next - visibleCount + 1,
-            Math.max(0, testimonials.length - visibleCount)
+            Math.max(0, testimonials.length - visibleCount),
           );
         }
         return s;
@@ -162,7 +162,7 @@ const Testimonials = () => {
           {testimonials.length > 0 && current && (
             <div className="testimonial-card-new">
               {/* Left Arrow */}
-              <button className="nav-button nav-prev" onClick={prevTestimonial}>
+              <button className="nav-button nav-prev" onClick={nextTestimonial}>
                 ›
               </button>
 
@@ -175,7 +175,7 @@ const Testimonials = () => {
               </div>
 
               {/* Right Arrow */}
-              <button className="nav-button nav-next" onClick={nextTestimonial}>
+              <button className="nav-button nav-next" onClick={prevTestimonial}>
                 ‹
               </button>
             </div>

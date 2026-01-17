@@ -237,7 +237,10 @@
 
   /* Initial State: Hidden */
   opacity: 0;
-  transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    width 0.2s ease,
+    height 0.2s ease;
   mix-blend-mode: normal;
 }
 
@@ -246,59 +249,150 @@
   /* Ensure it stays visible */
 }
 
+.mobile-view-btn {
+  display: none; /* Hidden by default on desktop */
+}
+
 /* --- Responsive --- */
 @media screen and (max-width: 1024px) {
-  .slide-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+  /* Reset Pinning/Scroll for Natural Flow */
+  .work-highlight-wrapper {
+    height: auto !important; /* Override GSAP fixed height */
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .work-sticky-wrapper {
+    position: relative; /* Remove any pinning context if leakage occurs */
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    gap: 4rem; /* Spacing between projects */
+    padding-bottom: 4rem;
   }
 
-  /* Reorder for mobile: Image first, then title, then desc */
-  .slide-image-area {
-    order: 2;
+  /* Reset Slides to be Relative Stacked Blocks */
+  .highlight-slide {
+    position: relative;
+    top: auto;
+    left: auto;
     width: 100%;
-    margin: 1rem 0;
+    height: auto;
+    opacity: 1 !important; /* Force visible as GSAP won't animate them */
+    visibility: visible !important;
+    pointer-events: auto;
+    transform: none !important; /* Reset GSAP transforms */
+    margin-bottom: 2rem;
   }
 
+  .slide-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+  }
+
+  /* Image Area: Middle */
+  .slide-image-area {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: 50vh; /* Good mobile height */
+    order: 2; /* Image Second */
+    margin: 1.5rem 0; /* Add vertical spacing */
+    margin-top: 0;
+  }
+
+  .slide-image-area.is-contained {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .slide-image-area img {
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-view-btn {
+    display: flex; /* Show on mobile */
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 215, 0, 0.9); /* Gold background */
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Title Area: Top */
   .slide-title-area {
-    order: 1;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    order: 1; /* Title First */
+    margin-top: 0;
+    margin-bottom: 0.5rem;
     text-align: left;
-    margin-bottom: 0;
+  }
+
+  .highlight-category {
+    font-size: 0.9rem;
+    color: var(--color-subtext);
+    margin-bottom: 0.5rem;
   }
 
   .highlight-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1.1;
   }
 
+  /* Description: Bottom */
   .slide-desc-area {
-    order: 3;
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    order: 3; /* Desc Third */
     text-align: left;
+    margin-top: 0;
   }
 
   .slide-desc-area p {
-    text-align: left;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9); /* Brighter for legibility on colored bg */
+    border-left: none; /* Remove desktop border style */
+    padding-left: 0;
+  }
+
+  /* Hide Header Label on Mobile to save space/reduce clutter if needed, or adjust */
+  .work-header-group {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding: 6rem 1.5rem 10rem 1.5rem; /* Increased bottom padding significantly */
+    margin-bottom: 0;
+  }
+
+  /* Allow text to wrap on mobile */
+  .work-section-intro {
+    white-space: normal;
     font-size: 1rem;
+    line-height: 1.5;
   }
 
-  .work-section-label {
-    top: 70px;
-    left: 1.5rem;
-  }
-
-  /* Disable custom cursor on touch devices */
+  /* Disable custom cursor */
   .custom-view-cursor {
     display: none;
   }
-
-  .work-highlight-wrapper {
-    cursor: auto;
-    height: auto; /* Allow natural scroll if content is long */
-    min-height: 100vh;
-  }
-
-  /* Reset Slide Positioning for mobile vertical scroll if needed, 
-     but "pinning" might still be cool. Let's keep pinning but adjust layout. */
 }

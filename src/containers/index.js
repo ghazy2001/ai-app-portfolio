@@ -8,5 +8,3 @@ export { default as ClinetsCarousal } from "./clientscarousal/ClinetsCarousal";
 export { default as Testimonials } from "./testimonials/Testimonials";
 export { default as Contact } from "./contact/Contact";
 export { default as RecentWork } from "./recentWork/RecentWork";
-export { default as WorkHighlight } from "./workHighlight/WorkHighlight";
-export { default as ResultsAnalysis } from "./resultsAnalysis/ResultsAnalysis";

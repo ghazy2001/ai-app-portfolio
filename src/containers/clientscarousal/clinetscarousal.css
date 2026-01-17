@@ -16,21 +16,13 @@
 }
 
 /* Animation */
-@keyframes slide {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-.logos {
+/* 50% Width Container as requested -> Updated to 60% */
+.logos-container-split {
+  width: 60%;
+  margin: 0 auto;
   overflow: hidden;
-  padding: 20px 0;
-  white-space: nowrap;
   position: relative;
-  /* Use mask-image for better fade over animated backgrounds */
+  /* Optional: Mask to fade edges */
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -47,32 +39,72 @@
   );
 }
 
-.logos:hover .logos-slide {
-  animation-play-state: paused;
+.logos-row {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 20px 0; /* Added padding to prevent hover cutoff */
 }
 
 .logos-slide {
-  animation: 40s slide infinite linear; /* Slightly faster smooth scroll */
   display: inline-block;
+  animation: 100s slide infinite linear; /* Slowed down significantly as requested */
 }
 
-.logos-slide img {
-  height: 80px; /* Slightly smaller for elegance */
-  margin: 0 50px;
+.logos-slide.slide-reverse {
+  animation-direction: reverse; /* Optional: Make bottom row scroll opposite */
+}
+
+/* Pause on hover */
+.logos-container-split:hover .logos-slide {
+  animation-play-state: paused;
+}
+
+.logo-item {
+  display: inline-block;
+  margin: 0 45px; /* Increased from 30px for better desktop spacing */
+  vertical-align: middle;
+}
+
+.logo-item img {
+  height: 60px; /* Smaller logos for compact view */
+  width: auto;
+  object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.7;
+  opacity: 0.6;
   transition: all 0.3s ease;
 }
 
-.logos:hover .logos-slide img {
-  filter: grayscale(
-    100%
-  ); /* Keep others grayscale when hovering one? Or revert all? Let's revert specific one on hover */
-  opacity: 0.5;
+.logos-container-split:hover .logo-item img {
+  opacity: 0.7; /* Increased from 0.4 to prevent 'disappearing' look */
 }
 
-.logos-slide img:hover {
+.logo-item img:hover {
   filter: grayscale(0%) !important;
   opacity: 1 !important;
-  transform: scale(1.1);
+  transform: scale(1.15);
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Mobile Responsive: Increase width on small screens */
+@media screen and (max-width: 768px) {
+  .logos-container-split {
+    width: 90%; /* Back to near full-width on mobile for visibility */
+  }
+
+  .logo-item {
+    margin: 0 35px; /* Increased from 15px for better spacing */
+  }
+
+  .logo-item img {
+    height: 50px;
+  }
 }

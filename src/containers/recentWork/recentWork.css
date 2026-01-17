@@ -267,27 +267,60 @@
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-  .mn__banner-container {
-    height: 500px;
-    border-radius: 20px;
+  .mn__recentwork {
+    min-height: auto; /* Allow content to dictate height, but container expects internal height */
+    padding: 2rem 0; /* Add some vertical spacing around the component */
   }
 
-  /* Show fewer columns on mobile? */
+  .mn__banner-container {
+    height: 70vh; /* Taller viewport */
+    border-radius: 0; /* Full bleed looks better or small radius */
+    width: 100%;
+  }
+
+  /* Show 2 columns is fine, but let's ensure they are visible */
   .collage-column:nth-child(2),
   .collage-column:nth-child(4) {
-    display: none; /* Hide 2 columns to prevent clutter */
+    display: none;
   }
 
   .mn__banner-collage {
     gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  /* Lighter overlay for better visibility */
+  .mn__banner-overlay {
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.6) 80%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+
+  /* Text adjustments */
+  .mn__banner-content {
+    justify-content: flex-end; /* Move text to bottom to show more image? Or Center? */
+    /* Center is usually best for "poster" feel, but let's try slightly offset or just clean */
+    justify-content: center;
+    padding: 1.5rem;
   }
 
   .banner-title {
-    font-size: 36px;
+    font-size: 2.5rem; /* Readable but not overwhelming */
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9); /* Stronger shadow for readability */
   }
 
   .mn__banner-cta {
-    padding: 0.8rem 1.5rem;
-    font-size: 14px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Hide custom cursor on mobile */
+  .mn__banner-cursor {
+    display: none;
   }
 }

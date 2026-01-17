@@ -21,6 +21,7 @@ const AdminDashboard = () => {
       <div
         style={{
           padding: "2rem",
+          paddingTop: "120px", // Added spacing for fixed Navbar
           minHeight: "100vh",
           backgroundColor: "#040C18",
           color: "#fff",
@@ -40,15 +41,14 @@ const AdminDashboard = () => {
           <h1
             style={{
               fontSize: "2rem",
-              background: "var(--gradient-text)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              color: "#ffd700", // Gold
               margin: 0,
+              fontWeight: "bold",
             }}
           >
             Admin Dashboard
           </h1>
+          {/* Home button removed as Navbar handles navigation */}
           <button
             onClick={handleLogout}
             style={{
@@ -128,8 +128,9 @@ const tabStyle = {
 
 const activeTabStyle = {
   ...tabStyle,
-  background: "#ae67fa",
-  border: "1px solid #ae67fa",
+  background: "#ffd700",
+  color: "#000",
+  border: "1px solid #ffd700",
   fontWeight: "bold",
 };
 

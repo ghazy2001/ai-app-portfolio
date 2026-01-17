@@ -7,7 +7,7 @@ const path = require("path");
 // @route   GET /api/blog
 // @access  Public
 const getBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find();
+  const blogs = await Blog.find().sort({ createdAt: -1 });
   res.status(200).json(blogs);
 });
 
@@ -41,7 +41,7 @@ const createBlog = asyncHandler(async (req, res) => {
   let coverImage = "";
 
   if (req.file) {
-    coverImage = req.file.path;
+    coverImage = req.file.path.replace(/\\/g, "/");
   }
 
   if (!title || !slug || !content || !coverImage) {
@@ -80,7 +80,7 @@ const updateBlog = asyncHandler(async (req, res) => {
         fs.unlinkSync(oldPath);
       }
     }
-    updatedData.coverImage = req.file.path;
+    updatedData.coverImage = req.file.path.replace(/\\/g, "/");
   }
 
   const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, updatedData, {

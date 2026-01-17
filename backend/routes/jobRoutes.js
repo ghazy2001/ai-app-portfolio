@@ -1,10 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getJobs, createJob, deleteJob } = require('../controllers/jobController');
-const { protect, adminOnly } = require('../middleware/authMiddleware');
+const {
+  getJobs,
+  createJob,
+  deleteJob,
+} = require("../controllers/jobController");
 
-router.get('/', getJobs);
-router.post('/', protect, adminOnly, createJob);
-router.delete('/:id', protect, adminOnly, deleteJob);
+const upload = require("../middleware/uploadMiddleware");
+
+router.get("/", getJobs);
+router.post("/", upload.single("image"), createJob);
+router.delete("/:id", deleteJob);
 
 module.exports = router;

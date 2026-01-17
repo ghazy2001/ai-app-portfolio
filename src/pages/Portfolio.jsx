@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { Navbar } from "../components";
-import {
-  Footer,
-  Contact,
-  Possibility,
-  WorkHighlight,
-  ResultsAnalysis,
-} from "../containers";
-import { brands } from "../data/portfolioData";
+import { Footer, Contact, WorkHighlight } from "../containers";
 import { RiCloseLine } from "react-icons/ri";
 import "./portfolio.css";
 
@@ -65,7 +58,6 @@ const Portfolio = () => {
         </div>
       )}
 
-      <ResultsAnalysis />
       <Contact />
       <Footer />
     </div>

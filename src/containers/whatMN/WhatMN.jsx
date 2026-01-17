@@ -1,170 +1,120 @@
 import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./whatMN.css";
-import logo from "../../assets/logo2.png";
 import {
   RiEyeLine,
   RiCompassLine,
   RiTeamLine,
   RiBookOpenLine,
 } from "react-icons/ri";
-import facebook from "../../assets/facebook.svg";
-import instagram from "../../assets/instgram.svg";
-import linkedin from "../../assets/linkedin.svg";
-import tiktok from "../../assets/tiktok.svg";
-import youtube from "../../assets/youtube.svg";
+import "./whatMN.css";
 import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WhatMN = () => {
   const containerRef = React.useRef(null);
+  const leftPathRef = React.useRef(null);
+  const rightPathRef = React.useRef(null);
 
   useEffect(() => {
     // Context for easy cleanup, scoped to current component
     let ctx = gsap.context(() => {
       const cards = gsap.utils.toArray(".whatmn-card");
-      const ctaBtn = document.querySelector(".whatmn-cta"); // Note: Since we are scoped, we should rely on GSAP's scoped selector if possible, or simple class selection within context works too if scoped.
-      // Better: let GSAP handle selection within scope
 
-      // Initial state: Button Hidden
-      gsap.set(".whatmn-cta", { opacity: 0, y: 30, pointerEvents: "none" });
-
-      /* Entry Animation Moved to Desktop MatchMedia to avoid hiding on mobile */
-
-      // Use matchMedia to run this ONLY on Desktop
-      ScrollTrigger.matchMedia({
-        // Desktop (min-width: 851px)
-        "(min-width: 851px)": function () {
-          // Entry Animation (Desktop Only)
-          gsap.from(containerRef.current, {
-            y: 50,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          });
-
-          gsap.set(cards, { yPercent: 100, opacity: 1, zIndex: 1 });
-          gsap.set(cards[0], { yPercent: 0, opacity: 1, zIndex: 1 });
-
-          ScrollTrigger.create({
-            trigger: containerRef.current,
-            start: "top top",
-            end: "+=3000",
-            pin: true,
-            scrub: 1, // Smoother scrub
-            anticipatePin: 1,
-            animation: gsap
-              .timeline()
-              // Move Card 2 Up
-              .to(cards[1], { yPercent: 0, duration: 1, zIndex: 2 })
-              .to(cards[0], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
-
-              // Move Card 3 Up
-              .to(cards[2], { yPercent: 0, duration: 1, zIndex: 3 })
-              .to(cards[1], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
-
-              // Move Card 4 Up
-              .to(cards[3], { yPercent: 0, duration: 1, zIndex: 4 })
-              .to(cards[2], { opacity: 0, scale: 0.9, duration: 0.3 }, "<0.2")
-
-              // REVEAL BUTTON AFTER SLIDES
-              .to(".whatmn-cta", {
-                opacity: 1,
-                y: 0,
-                pointerEvents: "all",
-                duration: 0.5,
-                ease: "back.out(1.7)",
-              }),
-          });
-        },
-
-        "(max-width: 850px)": function () {
-          // Kill all scroll triggers on mobile
-          // Ensure everything is visible
-          gsap.set(containerRef.current, { clearProps: "opacity, transform" });
-          gsap.set(cards, {
-            clearProps: "all",
-            opacity: 1,
-            visibility: "visible",
-          });
-          gsap.set(".whatmn-cta", {
-            clearProps: "all",
-            opacity: 1,
-            pointerEvents: "all",
-          });
-        },
+      // Simple Entry Animation for cards as they scroll into view
+      cards.forEach((card, i) => {
+        gsap.from(card, {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          delay: i * 0.1, // Stagger effect
+        });
       });
-    }, containerRef); // Scope to containerRef
 
-    return () => ctx.revert();
+      // SVG Border Animation - Split Split (Pixel Perfect)
+
+      // Capture ref for cleanup
+      const containerEl = containerRef.current;
+      const leftPath = leftPathRef.current;
+      const rightPath = rightPathRef.current;
+      const wrapper = containerEl
+        ? containerEl.querySelector(".MN__whatmn-content-wrapper")
+        : null;
+      let observer = null;
+
+      if (leftPath && rightPath && wrapper) {
+        const updatePaths = () => {
+          const w = wrapper.offsetWidth;
+          const h = wrapper.offsetHeight;
+          const p = 15; // padding
+          const cx = w / 2;
+
+          // Left Path
+          const dLeft = `M ${cx} ${-p} L ${-p} ${-p} L ${-p} ${h + p} L ${cx} ${
+            h + p
+          }`;
+          // Right Path
+          const dRight = `M ${cx} ${-p} L ${w + p} ${-p} L ${w + p} ${
+            h + p
+          } L ${cx} ${h + p}`;
+
+          leftPath.setAttribute("d", dLeft);
+          rightPath.setAttribute("d", dRight);
+
+          const lLen = leftPath.getTotalLength();
+          const rLen = rightPath.getTotalLength();
+
+          gsap.set(leftPath, { strokeDasharray: lLen });
+          gsap.set(rightPath, { strokeDasharray: rLen });
+        };
+
+        // Initial Draw
+        updatePaths();
+
+        // Resize Observer
+        observer = new ResizeObserver(() => updatePaths());
+        observer.observe(wrapper);
+
+        // Assign to container for cleanup access
+        containerEl.observer = observer;
+
+        // Animation
+        gsap.fromTo(
+          [leftPath, rightPath],
+          { strokeDashoffset: () => leftPath.getTotalLength() },
+          {
+            strokeDashoffset: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top 60%",
+              end: "bottom 80%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => {
+      ctx.revert();
+      if (containerRef.current && containerRef.current.observer) {
+        containerRef.current.observer.disconnect();
+      }
+    };
   }, []);
 
   return (
     <div style={{ width: "100%" }}>
       <div className="MN__whatmn section__padding" id="wmn" ref={containerRef}>
-        {/* 1. Spinning Icons Section (Left Column) */}
-        <div className="MN__whatmn-icons-container">
-          {/* 3D Scene Wrapper */}
-          <div className="whatmn-scene">
-            <div className="MN__whatmn-logo">
-              <img src={logo} alt="MN Logo" />
-            </div>
-
-            <div className="MN__whatmn-social-icons">
-              <a
-                href="https://www.facebook.com/mnmarketing.eg"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={facebook} alt="Facebook" />
-              </a>
-              <a
-                href="https://www.instagram.com/mn_marketingagency.eg"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={instagram} alt="Instagram" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/mnmarketingagency/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={linkedin} alt="LinkedIn" />
-              </a>
-              <a
-                href="https://www.tiktok.com/@mnmarketing.eg"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={tiktok} alt="TikTok" />
-              </a>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={youtube} alt="YouTube" />
-              </a>
-            </div>
-          </div>
-
-          {/* CTA Button */}
-          <div className="whatmn-cta">
-            <Link to="/contact">
-              <button className="cta-button-pulse">Call Us Now</button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Column Content Wrapper */}
+        {/* Full Width Content Wrapper */}
         <div className="MN__whatmn-content-wrapper">
           {/* 4 Cards Grid - Unified Layout */}
           <div className="whatmn-cards-grid">
@@ -221,6 +171,30 @@ const WhatMN = () => {
               </p>
             </div>
           </div>
+
+          {/* CTA Button - Centered at bottom */}
+          <div className="whatmn-cta-wrapper">
+            <Link to="/contact">
+              <button className="cta-button-pulse">Call Us Now</button>
+            </Link>
+          </div>
+
+          {/* Animated SVG Border - Absolute Positioned within relative wrapper */}
+          <svg
+            className="whatmn-border-svg"
+            /* No viewBox, we use raw pixel coordinates */
+          >
+            <path
+              ref={leftPathRef}
+              className="whatmn-border-path"
+              /* d is set via JS */
+            />
+            <path
+              ref={rightPathRef}
+              className="whatmn-border-path"
+              /* d is set via JS */
+            />
+          </svg>
         </div>
       </div>
     </div>
