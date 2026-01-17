@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar } from "../components";
-import { Footer, Contact, WorkHighlight } from "../containers";
+import { Footer, Contact } from "../containers";
 import { RiCloseLine } from "react-icons/ri";
 import "./portfolio.css";
 

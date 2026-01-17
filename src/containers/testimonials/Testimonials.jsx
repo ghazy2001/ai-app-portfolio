@@ -1,12 +1,11 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./testimonials.css";
 
 import API_URL from "../../apiConfig";
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [startIndex, setStartIndex] = useState(0);
   const [testimonials, setTestimonials] = useState([]);
 
   // Modal State (Moved up to avoid conditional hook error)
@@ -34,22 +33,10 @@ const Testimonials = () => {
     fetchTestimonials();
   }, []);
 
-  const visibleCount = 4;
-
   const nextTestimonial = () => {
     if (testimonials.length === 0) return;
     setActiveIndex((prev) => {
       const next = (prev + 1) % testimonials.length;
-      setStartIndex((s) => {
-        if (next >= s + visibleCount) {
-          return Math.min(
-            s + 1,
-            Math.max(0, testimonials.length - visibleCount),
-          );
-        }
-        if (next < s) return Math.max(0, next);
-        return s;
-      });
       return next;
     });
   };
@@ -58,24 +45,11 @@ const Testimonials = () => {
     if (testimonials.length === 0) return;
     setActiveIndex((prev) => {
       const next = (prev - 1 + testimonials.length) % testimonials.length;
-      setStartIndex((s) => {
-        if (next < s) {
-          return Math.max(0, s - 1);
-        }
-        if (next >= s + visibleCount) {
-          return Math.min(
-            next - visibleCount + 1,
-            Math.max(0, testimonials.length - visibleCount),
-          );
-        }
-        return s;
-      });
       return next;
     });
   };
 
   const current = testimonials.length > 0 ? testimonials[activeIndex] : null;
-  const itemRefs = useRef([]);
 
   if (testimonials.length === 0) {
     return (
