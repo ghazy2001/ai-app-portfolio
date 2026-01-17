@@ -9,6 +9,10 @@
   font-family: "Inter", sans-serif;
 }
 
+.work-sticky-wrapper {
+  height: 100vh; /* Default desktop height for pinning */
+}
+
 /* --- Section Label Group --- */
 .work-header-group {
   position: absolute;
@@ -53,16 +57,18 @@
 }
 
 /* --- Dynamic Background --- */
+/* --- Dynamic Background --- */
 .work-dynamic-bg {
-  position: absolute;
+  /* display: none; Re-enabled */
+  position: fixed; /* Cover the entire screen for immersive effect */
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  z-index: 0;
-  background-color: transparent; /* Start transparent to show global site BG */
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Behind everything */
+  background-color: transparent; /* Start transparent, GSAP updates this */
   transition: background-color 0.5s ease;
+  pointer-events: none;
 }
 
 /* --- Slides --- */
@@ -253,6 +259,18 @@
   display: none; /* Hidden by default on desktop */
 }
 
+/* Default Media States (Desktop) */
+.desktop-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-media {
+  display: none;
+}
+
 /* --- Responsive --- */
 @media screen and (max-width: 1024px) {
   /* Reset Pinning/Scroll for Natural Flow */
@@ -264,6 +282,7 @@
 
   .work-sticky-wrapper {
     position: relative; /* Remove any pinning context if leakage occurs */
+    height: auto !important; /* Allow growing to fit stacked content on mobile */
     display: flex;
     flex-direction: column;
     gap: 4rem; /* Spacing between projects */
@@ -393,6 +412,19 @@
 
   /* Disable custom cursor */
   .custom-view-cursor {
+    display: none !important;
+  }
+
+  /* Media Swapping Logic */
+  .desktop-media {
     display: none;
+  }
+  .mobile-media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 }

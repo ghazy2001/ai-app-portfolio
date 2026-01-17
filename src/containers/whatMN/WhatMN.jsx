@@ -14,8 +14,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WhatMN = () => {
   const containerRef = React.useRef(null);
-  const leftPathRef = React.useRef(null);
-  const rightPathRef = React.useRef(null);
 
   useEffect(() => {
     // Context for easy cleanup, scoped to current component
@@ -37,70 +35,6 @@ const WhatMN = () => {
           delay: i * 0.1, // Stagger effect
         });
       });
-
-      // SVG Border Animation - Split Split (Pixel Perfect)
-
-      // Capture ref for cleanup
-      const containerEl = containerRef.current;
-      const leftPath = leftPathRef.current;
-      const rightPath = rightPathRef.current;
-      const wrapper = containerEl
-        ? containerEl.querySelector(".MN__whatmn-content-wrapper")
-        : null;
-      let observer = null;
-
-      if (leftPath && rightPath && wrapper) {
-        const updatePaths = () => {
-          const w = wrapper.offsetWidth;
-          const h = wrapper.offsetHeight;
-          const p = 15; // padding
-          const cx = w / 2;
-
-          // Left Path
-          const dLeft = `M ${cx} ${-p} L ${-p} ${-p} L ${-p} ${h + p} L ${cx} ${
-            h + p
-          }`;
-          // Right Path
-          const dRight = `M ${cx} ${-p} L ${w + p} ${-p} L ${w + p} ${
-            h + p
-          } L ${cx} ${h + p}`;
-
-          leftPath.setAttribute("d", dLeft);
-          rightPath.setAttribute("d", dRight);
-
-          const lLen = leftPath.getTotalLength();
-          const rLen = rightPath.getTotalLength();
-
-          gsap.set(leftPath, { strokeDasharray: lLen });
-          gsap.set(rightPath, { strokeDasharray: rLen });
-        };
-
-        // Initial Draw
-        updatePaths();
-
-        // Resize Observer
-        observer = new ResizeObserver(() => updatePaths());
-        observer.observe(wrapper);
-
-        // Assign to container for cleanup access
-        containerEl.observer = observer;
-
-        // Animation
-        gsap.fromTo(
-          [leftPath, rightPath],
-          { strokeDashoffset: () => leftPath.getTotalLength() },
-          {
-            strokeDashoffset: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrapper,
-              start: "top 60%",
-              end: "bottom 80%",
-              scrub: 1,
-            },
-          }
-        );
-      }
     }, containerRef);
 
     return () => {
@@ -179,20 +113,16 @@ const WhatMN = () => {
             </Link>
           </div>
 
-          {/* Animated SVG Border - Absolute Positioned within relative wrapper */}
+          {/* Animated SVG Border */}
           <svg
             className="whatmn-border-svg"
-            /* No viewBox, we use raw pixel coordinates */
+            viewBox="0 0 1200 800"
+            preserveAspectRatio="none"
           >
             <path
-              ref={leftPathRef}
               className="whatmn-border-path"
-              /* d is set via JS */
-            />
-            <path
-              ref={rightPathRef}
-              className="whatmn-border-path"
-              /* d is set via JS */
+              d="M 600 0 L 600 800 M 0 200 L 1200 200 M 0 400 L 1200 400 M 0 600 L 1200 600"
+              vectorEffect="non-scaling-stroke"
             />
           </svg>
         </div>

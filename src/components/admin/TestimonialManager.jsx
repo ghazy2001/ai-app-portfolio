@@ -145,7 +145,7 @@ const TestimonialManager = () => {
             <div>
               <button
                 onClick={() => handleEdit(item)}
-                style={{ ...iconBtnStyle, color: "#ae67fa" }}
+                style={{ ...iconBtnStyle, color: "#1582db" }}
               >
                 <FaEdit />
               </button>

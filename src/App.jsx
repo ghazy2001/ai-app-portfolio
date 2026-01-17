@@ -24,6 +24,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const AdminLogin = lazy(() => import("./components/admin/AdminLogin"));
 const ProtectedRoute = lazy(() => import("./components/admin/ProtectedRoute"));
 const AdminDashboard = lazy(() => import("./components/admin/AdminDashboard"));
+const VisitorNameModal = lazy(() => import("./components/VisitorNameModal"));
 
 // Loading Fallback Component
 const PageLoader = () => (
@@ -49,12 +50,17 @@ const AnalyticsTracker = () => {
   useEffect(() => {
     const trackVisit = async () => {
       try {
+        const storedName = localStorage.getItem("visitorName");
+
         await fetch(`${API_URL}/api/analytics/track`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ page: location.pathname }),
+          body: JSON.stringify({
+            page: location.pathname,
+            visitorName: storedName || "",
+          }),
         });
       } catch (error) {
         console.error("Analytics Error", error);
@@ -99,6 +105,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AnalyticsTracker />
+      <VisitorNameModal />
       <ScrollToTop />
       <Preloader setLoading={setLoading} />
       <Cursor />

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./workHighlight.css"; // Ensure you created this CSS file based on your previous messages
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,23 +13,19 @@ const WorkHighlight = ({ openAlbum }) => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const slides = gsap.utils.toArray(".highlight-slide");
-    const totalSlides = slides.length;
+    const matchMedia = gsap.matchMedia();
 
-    const updateBg = (color) => {
-      gsap.to(".work-dynamic-bg", {
-        backgroundColor: color || "transparent",
-        duration: 0.5,
-      });
-    };
+    // --- Desktop Animation (Pinning & Scrubbing) ---
+    matchMedia.add("(min-width: 1025px)", () => {
+      const slides = gsap.utils.toArray(".highlight-slide");
+      const totalSlides = slides.length;
 
-    let ctx = gsap.context(() => {
       // Setup timeline for pinning and sliding
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: `+=${totalSlides * 100}%`, // Scroll distance proportional to slides
+          end: `+=${(totalSlides + 1) * 100}%`, // Added extra distance for final fade out
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -46,23 +42,76 @@ const WorkHighlight = ({ openAlbum }) => {
           { opacity: 1, yPercent: 0, duration: 1, ease: "none" },
         );
 
-        // Optional: Parallax or other effects for previous slide
-        // tl.to(slides[i-1], { yPercent: -50, opacity: 0 }, "<");
+        // Fade out previous slide to prevent overlap
+        tl.to(slides[i - 1], { opacity: 0 }, "<");
+
+        // Animate background color synchronous with slide entry
+        tl.to(
+          ".work-dynamic-bg",
+          { backgroundColor: brands[i].color, duration: 1 },
+          "<",
+        );
       });
 
-      // Dynamic Background Color Change based on active slide color
-      brands.forEach((brand, i) => {
+      // Final step: Fade background back to global (transparent) after last slide
+      tl.to(".work-dynamic-bg", {
+        backgroundColor: "transparent",
+        duration: 1,
+      });
+
+      // Set initial background color explicitly to transparent (Global BG)
+      gsap.set(".work-dynamic-bg", { backgroundColor: "transparent" });
+    });
+
+    // --- Mobile Animation (Bg Color Change Only - No Pinning) ---
+    matchMedia.add("(max-width: 1024px)", () => {
+      const slides = gsap.utils.toArray(".highlight-slide");
+
+      // Ensure start is transparent
+      gsap.set(".work-dynamic-bg", { backgroundColor: "transparent" });
+
+      slides.forEach((slide, i) => {
         ScrollTrigger.create({
-          trigger: wrapperRef.current,
-          start: () => `top top+=${i * window.innerHeight}`,
-          end: () => `top top+=${(i + 1) * window.innerHeight}`,
-          onEnter: () => updateBg(brand.color),
-          onEnterBack: () => updateBg(brand.color),
+          trigger: slide,
+          start: "top 40%", // Trigger color change when slide is higher up (delayed)
+          end: "bottom 40%",
+          onEnter: () =>
+            gsap.to(".work-dynamic-bg", {
+              backgroundColor: brands[i].color,
+              duration: 0.5,
+            }),
+          onEnterBack: () =>
+            gsap.to(".work-dynamic-bg", {
+              backgroundColor: brands[i].color,
+              duration: 0.5,
+            }),
+          onLeaveBack: () => {
+            if (i === 0) {
+              gsap.to(".work-dynamic-bg", {
+                backgroundColor: "transparent",
+                duration: 0.5,
+              });
+            }
+          },
         });
       });
-    }, wrapperRef);
 
-    return () => ctx.revert();
+      // Reset to transparent when leaving area upwards or downwards
+      ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        start: "top bottom",
+        onLeaveBack: () =>
+          gsap.to(".work-dynamic-bg", { backgroundColor: "transparent" }),
+      });
+      ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        start: "bottom top",
+        onEnter: () =>
+          gsap.to(".work-dynamic-bg", { backgroundColor: "transparent" }), // Ensure it clears if we scroll way past
+      });
+    });
+
+    return () => matchMedia.revert();
   }, []);
 
   // Custom Cursor Logic
@@ -94,7 +143,7 @@ const WorkHighlight = ({ openAlbum }) => {
       <div
         className="work-sticky-wrapper"
         ref={containerRef}
-        style={{ height: "100vh", width: "100%", position: "relative" }}
+        style={{ width: "100%", position: "relative" }}
       >
         {brands.map((brand, index) => (
           <div
@@ -118,7 +167,29 @@ const WorkHighlight = ({ openAlbum }) => {
               >
                 <div className="mobile-view-btn">View Album</div>
                 {brand.type === "video" ? (
-                  <video src={brand.cover} autoPlay loop muted playsInline />
+                  <>
+                    <video
+                      src={brand.cover}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="desktop-media"
+                    />
+                    <img
+                      src={
+                        // Find first image asset in album to avoid using video as img src
+                        brand.album.find(
+                          (asset) =>
+                            !asset.endsWith(".mp4") &&
+                            !asset.endsWith(".MOV") &&
+                            !asset.endsWith(".webm"),
+                        ) || brand.cover
+                      }
+                      alt={brand.title}
+                      className="mobile-media"
+                    />
+                  </>
                 ) : (
                   <img
                     src={brand.cover}

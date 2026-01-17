@@ -13,6 +13,10 @@ const visitorSchema = mongoose.Schema(
     userAgent: {
       type: String,
     },
+    visitorName: {
+      type: String, // Optional name provided by visitor
+      default: "",
+    },
     visitDate: {
       type: Date,
       default: Date.now,
@@ -20,7 +24,7 @@ const visitorSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("Visitor", visitorSchema);

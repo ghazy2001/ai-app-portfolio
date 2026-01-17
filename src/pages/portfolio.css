@@ -65,7 +65,8 @@
 }
 
 /* Background Decoration */
-.portfolio-page::before {
+/* Background Decoration Removed to allow global background */
+/* .portfolio-page::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -83,7 +84,7 @@
     );
   pointer-events: none;
   z-index: 0;
-}
+} */
 
 .portfolio-header {
   text-align: center;
@@ -121,7 +122,7 @@
 
   /* Fix for Portfolio Intro Header on Mobile */
   .portfolio-intro-header {
-    padding-bottom: 10rem; /* Huge spacing as requested */
+    padding-bottom: 4rem; /* Reduced from 10rem for better spacing */
   }
 
   .portfolio-intro-header .work-section-intro {

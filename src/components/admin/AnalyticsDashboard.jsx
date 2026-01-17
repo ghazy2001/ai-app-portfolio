@@ -33,6 +33,47 @@ const AnalyticsDashboard = () => {
     fetchStats();
   }, []);
 
+  // --- Visitor Naming Feature (Client-Side Persistence) ---
+  const [visitorNames, setVisitorNames] = useState({});
+
+  useEffect(() => {
+    const savedNames = localStorage.getItem("visitorNames");
+    if (savedNames) {
+      setVisitorNames(JSON.parse(savedNames));
+    }
+  }, []);
+
+  const handleNameChange = async (ip) => {
+    const currentName = visitorNames[ip] || "";
+    const newName = prompt(
+      `Enter a name for Visitor (IP: ${ip}):`,
+      currentName,
+    );
+
+    if (newName !== null) {
+      // Optimistically update local state
+      const updatedNames = { ...visitorNames, [ip]: newName };
+      setVisitorNames(updatedNames);
+      localStorage.setItem("visitorNames", JSON.stringify(updatedNames));
+
+      try {
+        const token = import.meta.env.VITE_ADMIN_PASSWORD;
+        await fetch(`${API_URL}/api/analytics/identify`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // If endpoint needs protection, otherwise public
+          },
+          body: JSON.stringify({ ip, visitorName: newName }),
+        });
+        // Optionally refresh stats to see it reflected immediately in logs if handled by backend
+      } catch (err) {
+        console.error("Failed to save name to backend:", err);
+        alert("Failed to save name to server, but saved locally.");
+      }
+    }
+  };
+
   if (loading) return <div style={{ color: "#fff" }}>Loading stats...</div>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
   if (!stats) return null;
@@ -48,6 +89,54 @@ const AnalyticsDashboard = () => {
       >
         Website Analytics
       </h2>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1rem",
+        }}
+      >
+        <button
+          onClick={async () => {
+            if (
+              window.confirm(
+                "Are you sure you want to reset all analytics data? This cannot be undone.",
+              )
+            ) {
+              try {
+                const token = import.meta.env.VITE_ADMIN_PASSWORD;
+                const res = await fetch(`${API_URL}/api/analytics/reset`, {
+                  method: "DELETE",
+                  headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (!res.ok) {
+                  const errData = await res.json();
+                  throw new Error(errData.message || res.statusText);
+                }
+
+                alert("Data reset successfully!");
+                window.location.reload();
+              } catch (error) {
+                console.error("Reset failed", error);
+                alert(`Failed to reset: ${error.message}`);
+              }
+            }
+          }}
+          style={{
+            background: "red",
+            color: "white",
+            border: "none",
+            padding: "0.5rem 1rem",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          Reset Data
+        </button>
+      </div>
 
       {/* Stats Cards */}
       <div
@@ -105,7 +194,7 @@ const AnalyticsDashboard = () => {
                     style={{
                       padding: "0.8rem 0.5rem",
                       fontWeight: "bold",
-                      color: "#ae67fa",
+                      color: "#1582db",
                     }}
                   >
                     {page.count}
@@ -120,32 +209,75 @@ const AnalyticsDashboard = () => {
         <div style={sectionStyle}>
           <h3 style={sectionTitleStyle}>Recent Visitors Log</h3>
           <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            {stats.recentVisits.map((visit, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: "1rem",
-                  borderBottom: "1px solid #222",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.2rem",
-                }}
-              >
+            {stats.recentVisits.map((visit, idx) => {
+              const displayName =
+                visitorNames[visit.ip] ||
+                visit.visitorName ||
+                "Unknown Visitor";
+              const hasAlias = !!visitorNames[visit.ip] || !!visit.visitorName;
+
+              return (
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  key={idx}
+                  style={{
+                    padding: "1rem",
+                    borderBottom: "1px solid #222",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.2rem",
+                  }}
                 >
-                  <span style={{ fontWeight: "bold", color: "#D4AF37" }}>
-                    {visit.page}
-                  </span>
-                  <span style={{ fontSize: "0.8rem", color: "#666" }}>
-                    {new Date(visit.visitDate).toLocaleString()}
-                  </span>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <span style={{ fontWeight: "bold", color: "#D4AF37" }}>
+                      {visit.page}
+                    </span>
+                    <span style={{ fontSize: "0.8rem", color: "#666" }}>
+                      {new Date(visit.visitDate).toLocaleString()}
+                    </span>
+                  </div>
+
+                  {/* Visitor Identity Section */}
+                  <div
+                    style={{
+                      fontSize: "0.9rem",
+                      color: hasAlias ? "#4caf50" : "#bbb",
+                      marginTop: "0.3rem",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <span
+                      title={
+                        hasAlias
+                          ? `IP: ${visit.ip}`
+                          : "Click pencil to name this IP"
+                      }
+                    >
+                      {hasAlias ? `Visitor: ${displayName}` : `IP: ${visit.ip}`}
+                    </span>
+
+                    <button
+                      onClick={() => handleNameChange(visit.ip)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        padding: "0",
+                        color: "#1582db",
+                        fontSize: "0.8rem",
+                        opacity: 0.7,
+                      }}
+                      title="Edit Visitor Name"
+                    >
+                      ✏️
+                    </button>
+                  </div>
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "#888" }}>
-                  IP: {visit.ip}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
