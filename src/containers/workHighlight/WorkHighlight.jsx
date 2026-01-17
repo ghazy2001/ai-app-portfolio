@@ -16,6 +16,13 @@ const WorkHighlight = ({ openAlbum }) => {
     const slides = gsap.utils.toArray(".highlight-slide");
     const totalSlides = slides.length;
 
+    const updateBg = (color) => {
+      gsap.to(".work-dynamic-bg", {
+        backgroundColor: color || "transparent",
+        duration: 0.5,
+      });
+    };
+
     let ctx = gsap.context(() => {
       // Setup timeline for pinning and sliding
       const tl = gsap.timeline({
@@ -54,13 +61,6 @@ const WorkHighlight = ({ openAlbum }) => {
         });
       });
     }, wrapperRef);
-
-    const updateBg = (color) => {
-      gsap.to(".work-dynamic-bg", {
-        backgroundColor: color || "transparent",
-        duration: 0.5,
-      });
-    };
 
     return () => ctx.revert();
   }, []);
